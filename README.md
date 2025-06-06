@@ -1,4 +1,3 @@
-```markdown
 # RealTone – Movie Review Platform
 
 Welcome to RealTone! This project is a full-stack movie review platform powered by a Next.js frontend and a Flask backend.
@@ -6,8 +5,6 @@ Welcome to RealTone! This project is a full-stack movie review platform powered 
 ---
 
 ## 🧱 Project Structure
-
-```
 
 real-tone/
 ├── client/     # Frontend - Next.js
