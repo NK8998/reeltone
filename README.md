@@ -6,12 +6,11 @@ Welcome to RealTone! This project is a full-stack movie review platform powered 
 
 ## 🧱 Project Structure
 
+```text
 real-tone/
 ├── client/     # Frontend - Next.js
 └── server/     # Backend - Flask
-
-````
-
+```
 ---
 
 ## 🚀 Getting Started
@@ -21,7 +20,7 @@ real-tone/
 ```bash
 git clone https://github.com/YOUR_USERNAME/real-tone.git
 cd real-tone
-````
+```
 
 ---
 
@@ -79,6 +78,6 @@ python app.py  # or however you run your entry script
 
 ## 📬 Questions or Issues?
 
-Open an issue or start a discussion in the GitHub repo!
+* Open an issue or start a discussion in the GitHub repo!
 
 ---
