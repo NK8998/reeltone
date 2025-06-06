@@ -18,7 +18,7 @@ real-tone/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/real-tone.git
+git clone https://github.com/YOUR_USERNAME/realtone.git
 cd real-tone
 ```
 
