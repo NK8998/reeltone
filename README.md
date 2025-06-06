@@ -7,7 +7,7 @@ Welcome to RealTone! This project is a full-stack movie review platform powered 
 ## 🧱 Project Structure
 
 ```text
-real-tone/
+realtone/
 ├── client/     # Frontend - Next.js
 └── server/     # Backend - Flask
 ```
@@ -19,7 +19,7 @@ real-tone/
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/realtone.git
-cd real-tone
+cd realtone
 ```
 
 ---
