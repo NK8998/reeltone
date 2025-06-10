@@ -1,3 +1,4 @@
+"use client";
 import { backendService } from "@/services/backendService";
 import Image from "next/image";
 import { useEffect } from "react";

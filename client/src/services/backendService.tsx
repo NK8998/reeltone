@@ -1,5 +1,6 @@
 import axios from "axios";
-const backendUrl = process.env.BACKEND_URL || "http://localhost:3000";
+const backendUrl =
+  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8888";
 
 const axiosInstance = axios.create({
   baseURL: backendUrl,
@@ -11,7 +12,7 @@ const axiosInstance = axios.create({
 export const backendService = {
   landingData: async () => {
     try {
-      const response = await axiosInstance.get("/api/landing/all");
+      const response = await axiosInstance.get("/landing/all");
       if (!response || response.status !== 200) {
         throw new Error("Network response was not ok");
       }
