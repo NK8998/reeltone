@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 export const backendService = {
   landingData: async () => {
     try {
-      const response = await axiosInstance.get("/api/landing");
+      const response = await axiosInstance.get("/api/landing/all");
       if (!response || response.status !== 200) {
         throw new Error("Network response was not ok");
       }

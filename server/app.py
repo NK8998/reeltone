@@ -1,8 +1,8 @@
 from flask_cors import CORS
-from flask import Flask, render_template
-from api import bp as api_bp
+from flask import Flask
+from api import api_bp
 
-app = Flask(__name__, template_folder='templates', static_folder='static')
+app = Flask(__name__)
 
 # Enable CORS for all domains
 CORS(app, resources={r"/*": {"origins": "*"}})
