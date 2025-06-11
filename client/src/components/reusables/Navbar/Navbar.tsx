@@ -8,11 +8,13 @@ export default function Navbar({}) {
       <div className='navbar-inner'>
         <div className='nav-start nav-section'>
           <Image
-            src={"/reel_logo_white.png"}
-            width={1024}
-            height={1024}
+            className='reel-icon'
+            src={"/reel_favicon.png"}
+            width={256}
+            height={256}
             alt='alt logo'
           />
+          <span>ReelTone</span>
         </div>
         <nav className='nav-middle nav-section'>
           <Link href={"/auth/signin"}>SIGN IN</Link>
