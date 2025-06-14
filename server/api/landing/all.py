@@ -2,7 +2,6 @@ from flask import jsonify, request
 from . import landing_bp
 from .recent import get_recent_films
 from .reviews import get_reviews
-import tmdbsimple as tmdb
 
 @landing_bp.route("/all", methods=["GET"])
 async def all():

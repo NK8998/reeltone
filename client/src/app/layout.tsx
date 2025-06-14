@@ -27,7 +27,7 @@ export default function RootLayout({
     <ClerkProvider dynamic>
       <html lang='en'>
         <head>
-          <link rel='icon' href='/reel_favicon.png' />
+          <link rel='icon' href='/images/reel_favicon.png' />
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <title>ReelTone</title>
         </head>

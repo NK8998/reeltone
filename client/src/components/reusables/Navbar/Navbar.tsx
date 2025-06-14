@@ -1,30 +1,32 @@
+"use client";
 import Image from "next/image";
 import "./navbar.css";
-import Link from "next/link";
 import InputContainer from "./components/InputContainer";
+import NavLinks from "./components/NavLinks";
+import UserButton from "./components/UserButton";
+import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 export default function Navbar({}) {
+  const { isSignedIn } = useUser();
   return (
     <div className='navbar'>
       <div className='navbar-inner'>
         <div className='nav-start nav-section'>
-          <Image
-            className='reel-icon'
-            src={"/reel_favicon.png"}
-            width={256}
-            height={256}
-            alt='alt logo'
-          />
-          <span>ReelTone</span>
+          <Link href={`${isSignedIn ? "/me" : "/"}`} className='home-button'>
+            <Image
+              className='reel-icon'
+              src={"/images/reel_favicon.png"}
+              width={256}
+              height={256}
+              alt='alt logo'
+            />
+            <span>ReelTone</span>
+          </Link>
         </div>
-        <nav className='nav-middle nav-section'>
-          <Link href={"/auth/signin"}>SIGN IN</Link>
-          <Link href={"/auth/signup"}>CREATE ACCOUNT</Link>
-          <Link href={"/me"}>ME</Link>
-          <Link href={"/films"}>FILMS</Link>
-          <Link href={"/members"}>MEMBERS</Link>
-        </nav>
+        <NavLinks />
         <div className='nav-end nav-section'>
           <InputContainer />
+          <UserButton />
         </div>
       </div>
     </div>

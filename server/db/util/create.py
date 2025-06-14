@@ -31,7 +31,8 @@ def createReviewsTable(cursor):
             review_text TEXT,
             is_parent BOOLEAN DEFAULT FALSE,
             parent_id INTEGER,  -- for replies
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            like_count INTEGER DEFAULT 0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- created_at will be set to the current timestamp by default
         )
     """)
     print("Reviews table created.")

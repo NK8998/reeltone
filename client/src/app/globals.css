@@ -33,3 +33,33 @@ body {
   max-width: 1400px;
   margin: auto;
 }
+
+.rt-toast{
+  width: fit-content;
+  min-width: 260px;
+  left: 50%;
+  transform: translateX(20%);
+  background-color: white;
+  border-radius: 8px;
+  font-family: "Jersey 10", sans-serif;
+  padding: 10px 20px;
+  font-size: 22px;
+  text-align: center;
+  margin: auto;
+
+}
+
+.rt-toast.creating{
+  background-color: #FFECB8;
+  color: #FFBF0D;
+}
+
+.rt-toast.success{
+  background-color: #EAFFE7;
+  color: #1BC300;
+}
+
+.rt-toast.fail{
+  background-color: #F9B6B4;
+  color: #D2302C;
+}
