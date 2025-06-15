@@ -37,10 +37,14 @@ def createReviewsTable(cursor):
     """)
     print("Reviews table created.")
 
-def createLikesTable(cursor):
-    cursor.execute("DROP TABLE IF EXISTS likes")
+def createLikesTables(cursor):
+    # Drop existing tables if they exist
+    cursor.execute("DROP TABLE IF EXISTS review_likes")
+    cursor.execute("DROP TABLE IF EXISTS film_likes")
+
+    # Table for likes on reviews
     cursor.execute("""
-        CREATE TABLE likes (
+        CREATE TABLE review_likes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER NOT NULL,
             review_id INTEGER NOT NULL,
@@ -48,7 +52,20 @@ def createLikesTable(cursor):
             UNIQUE(user_id, review_id)
         )
     """)
-    print("Likes table created.")
+    print("Review likes table created.")
+
+    # Table for likes on films
+    cursor.execute("""
+        CREATE TABLE film_likes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            film_id INTEGER NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE(user_id, film_id)
+        )
+    """)
+    print("Film likes table created.")
+
 
 def createWatchlistTable(cursor):
     cursor.execute("DROP TABLE IF EXISTS watchlist")
@@ -99,7 +116,7 @@ def createTables():
 
     createUsersTable(cursor)
     createReviewsTable(cursor)
-    createLikesTable(cursor)
+    createLikesTables(cursor)
     createWatchlistTable(cursor)
     createWatchedTable(cursor)
     createFollowersTable(cursor)

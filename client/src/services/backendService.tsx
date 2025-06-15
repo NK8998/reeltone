@@ -46,9 +46,11 @@ export const backendService = {
       throw error;
     }
   },
-  filmData: async (query: string) => {
+  filmData: async (query: string, user_id?: string) => {
     try {
-      const response = await axiosInstance.get("/film/all?query=" + query);
+      const response = await axiosInstance.get(
+        "/film/all?query=" + query + "&user_id=" + user_id
+      );
       if (!response || response.status !== 200) {
         throw new Error("Network response was not ok");
       }

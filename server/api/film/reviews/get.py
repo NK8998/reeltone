@@ -24,17 +24,21 @@ def get_reviews_by_film_id(film_id):
             review = {
                 "id": row[0],
                 "user_id": row[1],
-                "film_id": row[2],
-                "content": row[3],
-                "like_count": row[4],
-                "created_at": row[5],
-                "username": row[6],
-                "profile_picture": row[7]
+                "username": row[2],
+                "pfp_url": row[3],
+                "film_id": row[4],
+                "film_title": row[5],
+                "film_poster": row[6],
+                "rating": row[7],
+                "review_text": row[8],
+                "is_parent": bool(row[9]),
+                "parent_id": row[10],
+                "created_at": row[11]
             }
             reviews.append(review)
         return reviews
 
-@film_bp.route('/reviews', methods=['GET'])
+@film_bp.route('/reviews/get', methods=['GET'])
 def get_reviews():
     """Fetch film reviews by ID from sqlite database."""
     try:
