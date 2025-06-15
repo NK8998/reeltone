@@ -1,9 +1,8 @@
 "use client";
 import { AccountSvg, LogoutSvg } from "@/assets/icons";
 import { useUser } from "@clerk/nextjs";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import useSignOut from "@/hooks/useSignOut";
 
 export default function UserButton() {
@@ -13,16 +12,21 @@ export default function UserButton() {
   const { handleSignOut } = useSignOut();
 
   useEffect(() => {
-    document.addEventListener("click", (e: any) => {
-      const target = e.target;
+    const handleClick = (e: any) => {
+      const target = e.target as HTMLElement;
+
       if (
         !target.classList.contains("options-container") &&
         !target.closest(".options-container") &&
-        !e.target.classList.contains("pfp")
+        !target.classList.contains("pfp")
       ) {
         setOptionsOpen(false);
       }
-    });
+    };
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
   }, []);
 
   const handleImageLoadingError = (
