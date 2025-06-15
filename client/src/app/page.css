@@ -1,4 +1,97 @@
-.landing-main{
-    width: 100%;
-    min-height: 100vh;
+.landing-main {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #111;
+  color: white;
+  font-family: var(--font-geist-sans);
 }
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4)),
+    url('/images/collage_marvel.jpg') center/cover no-repeat;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.auth-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cta {
+  background-color: #06c;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cta:hover {
+  background-color: #0051a3;
+}
+
+.cta.secondary {
+  background-color: #333;
+  color: #fff;
+}
+
+.cta.secondary:hover {
+  background-color: #555;
+}
+
+/* Recent Films */
+.recent-films {
+  padding: 40px 20px;
+}
+
+.recent-films h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.film-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+}
+
+.film-card {
+  background-color: #1a1a1a;
+  border-radius: 6px;
+  overflow: hidden;
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.film-card img {
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.film-card:hover {
+  transform: scale(1.05);
+}
+
+.film-title {
+  font-size: 0.95rem;
+  color: #eee;
+}
+
