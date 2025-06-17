@@ -18,6 +18,7 @@ def get_recent_films():
             "release_date": movie.get("release_date"),
             "vote_average": movie.get("vote_average"),
             "vote_count": movie.get("vote_count"),
+            "popularity": movie.get("popularity"),
         })
 
     return recent_films

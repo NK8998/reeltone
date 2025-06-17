@@ -28,6 +28,7 @@ export interface Review {
 
 export interface LandingDataType {
   trending_film: Film | null;
+  top_6_recent_films: Film[];
   recent_films: Film[];
   recent_reviews: Review[];
 }

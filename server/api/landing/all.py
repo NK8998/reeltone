@@ -26,10 +26,15 @@ async def all():
 
         recent_films = [film for film in recent_films if film.get("id") != trending_film.get("id")] if trending_film else recent_films
 
+        top_6_recent_films = recent_films[:6] if len(recent_films) > 6 else recent_films
+
+        rest_of_recent_films = recent_films[6:] if len(recent_films) > 6 else []
+
         return jsonify(
             {
             "trending_film": trending_film,
-            "recent_films": recent_films, 
+            "top_6_recent_films": top_6_recent_films,
+            "recent_films": rest_of_recent_films, 
             "recent_reviews": recent_reviews
             }), 200
 
