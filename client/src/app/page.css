@@ -1,7 +1,7 @@
 .landing-main {
+  padding: 0 20px;
   width: 100%;
   min-height: 100vh;
-  background-color: #111;
   color: white;
   font-family: var(--font-geist-sans);
 }
@@ -54,6 +54,8 @@
 .cta.secondary:hover {
   background-color: #555;
 }
+/* Hero Section */
+
 
 /* Recent Films */
 .recent-films {
@@ -94,4 +96,5 @@
   font-size: 0.95rem;
   color: #eee;
 }
+
 

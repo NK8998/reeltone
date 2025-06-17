@@ -1,4 +1,5 @@
-import axios from "axios";
+import { LandingDataType } from "@/types/types";
+import axios, { AxiosResponse } from "axios";
 const backendUrl =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8888";
 
@@ -12,7 +13,9 @@ const axiosInstance = axios.create({
 export const backendService = {
   landingData: async () => {
     try {
-      const response = await axiosInstance.get("/landing/all");
+      const response: AxiosResponse<LandingDataType> = await axiosInstance.get(
+        "/landing/all"
+      );
       if (!response || response.status !== 200) {
         throw new Error("Network response was not ok");
       }
