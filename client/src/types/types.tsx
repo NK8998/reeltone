@@ -10,6 +10,7 @@ export interface Film {
   vote_count: number;
   backdrop_url: string | null;
   backdrop_path: string | null;
+  popularity: number;
 }
 
 export interface AuthorDetails {

@@ -9,6 +9,7 @@ import { RecentFilms } from "@/components/landing/RecentFilms";
 import { LandingDataType } from "@/types/types";
 import Top6 from "@/components/landing/Top6";
 import Features from "@/components/landing/Features";
+import CTAButtons from "@/components/landing/CTAButtons";
 
 const landingDataDefault: LandingDataType = {
   recent_films: [],
@@ -18,10 +19,12 @@ const landingDataDefault: LandingDataType = {
 };
 
 export default function Landing() {
+  const [loading, setLoading] = useState(true);
   const [landingData, setLandingData] =
     useState<LandingDataType>(landingDataDefault);
 
   useEffect(() => {
+    setLoading(true);
     backendService
       .landingData()
       .then((data) => {
@@ -30,6 +33,9 @@ export default function Landing() {
       })
       .catch((error) => {
         console.error("Error fetching landing data:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -38,9 +44,13 @@ export default function Landing() {
       <Navbar />
       <main className='landing-main'>
         <Hero trending_film={landingData.trending_film} />
-        <Top6 Top6={landingData.top_6_recent_films} />
+        <CTAButtons />
+        <Top6 Top6={landingData.top_6_recent_films} loading={loading} />
         <Features />
-        <RecentFilms recent_films={landingData.recent_films} />
+        <RecentFilms
+          recent_films={landingData.recent_films}
+          loading={loading}
+        />
       </main>
       <Footer />
     </div>

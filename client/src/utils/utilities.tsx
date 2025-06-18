@@ -53,3 +53,7 @@ export const generateUsername = () => {
     length: 5,
   })}${chance.integer({ min: 1000, max: 9999 })}`;
 };
+
+export const generateEmptyArray = (length: number) => {
+  return new Array(length).fill(null);
+};
