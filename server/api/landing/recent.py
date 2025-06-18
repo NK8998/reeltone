@@ -8,7 +8,7 @@ def get_recent_films():
     movies = tmdb.Movies()
     response = movies.now_playing()
 
-    img_base_url = os.getenv("TMDB_IMAGE_BASE_URL") | "https://image.tmdb.org/t/p"
+    img_base_url = os.getenv("TMDB_IMAGE_BASE_URL") or "https://image.tmdb.org/t/p"
 
     # Extract relevant fields
     recent_films = []

@@ -11,7 +11,7 @@ export function RecentFilms({ recent_films }: RecentFilmsProps) {
       <div className='film-grid'>
         {recent_films.map((film, idx) => (
           <div className='film-card' key={idx}>
-            <img src={film.poster_path} alt={film.title} />
+            <img src={film.poster_url ?? ""} alt={film.title} />
             <span className='film-title'>{film.title}</span>
           </div>
         ))}
