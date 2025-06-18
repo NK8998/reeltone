@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import Hero from "@/components/landing/Hero";
 import { RecentFilms } from "@/components/landing/RecentFilms";
 import { LandingDataType } from "@/types/types";
+import Top6 from "@/components/landing/Top6";
+import Features from "@/components/landing/Features";
 
 const landingDataDefault: LandingDataType = {
   recent_films: [],
@@ -35,7 +37,9 @@ export default function Landing() {
     <div className='landing-page'>
       <Navbar />
       <main className='landing-main'>
-        <Hero />
+        <Hero trending_film={landingData.trending_film} />
+        <Top6 Top6={landingData.top_6_recent_films} />
+        <Features />
         <RecentFilms recent_films={landingData.recent_films} />
       </main>
       <Footer />
