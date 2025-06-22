@@ -5,6 +5,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+   --background: #14181C;
+    --foreground: #ededed;
 }
 
 @theme inline {
@@ -42,9 +44,9 @@ body {
   transform: translateX(20%);
   background-color: white;
   border-radius: 8px;
-  font-family: "Jersey 10", sans-serif;
+  font-family: "Poppins", sans-serif;
   padding: 10px 20px;
-  font-size: 22px;
+  font-size: 16px;
   text-align: center;
   margin: auto;
 
