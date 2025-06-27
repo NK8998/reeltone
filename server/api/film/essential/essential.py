@@ -47,7 +47,7 @@ def get_essential_data(query):
         'vote_average': response.get('vote_average'),
         'vote_count': response.get('vote_count'),
         'poster_path': f"https://image.tmdb.org/t/p/w500{response.get('poster_path')}" if response.get("poster_path") else None,
-        'backdrop_path': f"https://image.tmdb.org/t/p/w500{response.get('backdrop_path')}" if response.get("backdrop_path") else None,
+        'backdrop_path': f"https://image.tmdb.org/t/p/w1280{response.get('backdrop_path')}" if response.get("backdrop_path") else None,
     }
     return essential_data
     
