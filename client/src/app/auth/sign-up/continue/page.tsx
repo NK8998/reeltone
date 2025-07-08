@@ -63,6 +63,16 @@ export default function Page() {
     }
   };
 
+  // --- NEW CODE START: handleCancel function ---
+  const handleCancel = () => {
+    // This will navigate the user back to the sign-in/sign-up entry point.
+    // Based on the useEffect, the previous step is likely '/auth/sign-in' or '/auth/sign-up'.
+    // I'm using '/auth/sign-in' as a common initial auth page.
+    // If your previous page is different (e.g., the main login page), adjust this path.
+    router.push("/auth/sign-in");
+  };
+  // --- NEW CODE END ---
+
   return (
     <div className='auth-flow continue'>
       <div className='inner-card '>
@@ -103,6 +113,16 @@ export default function Page() {
               >
                 {isLoading ? <Loader2 /> : <span>Continue</span>}
               </button>
+              {/* --- NEW CODE START: Cancel button --- */}
+              <button
+                type='button'
+                onClick={handleCancel}
+                className='auth-flow-btn secondary-btn' // Added a new class for styling
+                style={{ marginTop: '10px' }} // Basic spacing, refine with CSS
+              >
+                <span>Cancel</span>
+              </button>
+              {/* --- NEW CODE END --- */}
             </div>
             <div id='clerk-captcha' />
           </div>
