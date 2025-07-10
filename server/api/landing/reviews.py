@@ -2,6 +2,7 @@ from flask import jsonify, request
 from . import landing_bp
 import tmdbsimple as tmdb
 from pprint import pprint
+import os
 
 
 def get_reviews(film_id=None):
@@ -10,18 +11,18 @@ def get_reviews(film_id=None):
         if not film_id:
             return {"error": "Film ID is required to fetch reviews"}
         
-        movies = tmdb.Movies(film_id)
-        response = movies.reviews()  
+        img_base_url = os.getenv("TMDB_IMAGE_BASE_URL") or "https://image.tmdb.org/t/p"
 
-        # Extract relevant fields
-        reviews = []
+        movies = tmdb.Movies(film_id)
+        response = movies.reviews()   
+
         for review in response.get('results', []):
-            reviews.append({
-                "id": review.get("id"),
-                "author": review.get("author"),
-                "content": review.get("content"),
-                "url": review.get("url")
-            })
+            review['author_details'] = {
+                'name': review.get('author', 'Unknown'),
+                'username': review.get('author_details', {}).get('username', 'Unknown'),
+                'avatar_path': f"{img_base_url}/w500/{review.get('author_details', {}).get('avatar_path', None)}" if review.get('author_details', {}).get('avatar_path') else None,
+                'rating': review.get('author_details', {}).get('rating', 0)
+            }           
 
         return response
 

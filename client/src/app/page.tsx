@@ -6,16 +6,18 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import Hero from "@/components/landing/Hero";
 import { RecentFilms } from "@/components/landing/RecentFilms";
-import { LandingDataType } from "@/types/types";
+import { LandingDataType, RecentReviews } from "@/types/types";
 import Top6 from "@/components/landing/Top6";
 import Features from "@/components/landing/Features";
 import CTAButtons from "@/components/landing/CTAButtons";
+import Reviews from "@/components/landing/Reviews";
+import EnticerBox from "@/components/landing/EnticerBox";
 
 const landingDataDefault: LandingDataType = {
   recent_films: [],
   top_6_recent_films: [],
   trending_film: null,
-  recent_reviews: [],
+  recent_reviews: {} as RecentReviews,
 };
 
 export default function Landing() {
@@ -50,6 +52,15 @@ export default function Landing() {
         <RecentFilms
           recent_films={landingData.recent_films}
           loading={loading}
+        />
+        <EnticerBox
+          filmId={landingData.trending_film?.id}
+          filmTitle={landingData.trending_film?.title}
+        />
+        <Reviews
+          reviews={landingData.recent_reviews.results}
+          filmId={landingData.trending_film?.id}
+          filmTitle={landingData.trending_film?.title}
         />
       </main>
       <Footer />

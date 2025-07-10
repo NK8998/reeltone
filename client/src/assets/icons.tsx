@@ -156,3 +156,23 @@ export const RateSvg = () => (
     <path d='m233-120 65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Z' />
   </svg>
 );
+
+export const StarSvg = ({ fill }: { fill: string }) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='800px'
+    height='800px'
+    viewBox='0 0 24 24'
+    id='star_filled'
+    fill={fill}
+  >
+    <rect id='Rectangle_4' width='24' height='24' fill='none' />
+    <path
+      id='Star'
+      d='M10,15,4.122,18.09l1.123-6.545L.489,6.91l6.572-.955L10,0l2.939,5.955,6.572.955-4.755,4.635,1.123,6.545Z'
+      transform='translate(2 3)'
+      strokeMiterlimit='10'
+      strokeWidth='1.5'
+    />
+  </svg>
+);

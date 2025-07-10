@@ -30,10 +30,18 @@ export interface Review {
   author_details: AuthorDetails;
 }
 
+export interface RecentReviews {
+  id: number;
+  page: number;
+  results: Review[];
+  total_pages: number;
+  total_results: number;
+}
+
 export interface LandingDataType {
   trending_film: Film | null;
   top_6_recent_films: Film[];
   recent_films: Film[];
-  recent_reviews: Review[];
+  recent_reviews: RecentReviews;
 }
 // types for landing page data
