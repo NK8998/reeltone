@@ -70,14 +70,7 @@ export default function Me() {
 
   // Main render logic
   const renderContent = () => {
-    if (isLoading) {
-      return <LoadingSpinner />;
-    }
-
-    if (error) {
-      return <ErrorDisplay message={error} />;
-    }
-
+    
     if (userProfile) {
       return <UserProfile userProfile={userProfile} />;
     }
