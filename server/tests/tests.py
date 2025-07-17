@@ -3,6 +3,8 @@ load_dotenv()
 import requests
 import os
 import tmdbsimple as tmdb
+import logging
+logging.basicConfig(level=logging.INFO)
 
 from api.film.interaction.like import like_film
 from api.film.reviews.add import add_review
@@ -10,6 +12,10 @@ from api.film.reviews.delete import delete_review
 from api.films.filter import filter_by_year, filter_by_genre
 from api.film.reviews.edit import edit_review
 from api.film.reviews.like import like_review
+from api.members.follows.add import add_following
+from api.members.follows.followers import get_followers
+from api.members.follows.following import get_following
+from api.members.add import add_member
 
 
 
@@ -82,6 +88,29 @@ def test_verify_password():
 
     print("Response:", response)
     assert status == 200
+
+def test_add_member():
+    global clerk_user
+    print("Adding member for user:", clerk_user.get("username"))
+    # Simulate adding member logic here
+
+    email_address = clerk_user.get("email_addresses", [])[0].get("email_address", "random_email@example.com") if clerk_user.get("email_addresses") else "random_email@example.com"
+    response_one = add_member(
+        clerk_user.get("id"),
+        clerk_user.get("username", "random_username"),
+        email_address,
+        clerk_user.get("image_url"),
+    )
+
+    response_two = add_member(
+        "user_2yVh8lNaBVdLravNoJvoqN8zMtp",
+        "neil45",
+        "ne.kioko16@gmail.com",
+        "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yeVZoOGh6S0tRUXNBZTZweWJ5bzAzdUhKNUcifQ"
+    )
+    print("Response:", response_one)
+    assert response_one.get("message") == "Member added." or response_one.get("message") == "Member already exists."
+    assert response_two.get("message") == "Member added." or response_two.get("message") == "Member already exists."
 
 def test_add_review():
     global clerk_user
@@ -184,11 +213,45 @@ def test_like_review_remove():
     print("Response:", response)
     assert response.get("message") == "Like removed." or response.get("message") == "Review liked."
 
+def test_following():
+    user_id_one = "user_2yVh8lNaBVdLravNoJvoqN8zMtp"
+    user_id_two = clerk_user.get("id", "user_300rf5J4W5nzrTJmFbDOcer3nKJ")  # Example user ID
+    # Simulate following logic here
+    response = add_following(user_id_one, user_id_two)
+    response = add_following(user_id_two, user_id_one)
+    assert response.get("message") == "Following relationship added." or response.get("message") == "Unfollowed user."
 
+def test_get_followers():
+    user_id_one = "user_2yVh8lNaBVdLravNoJvoqN8zMtp"
+    print(f"Getting followers for user: {user_id_one}")
+    response = get_followers(user_id_one)
+    print("Response:", response)
+    assert isinstance(response, list), "Followers should be a list."
 
-if __name__ == "__main__":
+    user_id_two = clerk_user.get("id", "user_300rf5J4W5nzrTJmFbDOcer3nKJ")  # Example user ID
+    print(f"Getting followers for user: {user_id_two}")
+    response = get_followers(user_id_two)
+    print("Response:", response)
+    assert isinstance(response, list), "Followers should be a list."
+
+def test_get_following():
+    user_id_one = "user_2yVh8lNaBVdLravNoJvoqN8zMtp"
+    print(f"Getting following for user: {user_id_one}")
+    response = get_following(user_id_one)
+    print("Response:", response)
+    assert isinstance(response, list), "Following should be a list."
+
+    user_id_two = clerk_user.get("id", "user_300rf5J4W5nzrTJmFbDOcer3nKJ")  # Example user ID
+    print(f"Getting following for user: {user_id_two}")
+    response = get_following(user_id_two)
+    print("Response:", response)
+    assert isinstance(response, list), "Following should be a list."
+
+if __name__ == "__main__": 
+    pass
     test_create_account()
     test_verify_password()
+    test_add_member()
     test_add_review()
     test_edit_review()
     test_delete_review_user()
@@ -198,4 +261,7 @@ if __name__ == "__main__":
     test_like_film()
     test_like_review()
     test_like_review_remove()
+    test_following()
+    test_get_followers()
+    test_get_following()
 
