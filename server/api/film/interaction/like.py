@@ -27,7 +27,7 @@ def like_film(user_id, film_id):
                 VALUES (?, ?)
             """, (user_id, film_id))
             conn.commit()
-            return {"message": "Review liked."}
+            return {"message": "Film liked."}
 
 
 @film_bp.route('/film/like', methods=['POST'])

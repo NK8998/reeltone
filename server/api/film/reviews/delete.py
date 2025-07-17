@@ -26,9 +26,14 @@ def delete_review(user_id, review_id, is_admin=False):
     else:
         with sqlite3.connect(db_path) as conn:
             cursor = conn.cursor()
-            cursor.execute("DELETE FROM reviews WHERE id = ?", (review_id,))
-            conn.commit()
-            return {"message": "Review deleted by admin."}
+            cursor.execute("SELECT id FROM reviews WHERE id = ?", (review_id,))
+            existing = cursor.fetchone()
+            if not existing:
+                return {"message": "Review not found."}
+            else:
+                cursor.execute("DELETE FROM reviews WHERE id = ?", (review_id,))
+                conn.commit()
+                return {"message": "Review deleted by admin."}
 
 @film_bp.route('/reviews/delete', methods=['POST'])
 def delete_review_route():
