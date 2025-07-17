@@ -1,15 +1,16 @@
 "use client";
 import { backendService } from "@/services/backendService";
 import { useUser } from "@clerk/nextjs";
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const AppContext = createContext(undefined);
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const { user, isLoaded } = useUser();
+  const [addedMember, setAddedMember] = useState(false);
 
   useEffect(() => {
-    if (!isLoaded || !user) return;
+    if (!isLoaded || !user || addedMember) return;
     backendService
       .addMember(
         user.id || "",
@@ -22,6 +23,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        setAddedMember(true);
       });
   }, [user, isLoaded]);
 
