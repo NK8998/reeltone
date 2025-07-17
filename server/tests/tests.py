@@ -99,7 +99,7 @@ def test_add_review():
     assert response.get("message") == "Review added successfully."
 
 if __name__ == "__main__":
-    test_create_account_success()
+    test_create_account()
     test_verify_password()
     test_add_review()
 
