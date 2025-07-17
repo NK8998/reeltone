@@ -7,7 +7,7 @@ from flask import request, jsonify
 def add_member(user_id, username, email, pfp_url):
     """Adds a member to the DB"""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(script_dir, '../../../db/reeltone.db')
+    db_path = os.path.join(script_dir, '../../db/reeltone.db')
 
     with sqlite3.connect(db_path) as conn:
         cursor = conn.cursor()

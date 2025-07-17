@@ -1,8 +1,8 @@
 from . import members_bp
 from flask import request, jsonify
-from discover import get_all_members
-from follows.followers import get_followers
-from follows.following import get_following
+from .discover import get_all_members
+from .follows.followers import get_followers
+from .follows.following import get_following
 
 
 @members_bp.route('/all', methods=['GET'])

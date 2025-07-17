@@ -63,4 +63,40 @@ export const backendService = {
       throw error;
     }
   },
+  membersData: async (user_id: string) => {
+    try {
+      const response = await axiosInstance.get(
+        "/members/all?user_id=" + user_id
+      );
+      if (!response || response.status !== 200) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching members data:", error);
+      throw error;
+    }
+  },
+  addMember: async (
+    user_id: string,
+    username: string,
+    email: string,
+    pfp_url: string
+  ) => {
+    try {
+      const response = await axiosInstance.post("/members/add", {
+        user_id,
+        username,
+        email,
+        pfp_url,
+      });
+      if (!response || response.status !== 201) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data;
+    } catch (error) {
+      console.error("Error adding member:", error);
+      throw error;
+    }
+  },
 };

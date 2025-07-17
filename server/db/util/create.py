@@ -135,6 +135,7 @@ def createTables():
     createWatchlistTable(cursor)
     createWatchedTable(cursor)
     createFollowersTable(cursor)
+    createMembersTable(cursor)
 
     conn.commit()
     conn.close()
