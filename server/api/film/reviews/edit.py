@@ -25,7 +25,7 @@ def edit_review(user_id, review_id, new_content):
             conn.commit()
             return {"message": "Review updated successfully."}
         else:
-            return {"error": "Review not found or user not authorized."}, 404
+            return {"message": "Review not found or user not authorized."}
 
 
 @film_bp.route('/reviews/edit', methods=['POST'])

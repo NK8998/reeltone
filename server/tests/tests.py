@@ -16,6 +16,9 @@ from api.members.follows.add import add_following
 from api.members.follows.followers import get_followers
 from api.members.follows.following import get_following
 from api.members.add import add_member
+from api.film.interaction.watched import add_to_watched
+from api.film.interaction.watchlist import add_to_watchlist
+from api.film.all import check_flags
 
 
 
@@ -192,6 +195,42 @@ def test_like_film():
     )
     print("Response:", response)
     assert response.get("message") == "Film liked." or response.get("error") == "Like removed."
+
+def test_add_to_watched():
+    global clerk_user
+    print("Adding film to watched for user:", clerk_user.get("username"))
+    response = add_to_watched(
+        clerk_user.get("id"),
+        541671,  # Example film ID (ballerina)
+        "ballerina",  # Example film title
+        "example_poster_url.jpg"  # Example poster URL
+    )
+    print("Response:", response)
+    assert response.get("message") == "Film added to watched list." or response.get("error") == "Film removed from watched list."
+
+def test_add_to_watchlist():
+    global clerk_user
+    print("Adding film to watchlist for user:", clerk_user.get("username"))
+    response = add_to_watchlist(
+        clerk_user.get("id"),
+        541671,  # Example film ID (ballerina)
+        "ballerina",  # Example film title
+        "example_poster_url.jpg"  # Example poster URL
+    )
+    print("Response:", response)
+    assert response.get("message") == "Film added to watchlist." or response.get("error") == "Film removed from watchlist."
+
+def test_user_flags():
+    global clerk_user
+    print("Checking user flags for film...")
+    has_liked, in_watchlist, watched = check_flags(
+        clerk_user.get("id"),
+        541671  # Example film ID (ballerina)
+    )
+    print("User Flags Response:", has_liked, in_watchlist, watched)
+    assert isinstance(has_liked, bool), "has_liked should be a boolean."
+    assert isinstance(in_watchlist, bool), "in_watchlist should be a boolean."
+    assert isinstance(watched, bool), "watched should be a boolean."
 
 def test_like_review():
     global clerk_user
