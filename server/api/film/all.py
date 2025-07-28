@@ -7,18 +7,22 @@ import sqlite3
 import os
 
 
-def record_exists(table, user_id, film_id):
+def check_flags(user_id, film_id):
     """Generic checker for (user_id, film_id) existence in a table."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.join(script_dir, '../../db/reeltone.db')
 
     with sqlite3.connect(db_path) as conn:
         cursor = conn.cursor()
-        cursor.execute(
-            f"SELECT 1 FROM {table} WHERE user_id = ? AND film_id = ? LIMIT 1", 
-            (user_id, film_id)
-        )
-        return cursor.fetchone() is not None
+        query = """
+                SELECT
+                EXISTS(SELECT 1 FROM film_likes WHERE user_id = ? AND film_id = ?) AS has_liked_film,
+                EXISTS(SELECT 1 FROM watchlist WHERE user_id = ? AND film_id = ?) AS has_watchlist,
+                EXISTS(SELECT 1 FROM watched WHERE user_id = ? AND film_id = ?) AS has_watched
+                """
+        cursor.execute(query, (user_id, film_id, user_id, film_id, user_id, film_id))
+        has_liked_film, has_film_in_watchlist, has_watched_film = map(bool, cursor.fetchone())
+        return has_liked_film, has_film_in_watchlist, has_watched_film
 
 @film_bp.route('/all', methods=['GET'])
 def all_films():
@@ -44,11 +48,8 @@ def all_films():
         
         reviews = get_reviews_by_film_id(film_id)
         related_films = get_related_films(film_id)
-        has_liked_film = record_exists("film_likes", user_id, film_id)
-        has_film_in_watchlist = record_exists("watchlist", user_id, film_id)
-        has_watched_film = record_exists("watched", user_id, film_id)
+        has_liked_film, has_film_in_watchlist, has_watched_film = check_flags(user_id, film_id)
 
-        
         return jsonify({
             'essential_data': essential_data,
             'reviews': reviews,

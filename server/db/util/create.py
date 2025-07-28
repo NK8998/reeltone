@@ -32,7 +32,8 @@ def createReviewsTable(cursor):
             is_parent BOOLEAN DEFAULT FALSE,
             parent_id INTEGER,  -- for replies
             like_count INTEGER DEFAULT 0,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- created_at will be set to the current timestamp by default
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- created_at will be set to the current timestamp by default
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- updated_at will be set to the current timestamp by default
         )
     """)
     print("Reviews table created.")
@@ -110,6 +111,20 @@ def createFollowersTable(cursor):
     """)
     print("Followers table created.")
 
+def createMembersTable(cursor):
+    cursor.execute("DROP TABLE IF EXISTS members")
+    cursor.execute("""
+        CREATE TABLE members (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id TEXT NOT NULL,
+            username TEXT NOT NULL,
+            email TEXT NOT NULL,
+            pfp_url TEXT,
+            joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    print("Members table created.")
+
 def createTables():
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -120,6 +135,7 @@ def createTables():
     createWatchlistTable(cursor)
     createWatchedTable(cursor)
     createFollowersTable(cursor)
+    createMembersTable(cursor)
 
     conn.commit()
     conn.close()

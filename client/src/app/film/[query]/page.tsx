@@ -12,7 +12,6 @@ export default function Page({}) {
   const router = useRouter();
 
   const { user, isLoaded } = useUser();
-  console.log("User:", user);
 
   useEffect(() => {
     if (!isLoaded) return;

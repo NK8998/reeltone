@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
+import { AppProvider } from "@/context/AppContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,8 +36,10 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Toaster position='bottom-right' />
-          <div className='app-full-bleed'>{children}</div>
+          <AppProvider>
+            <Toaster position='bottom-right' />
+            <div className='app-full-bleed'>{children}</div>
+          </AppProvider>
         </body>
       </html>
     </ClerkProvider>
