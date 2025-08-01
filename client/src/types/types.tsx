@@ -137,3 +137,39 @@ export type FilmData = {
   user_flags: UserFlags;
 };
 //types for film page data
+
+
+//types for me page data
+
+// recentFilm.ts
+
+
+// friendActivity.ts
+export type FriendActivity = {
+  review_id: string;
+  user_id: string;
+  film_id: string;
+  content: string;
+  like_count: number;
+  created_at: string;
+  follower_id: string;
+};
+
+// review.ts
+export type MeReview = {
+  id: string;
+  user_id: string;
+  film_id: string;
+  content: string;
+  like_count: number;
+  created_at: string;
+  username: string;
+  profile_picture: string;
+};
+
+export interface mePageTypes {
+  recent_films: Film[];
+  friends_activity: FriendActivity[];
+  reviews: FilmPageReview[];
+}
+//types for me page data

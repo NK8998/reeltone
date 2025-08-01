@@ -1,3 +1,4 @@
+import "./style.css";
 import { StarSvg } from "@/assets/icons";
 
 export default function Rating({ rating }: { rating: number }) {

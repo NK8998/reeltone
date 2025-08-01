@@ -1,4 +1,4 @@
-import { FilmData, FilmPageReview, LandingDataType } from "@/types/types";
+import { FilmData, FilmPageReview, LandingDataType, mePageTypes } from "@/types/types";
 import axios, { AxiosResponse } from "axios";
 const backendUrl =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8888";
@@ -25,9 +25,9 @@ export const backendService = {
       throw error;
     }
   },
-  meData: async (user_id: string) => {
+  meData: async (user_id: string): Promise<mePageTypes> => {
     try {
-      const response = await axiosInstance.get("/me/all?user_id=" + user_id);
+      const response: AxiosResponse<mePageTypes> = await axiosInstance.get("/me/all?user_id=" + user_id);
       if (!response || response.status !== 200) {
         throw new Error("Network response was not ok");
       }

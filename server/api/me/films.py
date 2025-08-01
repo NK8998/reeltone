@@ -1,11 +1,13 @@
 from . import me_bp
 from flask import jsonify
 import tmdbsimple as tmdb
+import os
 
 def get_recent_films():
     """Fetch recent films from TMDB API. Return as a list of dictionaries."""
     movies = tmdb.Movies()
     response = movies.now_playing()
+    img_base_url = os.getenv("TMDB_IMAGE_BASE_URL") or "https://image.tmdb.org/t/p"
 
     # Extract relevant fields
     recent_films = []
@@ -14,11 +16,14 @@ def get_recent_films():
             "id": movie.get("id"),
             "title": movie.get("title"),
             "overview": movie.get("overview"),
-            "poster_path": f"https://image.tmdb.org/t/p/w500{movie.get('poster_path')}" if movie.get("poster_path") else None,
+            "poster_path": movie.get("poster_path"),
             "release_date": movie.get("release_date"),
             "vote_average": movie.get("vote_average"),
             "vote_count": movie.get("vote_count"),
             "popularity": movie.get("popularity"),
+            "backdrop_path": movie.get("backdrop_path"),
+            "poster_url": f"{img_base_url}/w500{movie.get('poster_path')}" if movie.get("poster_path") else None,
+            "backdrop_url": f"{img_base_url}/w1280{movie.get('backdrop_path')}" if movie.get("backdrop_path") else None
         })
 
     return recent_films

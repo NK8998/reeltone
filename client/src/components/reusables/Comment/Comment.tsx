@@ -9,7 +9,7 @@ import { useUser } from "@clerk/nextjs";
 interface CommentProps {
   filmId?: number;
   review: Review | FilmPageReview;
-  setCurrentReviews: React.Dispatch<React.SetStateAction<FilmPageReview[]>>;
+  setCurrentReviews?: React.Dispatch<React.SetStateAction<FilmPageReview[]>>;
 }
 
 export default function Comment({
@@ -23,29 +23,29 @@ export default function Comment({
     "author" in review
       ? review.author
       : "username" in review
-      ? review.username
-      : "Unknown User";
+        ? review.username
+        : "Unknown User";
 
   const content =
     "content" in review
       ? review.content
       : "review_text" in review
-      ? review.review_text
-      : "";
+        ? review.review_text
+        : "";
 
   const rating =
     "author_details" in review
       ? review.author_details?.rating ?? 0
       : "rating" in review
-      ? review.rating ?? 0
-      : 0;
+        ? review.rating ?? 0
+        : 0;
 
   const imgUrl =
     "author_details" in review && review.author_details.avatar_path
       ? review.author_details.avatar_path
       : "pfp_url" in review
-      ? review.pfp_url
-      : "/svgs/default-user-icon.svg";
+        ? review.pfp_url
+        : "/svgs/default-user-icon.svg";
 
   const filmIdId = "film_id" in review ? review.film_id : filmId || 0;
   const filmTitle = "film_title" in review ? review.film_title : "";
@@ -58,7 +58,7 @@ export default function Comment({
 
   return (
     <div className='comment-wrapper'>
-      {isEditing ? (
+      {isEditing && setCurrentReviews ? (
         <CommentForm
           filmId={filmIdId}
           filmTitle={filmTitle}
