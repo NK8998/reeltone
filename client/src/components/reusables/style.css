@@ -1,0 +1,7 @@
+.span-section {
+  width: calc(100% - 40px);
+  height: calc(100vh - 100px);
+  margin: 30px auto;
+  display: grid;
+  place-items: center;
+}

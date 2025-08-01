@@ -15,19 +15,19 @@ def add_to_watched(user_id, film_id, film_title, film_poster):
 
         if existing:
             # Film already in watched list
-            cursor.execute("""DELETE FROM watched_films WHERE user_id = ? AND film_id = ?""", (user_id, film_id))
+            cursor.execute("""DELETE FROM watched WHERE user_id = ? AND film_id = ?""", (user_id, film_id))
             conn.commit()
             return {"message": "Film removed from watched list."}
         else:
             # Film not in watched list, insert it
             cursor.execute("""
-                INSERT INTO watched_films (user_id, film_id, film_title, film_poster)
+                INSERT INTO watched (user_id, film_id, film_title, film_poster)
                 VALUES (?, ?, ?, ?)
             """, (user_id, film_id, film_title, film_poster))
             conn.commit()
             return {"message": "Film added to watched list."}
 
-@film_bp.route('/film/watched', methods=['POST'])
+@film_bp.route('/watched', methods=['POST'])
 def add_watched_route():
     """Endpoint to add a film to the watched list."""
     try:

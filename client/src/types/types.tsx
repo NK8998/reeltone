@@ -45,3 +45,95 @@ export interface LandingDataType {
   recent_reviews: RecentReviews;
 }
 // types for landing page data
+
+//types for film page data
+export type CastMember = {
+  adult: boolean;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  order: number;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+};
+
+export type CrewMember = {
+  adult: boolean;
+  credit_id: string;
+  department: string;
+  gender: number;
+  id: number;
+  job: string;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string | null;
+};
+
+export type RelatedFilm = {
+  id: number;
+  overview: string;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  vote_average: number;
+  vote_count: number;
+};
+
+export type UserFlags = {
+  has_liked: boolean;
+  in_watchlist: boolean;
+  watched: boolean;
+};
+
+export type EssentialData = {
+  backdrop_path: string;
+  cast: CastMember[];
+  crew: CrewMember[];
+  genres: string[];
+  id: number;
+  original_title: string;
+  overview: string;
+  poster_path: string;
+  production_companies: string[];
+  production_countries: string[];
+  release_date: string;
+  run_time: number;
+  runtime: number;
+  spoken_languages: string[];
+  title: string;
+  trailer: string; // Replace if known
+  vote_average: number;
+  vote_count: number;
+};
+
+export type FilmPageReview = {
+  id: number;
+  user_id: number;
+  username: string;
+  pfp_url?: string | null;
+  film_id: number;
+  film_title: string;
+  film_poster?: string | null;
+  rating?: number | null; // optional in case it's not always provided
+  review_text?: string | null;
+  is_parent: boolean;
+  parent_id?: number | null;
+  like_count: number;
+  created_at: string; // or Date, depending on how you parse it
+  updated_at: string; // same as above
+};
+
+export type FilmData = {
+  essential_data: EssentialData;
+  related_films: RelatedFilm[];
+  reviews: FilmPageReview[]; // Replace if structure becomes known
+  user_flags: UserFlags;
+};
+//types for film page data

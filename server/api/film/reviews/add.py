@@ -19,28 +19,51 @@ def add_review(
     ):
     """Inserts a review into the SQLite database."""
 
-    # Get the absolute path to the database
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(script_dir, '../../../db/reeltone.db')
+    try:
+        if not all([user_id, film_id, film_title]):
+            return {"error": "Missing required fields."}, 400
+        
+        # Get the absolute path to the database
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(script_dir, '../../../db/reeltone.db')
 
-    # Insert the review into the database
-    with sqlite3.connect(db_path) as conn:
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO reviews (
+        # Insert the review into the database
+        with sqlite3.connect(db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO reviews (
+                    user_id, username, pfp_url,
+                    film_id, film_title, film_poster,
+                    rating, review_text,
+                    is_parent, parent_id
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
                 user_id, username, pfp_url,
                 film_id, film_title, film_poster,
                 rating, review_text,
-                is_parent, parent_id, created_at
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (
-            user_id, username, pfp_url,
-            film_id, film_title, film_poster,
-            rating, review_text,
-            bool(is_parent), parent_id, datetime.utcnow()
-        ))
-        conn.commit()
+                bool(is_parent), parent_id
+            ))
+            review_id = cursor.lastrowid
+            conn.commit()
+            data = {
+                "id": review_id,
+                "user_id": user_id,
+                "username": username,
+                "pfp_url": pfp_url,
+                "film_id": film_id,
+                "film_title": film_title,
+                "film_poster": film_poster,
+                "rating": rating,
+                "review_text": review_text,
+                "is_parent": is_parent,
+                "parent_id": parent_id,
+                "updated_at": datetime.now().isoformat()
+            }
+            return {"message": "Review added successfully.", "film_data": data}
+    except Exception as e:
+        print(f"Error adding review: {e}")
+        return {"error": "Failed to add review."}, 500
 
 
 @film_bp.route('/reviews/add', methods=['POST'])
@@ -63,7 +86,7 @@ def add_review_route():
         if not all([user_id, username, film_id, film_title]):
             return jsonify({"error": "Missing required fields."}), 400
 
-        add_review(
+        message = add_review(
             user_id=user_id,
             username=username,
             pfp_url=pfp_url,
@@ -76,7 +99,7 @@ def add_review_route():
             parent_id=parent_id
         )
 
-        return jsonify({"message": "Review added successfully."}), 201
+        return jsonify(message), 201
 
     except Exception as e:
         print(f"Error adding review: {e}")

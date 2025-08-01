@@ -1,24 +1,51 @@
 from .. import film_bp
 import tmdbsimple as tmdb
 from flask import jsonify, request
+from pprint import pprint
+
+def get_film_trailer(videos):
+    """Fetch official YouTube trailer from a TMDB video list."""
+    trailers = [
+        video for video in videos.get('results', [])
+        if video['type'] == 'Trailer' and video['site'] == 'YouTube'
+    ]
+
+    official = next((v for v in trailers if 'official' in v.get('name', '').lower()), None)
+    if official:
+        return f"https://www.youtube.com/embed/{official['key']}"
+
+    if trailers:
+        return f"https://www.youtube.com/embed/{trailers[0]['key']}"
+
+    return None
 
 def get_by_id(film_id):
     """Fetch film details by ID from TMDB."""
     movie = tmdb.Movies(film_id)
-    response = movie.info()
+    response = movie.info(append_to_response='credits,videos')  # ✅ fixed
+
     if 'status_code' in response and response['status_code'] != 200:
         return None
+
+    response['cast'] = response.get('credits', {}).get('cast', [])
+    response['crew'] = response.get('credits', {}).get('crew', [])
+    response['trailer'] = get_film_trailer(response.get('videos', {}))
+
+    # Optionally remove raw credits/videos
+    response.pop('credits', None)
+    response.pop('videos', None)
+
     return response
 
 def get_by_title(title):
     """Fetch film details by title from TMDB."""
     search = tmdb.Search()
-    response = search.movie(query=title)
-    if 'status_code' in response and response['status_code'] != 200:
+    movie_response = search.movie(query=title)
+    if 'status_code' in movie_response and movie_response['status_code'] != 200:
         return None
-    if response['total_results'] == 0:
-        return None
-    return response['results'][0] 
+    response = get_by_id(movie_response['results'][0]['id'])
+
+    return response
 
 
 def get_essential_data(query):
@@ -33,7 +60,7 @@ def get_essential_data(query):
     else:
         # Otherwise, treat it as a film title
         response = get_by_title(query)
-
+    
     if response is None:
         return None
     essential_data = {
@@ -48,6 +75,13 @@ def get_essential_data(query):
         'vote_count': response.get('vote_count'),
         'poster_path': f"https://image.tmdb.org/t/p/w500{response.get('poster_path')}" if response.get("poster_path") else None,
         'backdrop_path': f"https://image.tmdb.org/t/p/w1280{response.get('backdrop_path')}" if response.get("backdrop_path") else None,
+        'cast': response.get('cast', []),
+        'crew': response.get('crew', []),
+        'production_companies': [company['name'] for company in response.get('production_companies', [])],
+        'production_countries': [country['name'] for country in response.get('production_countries', [])],
+        'spoken_languages': [language['name'] for language in response.get('spoken_languages', [])],
+        'run_time': response.get('runtime', 0),
+        'trailer': response.get('trailer', {})
     }
     return essential_data
     

@@ -3,6 +3,8 @@ from flask import Blueprint
 members_bp = Blueprint('members', __name__, url_prefix='/members')
 
 from . import all
+from . import add
 from . import discover
-from . import followers
-from . import following
+from .follows.add import *
+from .follows.followers import *
+from .follows.following import *
