@@ -5,14 +5,12 @@ import InputContainer from "./components/InputContainer";
 import NavLinks from "./components/NavLinks";
 import UserButton from "./components/UserButton";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
 export default function Navbar({}) {
-  const { isSignedIn } = useUser();
   return (
     <div className='navbar'>
       <div className='navbar-inner'>
         <div className='nav-start nav-section'>
-          <Link href={`${isSignedIn ? "/me" : "/"}`} className='home-button'>
+          <Link href={"/"} className='home-button'>
             <Image
               className='reel-icon'
               src={"/images/reel_favicon.png"}

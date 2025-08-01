@@ -3,17 +3,37 @@ import tmdbsimple as tmdb
 from flask import jsonify, request
 from pprint import pprint
 
+def get_film_trailer(videos):
+    """Fetch official YouTube trailer from a TMDB video list."""
+    trailers = [
+        video for video in videos.get('results', [])
+        if video['type'] == 'Trailer' and video['site'] == 'YouTube'
+    ]
+
+    official = next((v for v in trailers if 'official' in v.get('name', '').lower()), None)
+    if official:
+        return f"https://www.youtube.com/embed/{official['key']}"
+
+    if trailers:
+        return f"https://www.youtube.com/embed/{trailers[0]['key']}"
+
+    return None
+
 def get_by_id(film_id):
     """Fetch film details by ID from TMDB."""
     movie = tmdb.Movies(film_id)
-    response = movie.info()
+    response = movie.info(append_to_response='credits,videos')  # ✅ fixed
+
     if 'status_code' in response and response['status_code'] != 200:
         return None
-    credits = movie.credits()
-    if 'cast' in credits:
-        response['cast'] = credits['cast'][:10]
-    if 'crew' in credits:
-        response['crew'] = credits['crew'][:10]
+
+    response['cast'] = response.get('credits', {}).get('cast', [])
+    response['crew'] = response.get('credits', {}).get('crew', [])
+    response['trailer'] = get_film_trailer(response.get('videos', {}))
+
+    # Optionally remove raw credits/videos
+    response.pop('credits', None)
+    response.pop('videos', None)
 
     return response
 
@@ -24,6 +44,7 @@ def get_by_title(title):
     if 'status_code' in movie_response and movie_response['status_code'] != 200:
         return None
     response = get_by_id(movie_response['results'][0]['id'])
+
     return response
 
 
@@ -60,7 +81,7 @@ def get_essential_data(query):
         'production_countries': [country['name'] for country in response.get('production_countries', [])],
         'spoken_languages': [language['name'] for language in response.get('spoken_languages', [])],
         'run_time': response.get('runtime', 0),
-        'trailer': response.get('videos', {})
+        'trailer': response.get('trailer', {})
     }
     return essential_data
     

@@ -14,5 +14,9 @@ tmdb.API_KEY = TMDB_API_KEY
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.register_blueprint(api_bp)
 
+for rule in app.url_map.iter_rules():
+    print(f"{rule.methods} -> {rule.rule}")
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8888)

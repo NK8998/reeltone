@@ -17,7 +17,7 @@ def add_to_watchlist(user_id, film_id, film_title, film_poster):
             # Film already in watchlist
             cursor.execute("DELETE FROM watchlist WHERE user_id = ? AND film_id = ?", (user_id, film_id))
             conn.commit()
-            return {"message": "Film removed from watchlist."}
+            return {"message": "Film removed from watchlist.", "is_in_watchlist": False}
         else:
             # Film not in watchlist, insert it
             cursor.execute("""
@@ -25,9 +25,9 @@ def add_to_watchlist(user_id, film_id, film_title, film_poster):
                 VALUES (?, ?, ?, ?)
             """, (user_id, film_id, film_title, film_poster))
             conn.commit()
-            return {"message": "Film added to watchlist."}
+            return {"message": "Film added to watchlist.", "is_in_watchlist": True}
         
-@film_bp.route('/film/watchlist', methods=['POST'])
+@film_bp.route('/watchlist', methods=['POST'])
 def add_watchlist_route():
     """Endpoint to add a film to the watchlist."""
     try:
@@ -39,7 +39,7 @@ def add_watchlist_route():
         if not all([user_id, film_id, film_title, film_poster]):
             return jsonify({"error": "Missing user_id, film_id, film_title, or film_poster."}), 400
         message = add_to_watchlist(user_id, film_id, film_title, film_poster)
-        return jsonify({"message": message}), 201
+        return jsonify({"message": message, }), 201
     except Exception as e:
         print(f"Error adding film to watchlist: {e}")
         return jsonify({"error": "Failed to add film to watchlist.", "details": str(e)}), 500

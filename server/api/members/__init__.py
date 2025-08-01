@@ -5,4 +5,6 @@ members_bp = Blueprint('members', __name__, url_prefix='/members')
 from . import all
 from . import add
 from . import discover
-from .follows import *
+from .follows.add import *
+from .follows.followers import *
+from .follows.following import *

@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 import { AppProvider } from "@/context/AppContext";
+import QueryProvider from "@/providers/QueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,14 +34,17 @@ export default function RootLayout({
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <title>ReelTone</title>
         </head>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <AppProvider>
-            <Toaster position='bottom-right' />
-            <div className='app-full-bleed'>{children}</div>
-          </AppProvider>
-        </body>
+        <QueryProvider>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            <AppProvider>
+              <Toaster position='bottom-right' richColors />
+              <div className='app-full-bleed'>{children}</div>
+            </AppProvider>
+            <div id='modals' />
+          </body>
+        </QueryProvider>
       </html>
     </ClerkProvider>
   );

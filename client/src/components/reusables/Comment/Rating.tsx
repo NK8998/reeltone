@@ -3,7 +3,7 @@ import { StarSvg } from "@/assets/icons";
 export default function Rating({ rating }: { rating: number }) {
   const stars = new Array(Math.floor(rating)).fill(null).map((_, index) => (
     <span key={index}>
-      <StarSvg fill='red' />
+      <StarSvg fill={"red"} />
     </span>
   ));
 

@@ -44,8 +44,23 @@ def add_review(
                 rating, review_text,
                 bool(is_parent), parent_id
             ))
+            review_id = cursor.lastrowid
             conn.commit()
-            return {"message": "Review added successfully."}
+            data = {
+                "id": review_id,
+                "user_id": user_id,
+                "username": username,
+                "pfp_url": pfp_url,
+                "film_id": film_id,
+                "film_title": film_title,
+                "film_poster": film_poster,
+                "rating": rating,
+                "review_text": review_text,
+                "is_parent": is_parent,
+                "parent_id": parent_id,
+                "updated_at": datetime.now().isoformat()
+            }
+            return {"message": "Review added successfully.", "film_data": data}
     except Exception as e:
         print(f"Error adding review: {e}")
         return {"error": "Failed to add review."}, 500
