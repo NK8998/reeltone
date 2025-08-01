@@ -57,3 +57,11 @@ export const generateUsername = () => {
 export const generateEmptyArray = (length: number) => {
   return new Array(length).fill(null);
 };
+
+export const filterArrayByKey = <T extends Record<string, any>>(
+  array: T[],
+  key: keyof T,
+  value: any
+): T[] => {
+  return array.filter((item) => item[key] === value);
+};

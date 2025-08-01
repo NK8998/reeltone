@@ -27,7 +27,7 @@ def add_to_watched(user_id, film_id, film_title, film_poster):
             conn.commit()
             return {"message": "Film added to watched list."}
 
-@film_bp.route('/film/watched', methods=['POST'])
+@film_bp.route('/watched', methods=['POST'])
 def add_watched_route():
     """Endpoint to add a film to the watched list."""
     try:
