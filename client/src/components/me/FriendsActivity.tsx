@@ -3,8 +3,9 @@ import "@splidejs/react-splide/css/sea-green";
 
 import { FilmPageReview } from "@/types/types";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-import Link from "next/dist/client/link";
 import "./style.css";
+import Link from "next/link";
+import Rating from "../reusables/Comment/Rating";
 
 interface FriendsActivityProps {
   friendsActivities: FilmPageReview[];
@@ -14,7 +15,7 @@ export default function FriendsActivity({
   friendsActivities,
 }: FriendsActivityProps) {
   return (
-    <section className='py-6 px-4 sm:px-6 lg:px-8 rounded-md'>
+    <section className='py-6 px-4 sm:px-6 lg:px-8 rounded-md friends-activity-container'>
       <div className='section-top-bar flex items-center justify-between border-b border-gray-700 pb-1 mb-2'>
         <h2 className='font-semibold text-gray-300 text-base'>
           New From Friends
@@ -46,7 +47,7 @@ export default function FriendsActivity({
               .map((activity) => (
                 <SplideSlide
                   key={activity.id}
-                  className='rounded-md overflow-hidden'
+                  className='rounded-md overflow-hidden w-36 h-full'
                 >
                   <Link
                     href={`/film/${activity.film_id}`}
@@ -57,7 +58,7 @@ export default function FriendsActivity({
                       src={activity.film_poster!}
                       alt={activity.film_title}
                       style={{ borderRadius: "4px" }}
-                      className='w-full h-5full object-cover shadow'
+                      className='w-full h-full object-cover shadow'
                     />
                     <div
                       className='absolute bottom-0 left-0 right-0 bg-opacity-50 text-white p-1 text-sm w-full flex gap-1 overflow-hidden text-ellipsis'
@@ -76,6 +77,9 @@ export default function FriendsActivity({
                       </span>
                     </div>
                   </Link>
+                  {activity.rating != null && (
+                    <Rating rating={activity.rating} />
+                  )}
                 </SplideSlide>
               ))}
           </Splide>

@@ -35,7 +35,7 @@ export default function FilmReviewGrid({ reviews }: FilmReviewGridProps) {
             )}
 
             {/* Review content */}
-            <div className='flex-1 flex flex-col'>
+            <div className='flex-1 flex flex-col me-reviews-container'>
               {/* Row 1: Profile + Rating */}
               <div className='flex items-center justify-between mb-2'>
                 <div className='flex items-center gap-2'>
@@ -54,7 +54,6 @@ export default function FilmReviewGrid({ reviews }: FilmReviewGridProps) {
                     {review.username}
                   </span>
                 </div>
-
                 {review.rating != null && <Rating rating={review.rating} />}
               </div>
 

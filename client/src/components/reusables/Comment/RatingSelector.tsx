@@ -7,7 +7,7 @@ export default function RatingSelector({
   rating: number;
   setRating: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  const stars = new Array(10).fill(null).map((_, index) => (
+  const stars = new Array(5).fill(null).map((_, index) => (
     <span key={index} onClick={() => setRating(index + 1)}>
       <StarSvg fill={index < rating ? "red" : "gray"} />
     </span>
