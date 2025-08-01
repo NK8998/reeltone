@@ -1,5 +1,5 @@
 import { Film } from "@/types/types";
-import FilmCard from "./FilmCard";
+import FilmCard from "../reusables/FilmCard";
 
 interface RecentFilmsProps {
   recent_films: Film[];

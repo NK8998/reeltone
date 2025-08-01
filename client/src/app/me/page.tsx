@@ -1,88 +1,48 @@
 "use client";
-
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import "./page.css";
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
 import Footer from "@/components/reusables/Footer/Footer";
 import Navbar from "@/components/reusables/Navbar/Navbar";
 import { backendService } from "@/services/backendService";
+import { mePageTypes } from "@/types/types";
+import { use, useEffect } from "react";
+import FriendsActivity from "@/components/me/FriendsActivity";
+import MainContent from "@/components/me/MainContent";
+import MainSectionLoader from "@/components/reusables/MainSectionLoader";
+import MainSectionError from "@/components/reusables/MainSectionError";
 
-import "./page.css";
-
-// Define a type for the user data you expect from your backend
-interface UserProfileData {
-  id: string;
-  username: string;
-  email: string;
-  // Add any other fields you expect from your backend
-}
-
-// A dedicated component for displaying the user profile
-const UserProfile = ({ userProfile }: { userProfile: UserProfileData }) => (
-  <div className="profile-details">
-    <h1>Welcome, {userProfile.username}!</h1>
-    <p>Email: {userProfile.email}</p>
-    {/* Render other user data as needed */}
-  </div>
-);
 
 export default function Me() {
-  const { user, isLoaded } = useUser();
+  const { user } = useUser();
   const router = useRouter();
 
-  // State for managing the fetched user data
-  const [userProfile, setUserProfile] = useState<UserProfileData | null>(null);
-  // State for loading status
-  const [isLoading, setIsLoading] = useState(true);
-  // State for handling errors
-  const [error, setError] = useState<string | null>(null);
+  if (!user) {
+    router.push("/auth/sign-in");
+    return null;
+  }
+  // Fetch user profile with useQuery only if user exists
+  const {
+    data,
+    isLoading,
+    error,
+    isError
+  } = useQuery<mePageTypes, Error>({
+    queryKey: ["meData", user.id],
+    queryFn: () => backendService.meData(user.id),
+  });
 
-  useEffect(() => {
-    // Wait until the user is loaded from Clerk
-    if (!isLoaded) {
-      return;
-    }
-
-    // If the user is not signed in, redirect them
-    if (!user) {
-      router.push("/auth/sign-in");
-      return;
-    }
-
-    // Fetch the user data from the backend
-    const fetchUserData = async () => {
-      try {
-        setIsLoading(true);
-        const data = await backendService.meData(user.id);
-        setUserProfile(data);
-        setError(null); // Clear any previous errors
-      } catch (err) {
-        console.error("Error fetching user data:", err);
-        setError("Failed to load your profile. Please try again later.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [isLoaded, user, router]);
-
-  // Main render logic
-  const renderContent = () => {
-    
-    if (userProfile) {
-      return <UserProfile userProfile={userProfile} />;
-    }
-
-    return null; // Or some fallback UI
-  };
+  console.log("me data", data);
 
   return (
-    <div className='me-page'>
+    <div className="me-page">
       <Navbar />
-      <main className='main-content'>
-        {renderContent()}
+      <main className="main-content">
+        {isLoading && <MainSectionLoader />}
+        {isError && <MainSectionError errorMessage={error.message} />}
+        {data && <MainContent data={data} />}
       </main>
       <Footer />
     </div>
