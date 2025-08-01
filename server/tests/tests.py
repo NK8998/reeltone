@@ -140,7 +140,8 @@ def test_edit_review():
     response = edit_review(
         clerk_user.get("id"),
         1,
-        "Updated review content for testing."
+        "Updated review content for testing.",
+        4
     )
     print("Response:", response)
     assert response.get("message") == "Review updated successfully." or response.get("error") == "Review not found or user not authorized."
