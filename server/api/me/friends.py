@@ -11,29 +11,47 @@ def get_friends_activity(user_id):
         raise ValueError("User ID is required")
     
     with sqlite3.connect(db_path) as conn:
+        conn.row_factory = sqlite3.Row  # ✅ access by column name
         cursor = conn.cursor()
-        query = """SELECT reviews.*, followers.follower_id
-                   FROM reviews
-                    JOIN followers ON reviews.user_id = followers.follower_id
-                   WHERE followers.followed_id = ?"""
+
+        query = """
+            SELECT reviews.*, followers.follower_id
+            FROM reviews
+            JOIN followers ON reviews.user_id = followers.follower_id
+            WHERE followers.followed_id = ?
+        """
         cursor.execute(query, (user_id,))
         rows = cursor.fetchall()
+
         if not rows:
             return []
-        print(f"Rows fetched: {rows}")
+
+        print(f"Rows fetched: {len(rows)}")
+
         friends_activity = []
         for row in rows:
             activity = {
-                "review_id": row[0],
-                "user_id": row[1],
-                "film_id": row[2],
-                "content": row[3],
-                "like_count": row[4],
-                "created_at": row[5],
-                "follower_id": row[6]
+                "id": row["id"],
+                "user_id": row["user_id"],
+                "username": row["username"],
+                "pfp_url": row["pfp_url"],
+                "film_id": row["film_id"],
+                "film_title": row["film_title"],
+                "film_poster": row["film_poster"],
+                "rating": row["rating"],
+                "review_text": row["review_text"],
+                "is_parent": row["is_parent"],
+                "parent_id": row["parent_id"],
+                "like_count": row["like_count"],
+                "created_at": row["created_at"],
+                "updated_at": row["updated_at"],
+                # Optional: include follower_id if needed for frontend
+                # "follower_id": row["follower_id"]
             }
-        friends_activity.append(activity)
+            friends_activity.append(activity)
+
         return friends_activity
+
     
 
 @me_bp.route("/friends", methods=["GET"])

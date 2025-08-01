@@ -1,34 +1,86 @@
-import { FriendActivity } from "@/types/types";
+import "@splidejs/react-splide/css/core";
+import "@splidejs/react-splide/css/sea-green";
+
+import { FilmPageReview } from "@/types/types";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import Link from "next/dist/client/link";
+import "./style.css";
 
 interface FriendsActivityProps {
-    friendsActivities: FriendActivity[];
+  friendsActivities: FilmPageReview[];
 }
 
-export default function FriendsActivity({ friendsActivities }: FriendsActivityProps) {
-    return (
-        <section className="py-6 px-4 sm:px-6 lg:px-8 rounded-md shadow-md">
-            <h2 className="text-2xl font-semibold mb-6 text-gray-300">Friends’ Recent Activity</h2>
-            <div className="space-y-4">
-                {friendsActivities.length === 0 ? (
-                    <p className="text-gray-500">No activity from friends yet.</p>
-                ) : (
-                    friendsActivities.map((activity) => (
-                        <div
-                            key={activity.review_id}
-                            className="border border-gray-200 p-4 rounded-md shadow-sm bg-gray-50 hover:bg-gray-100 transition"
-                        >
-                            <div className="flex justify-between items-center mb-2">
-                                <span className="text-sm text-gray-600">User ID: {activity.user_id}</span>
-                                <span className="text-sm text-gray-500">{new Date(activity.created_at).toLocaleDateString()}</span>
-                            </div>
-                            <p className="text-gray-800">{activity.content}</p>
-                            <div className="mt-2 text-sm text-gray-500">
-                                Likes: <span className="font-medium">{activity.like_count}</span>
-                            </div>
-                        </div>
-                    ))
-                )}
-            </div>
-        </section>
-    );
+export default function FriendsActivity({
+  friendsActivities,
+}: FriendsActivityProps) {
+  return (
+    <section className='py-6 px-4 sm:px-6 lg:px-8 rounded-md'>
+      <div className='section-top-bar flex items-center justify-between border-b border-gray-700 pb-1 mb-2'>
+        <h2 className='font-semibold text-gray-300 text-base'>
+          New From Friends
+        </h2>
+        <Link href='#' className='text-sm text-blue-500 hover:underline'></Link>
+      </div>
+
+      <div className='space-y-4'>
+        {friendsActivities.length === 0 ? (
+          <p className='text-gray-500'>No activity from friends yet.</p>
+        ) : (
+          <Splide
+            aria-label="Friends' Watched Films"
+            options={{
+              perPage: 4,
+              gap: "5px",
+              pagination: false,
+              arrows: true,
+              breakpoints: {
+                1024: { perPage: 3 },
+                640: { perPage: 2 },
+                400: { perPage: 1 },
+              },
+            }}
+            className='mb-6'
+          >
+            {friendsActivities
+              .filter((activity) => activity.film_poster)
+              .map((activity) => (
+                <SplideSlide
+                  key={activity.id}
+                  className='rounded-md overflow-hidden'
+                >
+                  <Link
+                    href={`/film/${activity.film_id}`}
+                    className='relative block w-36 h-56 overflow-hidden'
+                    style={{ borderRadius: "4px" }}
+                  >
+                    <img
+                      src={activity.film_poster!}
+                      alt={activity.film_title}
+                      style={{ borderRadius: "4px" }}
+                      className='w-full h-5full object-cover shadow'
+                    />
+                    <div
+                      className='absolute bottom-0 left-0 right-0 bg-opacity-50 text-white p-1 text-sm w-full flex gap-1 overflow-hidden text-ellipsis'
+                      style={{ backgroundColor: "#747c7c" }}
+                    >
+                      <img
+                        src={activity.pfp_url ?? "/svgs/default-user-icon.svg"}
+                        alt={activity.username}
+                        className='w-5 h-5 rounded-full inline-block mr-2'
+                      />
+                      <span
+                        className='font-semibold text-ellipsis overflow-hidden whitespace-nowrap '
+                        style={{ fontSize: "12px" }}
+                      >
+                        {activity.username}
+                      </span>
+                    </div>
+                  </Link>
+                </SplideSlide>
+              ))}
+          </Splide>
+        )}
+      </div>
+    </section>
+  );
 }

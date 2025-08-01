@@ -85,6 +85,10 @@ body {
   pointer-events: all;
 }
 
+.webkit-scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

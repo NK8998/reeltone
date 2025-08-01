@@ -1,0 +1,13 @@
+.splide {
+  margin-bottom: 0px;
+  padding: 0;
+}
+
+.splide .splide__arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.splide__slide {
+  width: fit-content !important;
+}

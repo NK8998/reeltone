@@ -138,11 +138,9 @@ export type FilmData = {
 };
 //types for film page data
 
-
 //types for me page data
 
 // recentFilm.ts
-
 
 // friendActivity.ts
 export type FriendActivity = {
@@ -168,8 +166,9 @@ export type MeReview = {
 };
 
 export interface mePageTypes {
-  recent_films: Film[];
-  friends_activity: FriendActivity[];
+  top_rated: Film[];
+  now_playing: Film[];
+  friends_activity: FilmPageReview[];
   reviews: FilmPageReview[];
 }
 //types for me page data

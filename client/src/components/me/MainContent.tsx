@@ -1,18 +1,25 @@
-import { mePageTypes } from "@/types/types"
-import FriendsActivity from "./FriendsActivity"
-import RecentFilms from "./RecentFilms"
-import RecentReviews from "./RecentReviews"
+import { mePageTypes } from "@/types/types";
+import FriendsActivity from "./FriendsActivity";
+import RecentReviews from "./RecentReviews";
+import TopRated from "./TopRated";
+import NowPlaying from "./NowPlaying";
+import { useUser } from "@clerk/nextjs";
 
 interface MainContentProps {
-    data: mePageTypes
+  data: mePageTypes;
 }
 export default function MainContent({ data }: MainContentProps) {
-
-    return (
-        <div>
-            <FriendsActivity friendsActivities={data.friends_activity} />
-            <RecentFilms recent_films={data.recent_films} />
-            <RecentReviews reviews={data.reviews}/>
-        </div>
-    )
+  const { user } = useUser();
+  return (
+    <div>
+      <h3 className='text-2xl font-thin text-gray-300 mb-8 mt-15 px-4 sm:px-6 lg:px-8 text-center'>
+        Welcome back, <span className='text-gray-500'>{user?.firstName}</span>.
+        Here’s what your friends have been watching…
+      </h3>
+      <FriendsActivity friendsActivities={data.friends_activity} />
+      <TopRated top_rated={data.top_rated} />
+      <NowPlaying now_playing={data.now_playing} />
+      <RecentReviews reviews={data.reviews} />
+    </div>
+  );
 }
