@@ -11,8 +11,7 @@ export default function SingleYear() {
   );
 
   const isDecade =
-    (searchParams.has("start_year") && searchParams.has("end_year")) ||
-    !selectedYear;
+    searchParams.has("start_year") && searchParams.has("end_year");
 
   const baseYear =
     isNaN(selectedYear) || !selectedYear ? currentYear : selectedYear;

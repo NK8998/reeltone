@@ -11,8 +11,8 @@ export default function FilmsContainer({
 }) {
   return (
     <section className={`films-container ${compactView ? "compact" : ""}`}>
-      {films.map((film) => (
-        <FilmCard key={film.id} film={film} />
+      {films.map((film, index) => (
+        <FilmCard key={`$${film.id}-${index}`} film={film} />
       ))}
     </section>
   );
