@@ -172,3 +172,34 @@ export interface mePageTypes {
   reviews: FilmPageReview[];
 }
 //types for me page data
+
+//types for films page data
+export interface FilmsPageData {
+  popular_films: Film[];
+  recent_films: Film[];
+  reviewed_films: FilmPageReview[];
+}
+//types for films page data
+
+//types for filter data
+export interface FilteredFilms {
+  filtered_films: Film[];
+}
+
+//types for members page
+
+export type Member = {
+  id: number;
+  email: string;
+  joined_at: string;
+  pfp_url: string;
+  user_id: string;
+  username: string;
+  is_following: boolean;
+};
+
+export interface MembersPage {
+  members: Member[];
+  followers: Member[];
+  following: Member[];
+}

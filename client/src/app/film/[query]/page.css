@@ -6,7 +6,7 @@
 }
 
 .film-main-content {
-  max-width: 1300px;
+  max-width: 1100px;
   width: calc(100% - 20px);
   height: fit-content;
   margin: auto;

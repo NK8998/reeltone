@@ -1,15 +1,16 @@
 import { useEffect, useRef } from "react";
 
 interface CommentContainerProps {
+  inputRef: React.RefObject<HTMLDivElement | null>;
   commentText: string;
   setCommentText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function CommentContainer({
+  inputRef,
   commentText,
   setCommentText,
 }: CommentContainerProps) {
-  const inputRef = useRef<HTMLDivElement>(null);
   const placeholderRef = useRef<HTMLDivElement>(null);
   const justMounted = useRef(true);
   useEffect(() => {

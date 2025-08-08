@@ -1,3 +1,20 @@
-.main-content{
-    min-height: calc(100vh - 80px);
+.main-content {
+  min-height: calc(100vh - 80px);
+}
+
+.films-main {
+  max-width: 1100px;
+  width: calc(100% - 20px);
+  margin: auto;
+}
+
+.film-votes-container {
+  color: #678;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.popular-films-container .film-card {
+  width: 200px;
+  height: 300px;
 }

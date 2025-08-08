@@ -89,6 +89,15 @@ body {
   display: none;
 }
 
+.styled-scroll-bar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.styled-scroll-bar::-webkit-scrollbar-thumb {
+  background-color: #0d0d1534;
+  border-radius: 4px;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

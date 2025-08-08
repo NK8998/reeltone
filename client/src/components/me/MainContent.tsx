@@ -16,10 +16,10 @@ export default function MainContent({ data }: MainContentProps) {
         Welcome back, <span className='text-gray-500'>{user?.firstName}</span>.
         Here’s what your friends have been watching…
       </h3>
-      <FriendsActivity friendsActivities={data.friends_activity} />
-      <TopRated top_rated={data.top_rated} />
-      <NowPlaying now_playing={data.now_playing} />
-      <RecentReviews reviews={data.reviews} />
+      <FriendsActivity friendsActivities={data.friends_activity ?? []} />
+      <TopRated top_rated={data.top_rated ?? []} />
+      <NowPlaying now_playing={data.now_playing ?? []} />
+      <RecentReviews reviews={data.reviews ?? []} />
     </div>
   );
 }

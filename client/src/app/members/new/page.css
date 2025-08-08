@@ -1,0 +1,14 @@
+.members-main {
+  min-height: calc(100vh - 80px);
+  width: calc(100% - 40px);
+  max-width: 950px;
+  margin: 20px auto;
+}
+
+.members-main h1.page-intro {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 30px auto;
+  width: fit-content;
+  display: block;
+}

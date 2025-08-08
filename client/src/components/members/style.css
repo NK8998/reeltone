@@ -1,0 +1,57 @@
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  gap: 16px;
+  margin: 20px auto;
+}
+
+.reduced-size .members-grid {
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+}
+
+.member-card {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.reduced-size .member-card {
+  height: 180px;
+}
+
+.member-card h3 {
+  margin: 8px 0;
+}
+
+.member-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.member-card button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.member-card button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.member-card button.following {
+  background-color: #a70000;
+}
+
+.member-card button.not-following {
+  background-color: green;
+}

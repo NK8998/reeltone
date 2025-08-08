@@ -103,7 +103,7 @@ export const FavouriteSvg = () => (
     height='24px'
     viewBox='0 -960 960 960'
     width='24px'
-    fill='#000000'
+    fill='#e31b23'
   >
     <path d='m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Z' />
   </svg>
@@ -115,7 +115,7 @@ export const ThumbsUpDownSvg = () => (
     height='24px'
     viewBox='0 -960 960 960'
     width='24px'
-    fill='#000000'
+    fill='#38888D'
   >
     <path d='M80-400q-33 0-56.5-23.5T0-480v-240q0-12 5-23t13-19l198-198 30 30q6 6 10 15.5t4 18.5v8l-28 128h208q17 0 28.5 11.5T480-720v50q0 6-1 11.5t-3 10.5l-90 212q-7 17-22.5 26.5T330-400H80ZM744 0l-30-30q-6-6-10-15.5T700-64v-8l28-128H520q-17 0-28.5-11.5T480-240v-50q0-6 1-11.5t3-10.5l90-212q8-17 23-26.5t33-9.5h250q33 0 56.5 23.5T960-480v240q0 12-4.5 22.5T942-198L744 0Z' />
   </svg>
@@ -197,5 +197,53 @@ export const CloseSvg = () => (
     fill='#000000'
   >
     <path d='m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z' />
+  </svg>
+);
+
+export const ArrowDownSvg = () => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    height='24px'
+    viewBox='0 -960 960 960'
+    width='24px'
+    fill='#000000'
+  >
+    <path d='M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z' />
+  </svg>
+);
+
+export const CompactViewSvg = () => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    height='24px'
+    viewBox='0 -960 960 960'
+    width='24px'
+    fill='#000000'
+  >
+    <path d='M520-120v-320h320v320H520Zm0-400v-320h320v320H520Zm-400 0v-320h320v320H120Zm0 400v-320h320v320H120Z' />
+  </svg>
+);
+
+export const DefaultView = () => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    height='24px'
+    viewBox='0 -960 960 960'
+    width='24px'
+    fill='#000000'
+  >
+    <path d='M120-120v-720h720v720H120Z' />
+  </svg>
+);
+
+export const LeftArrow = () => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    height='24px'
+    viewBox='0 -960 960 960'
+    width='24px'
+    fill='#000000'
+  >
+    <path d='M640-200 200-480l440-280v560Z' />
   </svg>
 );

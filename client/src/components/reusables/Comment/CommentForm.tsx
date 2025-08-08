@@ -34,6 +34,7 @@ export default function CommentForm({
   const { user } = useUser();
   const [commentText, setCommentText] = useState(currentReviewText);
   const [rating, setRating] = useState(currentRating);
+  const inputRef = useRef<HTMLDivElement>(null);
 
   if (!user) {
     //use tailwind to center
@@ -120,6 +121,7 @@ export default function CommentForm({
       setCurrentReviews((prevReviews) => [...prevReviews, res.film_data]);
       setCommentText("");
       setRating(0);
+      inputRef.current!.innerHTML = ""; // Clear the input field
     } catch (error) {
       console.error("Error submitting review:", error);
     }
@@ -134,6 +136,7 @@ export default function CommentForm({
     <form className='comment-form' onSubmit={handleSubmit}>
       <div className='comment-form-upper'>
         <CommentContainer
+          inputRef={inputRef}
           commentText={commentText}
           setCommentText={setCommentText}
         />

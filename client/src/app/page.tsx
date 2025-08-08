@@ -33,10 +33,13 @@ export default function Landing() {
           <>
             <Hero trending_film={landingData.trending_film} />
             <CTAButtons />
-            <Top6 Top6={landingData.top_6_recent_films} loading={loading} />
+            <Top6
+              Top6={landingData.top_6_recent_films ?? []}
+              loading={loading}
+            />
             <Features />
             <RecentFilms
-              recent_films={landingData.recent_films}
+              recent_films={landingData.recent_films ?? []}
               loading={loading}
             />
             <EnticerBox
@@ -44,7 +47,7 @@ export default function Landing() {
               filmTitle={landingData.trending_film?.title}
             />
             <Reviews
-              reviews={landingData.recent_reviews.results}
+              reviews={landingData.recent_reviews?.results ?? []}
               filmId={landingData.trending_film?.id}
               filmTitle={landingData.trending_film?.title}
             />

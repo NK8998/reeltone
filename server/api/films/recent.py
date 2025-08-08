@@ -10,13 +10,19 @@ def get_recent_films():
     recent_films = []
     for movie in response['results']:
         recent_films.append({
-            "id": movie.get("id"),
-            "title": movie.get("title"),
-            "overview": movie.get("overview"),
-            "poster_path": f"https://image.tmdb.org/t/p/w500{movie.get('poster_path')}" if movie.get("poster_path") else None,
-            "release_date": movie.get("release_date"),
-            "vote_average": movie.get("vote_average"),
-            "vote_count": movie.get("vote_count"),
+                'id': movie.get('id'),
+                'title': movie.get('title'),
+                'original_title': movie.get('original_title'),
+                'overview': movie.get('overview'),
+                'release_date': movie.get('release_date'),
+                'runtime': movie.get('runtime'),
+                'genres': [genre['name'] for genre in movie.get('genres', [])],
+                'vote_average': movie.get('vote_average'),
+                'vote_count': movie.get('vote_count'),
+                'poster_path': movie.get('poster_path') if movie.get("poster_path") else None,
+                'poster_url': f"https://image.tmdb.org/t/p/w500{movie.get('poster_path')}" if movie.get("poster_path") else None,
+                'backdrop_path': f"https://image.tmdb.org/t/p/w1280{movie.get('backdrop_path')}" if movie.get("backdrop_path") else None,
+                
         })
 
     return recent_films

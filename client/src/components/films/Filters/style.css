@@ -1,0 +1,104 @@
+.filter-options.filter-view {
+  border: none;
+  align-items: center;
+}
+
+.filtered-view-filter-bar {
+  margin-top: 40px;
+  border-bottom: 1px solid #eeeeee20;
+}
+
+.filtered-view-filter-bar h3 {
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.primary-filter-button.filter-view {
+  border: none;
+  font-size: 12px;
+}
+
+.primary-filter-button.filter-view svg,
+.filtered-view-filter-bar .dropdown-title svg {
+  width: 15px;
+  height: 15px;
+}
+
+.filtered-view-filter-bar .dropdown-title {
+  font-size: 12px;
+  display: flex;
+}
+
+.default-view-selector {
+  align-items: center;
+}
+
+.default-view-selector span svg {
+  width: 18px;
+  height: 18px;
+  fill: #3d959b64;
+}
+
+.default-view-selector span:hover svg,
+.default-view-selector span.active svg {
+  fill: #3d959b;
+}
+
+.films-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 50px;
+}
+
+.films-container.compact {
+  grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+}
+
+.films-container .film-card {
+  width: unset;
+}
+
+.individual-years {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: fit-content;
+  margin: 20px auto;
+  margin-top: 40px;
+}
+
+.single-year-group {
+  display: flex;
+  border: 1px solid #eeeeee20;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.year-link {
+  padding: 4px 18px;
+  font-size: 14px;
+  border-right: 1px solid #eeeeee20;
+}
+
+.year-link.last {
+  border-right: none;
+}
+
+.year-link.active {
+  background-color: #ebebe4;
+  color: #1f1f21;
+}
+
+.decade-link svg {
+  fill: #3d959b;
+}
+
+.next-decade svg {
+  transform: rotate(180deg);
+}

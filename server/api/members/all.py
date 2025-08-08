@@ -10,11 +10,11 @@ def get_all_members_data():
     """Endpoint to get all members."""
     try:
         user_id = request.args.get("user_id")
-        members = get_all_members()
+        members = get_all_members(user_id)
         if user_id:
             followers = get_followers(user_id)
             following = get_following(user_id)
-
+            
             return jsonify({
                 "members": members,
                 "followers": followers,

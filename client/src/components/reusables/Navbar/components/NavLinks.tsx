@@ -14,7 +14,7 @@ export default function NavLinks() {
       )}
       <Link href={"/me"}>ME</Link>
       <Link href={"/films"}>FILMS</Link>
-      <Link href={"/members"}>MEMBERS</Link>
+      <Link href={"/members/new"}>MEMBERS</Link>
     </nav>
   );
 }

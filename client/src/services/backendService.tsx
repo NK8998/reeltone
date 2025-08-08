@@ -1,4 +1,12 @@
-import { FilmData, FilmPageReview, LandingDataType, mePageTypes } from "@/types/types";
+import {
+  FilmData,
+  FilmPageReview,
+  FilmsPageData,
+  FilteredFilms,
+  LandingDataType,
+  MembersPage,
+  mePageTypes,
+} from "@/types/types";
 import axios, { AxiosResponse } from "axios";
 const backendUrl =
   process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8888";
@@ -27,7 +35,9 @@ export const backendService = {
   },
   meData: async (user_id: string): Promise<mePageTypes> => {
     try {
-      const response: AxiosResponse<mePageTypes> = await axiosInstance.get("/me/all?user_id=" + user_id);
+      const response: AxiosResponse<mePageTypes> = await axiosInstance.get(
+        "/me/all?user_id=" + user_id
+      );
       if (!response || response.status !== 200) {
         throw new Error("Network response was not ok");
       }
@@ -37,9 +47,11 @@ export const backendService = {
       throw error;
     }
   },
-  filmsData: async () => {
+  filmsData: async (): Promise<FilmsPageData> => {
     try {
-      const response = await axiosInstance.get("/films/all");
+      const response: AxiosResponse<FilmsPageData> = await axiosInstance.get(
+        "/films/all"
+      );
       if (!response || response.status !== 200) {
         throw new Error("Network response was not ok");
       }
@@ -220,6 +232,53 @@ export const backendService = {
       return response.data;
     } catch (error) {
       console.error("Error editing review:", error);
+      throw error;
+    }
+  },
+  async getFilteredFilms(searchParams: string): Promise<FilteredFilms> {
+    try {
+      const response: AxiosResponse<FilteredFilms> = await axiosInstance.get(
+        "/films/filter?" + searchParams
+      );
+      if (!response || response.status !== 200) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching members data:", error);
+      throw error;
+    }
+  },
+  async getMembersPageData(userId?: string): Promise<MembersPage> {
+    try {
+      const response: AxiosResponse<MembersPage> = await axiosInstance.get(
+        `/members/all?user_id=${userId}`
+      );
+      if (!response || response.status !== 200) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching member data:", error);
+      throw error;
+    }
+  },
+  async followMember(
+    follower_id: string,
+    followed_id: string
+  ): Promise<{ message: string }> {
+    try {
+      const response: AxiosResponse<{ message: string }> =
+        await axiosInstance.post("/members/follows/add", {
+          follower_id,
+          followed_id,
+        });
+      if (!response || response.status !== 201) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data;
+    } catch (error) {
+      console.error("Error following member:", error);
       throw error;
     }
   },

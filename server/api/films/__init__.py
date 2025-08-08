@@ -6,3 +6,4 @@ from . import all
 from . import popular
 from . import recent
 from . import reviewed
+from . import filter

@@ -1,0 +1,118 @@
+.splide {
+  margin-bottom: 0px;
+  padding: 0;
+}
+
+.splide .splide__arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.splide__slide {
+  width: fit-content !important;
+}
+
+.me-reviews-container .ratings-container {
+  gap: 2px;
+}
+
+.me-reviews-container .ratings-container span {
+  width: 12px;
+  height: 12px;
+}
+
+.friends-activity-container .ratings-container {
+  gap: 2px;
+  margin-top: 4px;
+}
+
+.friends-activity-container .ratings-container span {
+  width: 12px;
+  height: 12px;
+}
+
+.friends-activity-container .ratings-container span svg {
+  fill: gray;
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.filter-group-container {
+  background-color: #839495;
+  z-index: 20;
+  color: #1f1f21;
+  font-size: 13px;
+  border-radius: 3px;
+  opacity: 0;
+  pointer-events: none;
+  max-height: 450px;
+  overflow-y: scroll;
+}
+
+.filter-options {
+  border: 1px solid #1f1f21;
+  border-radius: 4px;
+}
+
+.filter-wrapper {
+  display: grid;
+  place-content: center;
+}
+
+.filter-wrapper:hover .filter-group-container {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.filter-btn {
+  padding: 4px 8px;
+  min-width: 80px;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+.primary-filter-button {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  align-items: center;
+  padding: 4px 15px;
+  border-right: 1px solid #1f1f21;
+  text-transform: uppercase;
+}
+
+.primary-filter-button svg {
+  fill: white;
+}
+
+.last-primary-button {
+  border-right: none;
+}
+
+.filter-btn:hover {
+  background-color: #606d6e;
+  color: white;
+}
+
+.dropdown-title {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 4px 15px;
+  border-bottom: 1px solid #767677;
+  color: white;
+  text-transform: uppercase;
+  font-size: 13px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #839495;
+}
+
+.dropdown-title svg {
+  fill: white;
+}

@@ -8,8 +8,8 @@
 
 /* Film card */
 
-
 .film-card {
+  display: block;
   width: 150px;
   height: auto;
   position: relative;

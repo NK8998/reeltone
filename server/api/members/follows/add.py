@@ -26,7 +26,7 @@ def add_following(follower_id, followed_id):
             return {"message": "Unfollowed user."}
 
 
-@members_bp.route('/follows/add', methods=['GET'])
+@members_bp.route('/follows/add', methods=['POST'])
 def add_following_route():
     """Endpoint to add a following relationship."""
     try:

@@ -17,15 +17,15 @@ export default function MainContent({ data }: MainContentProps) {
           posterPath={data.essential_data.poster_path}
           trailer={data.essential_data.trailer}
         />
-        <MiddleContent essentialData={data.essential_data} />
+        <MiddleContent essentialData={data.essential_data ?? []} />
         <RightContent
-          essentialData={data.essential_data}
-          userFlags={data.user_flags}
+          essentialData={data.essential_data ?? []}
+          userFlags={data.user_flags ?? []}
         />
       </div>
       <ReviewsSection
-        reviews={data.reviews}
-        essentialData={data.essential_data}
+        reviews={data.reviews ?? []}
+        essentialData={data.essential_data ?? []}
       />
     </div>
   );

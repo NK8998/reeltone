@@ -1,6 +1,6 @@
-import "./style.css"
+import "./style.css";
 import { FavouriteSvg, ThumbsUpDownSvg } from "@/assets/icons";
-import { Film } from "@/types/types";
+import { Film, RelatedFilm } from "@/types/types";
 import Link from "next/link";
 
 interface FilmCardProps {

@@ -28,7 +28,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
       .finally(() => {
         setAddedMember(true);
       });
-  }, [user, isLoaded]);
+  }, [user?.id, isLoaded]);
 
   if (!isLoaded) {
     return <LoadingPage />;

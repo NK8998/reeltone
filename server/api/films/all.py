@@ -15,8 +15,8 @@ def all_films():
         if not popular_films and not recent_films and not reviewed_films:
             return jsonify({"message": "No films found"}), 404
         return jsonify({
-            "popular_films": popular_films,
-            "recent_films": recent_films,
+            "popular_films": popular_films[:5],
+            "recent_films": recent_films[:10],
             "reviewed_films": reviewed_films
         }), 200
     except Exception as e:

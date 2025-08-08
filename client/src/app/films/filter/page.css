@@ -1,0 +1,5 @@
+.filtered-page .main-content {
+  max-width: 950px;
+  width: calc(100% - 20px);
+  margin: 0 auto;
+}

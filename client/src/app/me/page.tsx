@@ -14,7 +14,6 @@ import MainContent from "@/components/me/MainContent";
 import MainSectionLoader from "@/components/reusables/MainSectionLoader";
 import MainSectionError from "@/components/reusables/MainSectionError";
 
-
 export default function Me() {
   const { user } = useUser();
   const router = useRouter();
@@ -24,12 +23,7 @@ export default function Me() {
     return null;
   }
   // Fetch user profile with useQuery only if user exists
-  const {
-    data,
-    isLoading,
-    error,
-    isError
-  } = useQuery<mePageTypes, Error>({
+  const { data, isLoading, error, isError } = useQuery<mePageTypes, Error>({
     queryKey: ["meData", user.id],
     queryFn: () => backendService.meData(user.id),
   });
@@ -37,9 +31,9 @@ export default function Me() {
   console.log("me data", data);
 
   return (
-    <div className="me-page">
+    <div className='me-page'>
       <Navbar />
-      <main className="main-content">
+      <main className='main-content'>
         {isLoading && <MainSectionLoader />}
         {isError && <MainSectionError errorMessage={error.message} />}
         {data && <MainContent data={data} />}

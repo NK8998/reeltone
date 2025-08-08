@@ -1,33 +1,30 @@
 "use client";
-import FilmsPage from "@/components/films/FilmPage";
+import FilmsPage from "@/components/films/MainSection";
 import "./page.css";
 import Footer from "@/components/reusables/Footer/Footer";
 import Navbar from "@/components/reusables/Navbar/Navbar";
 import { backendService } from "@/services/backendService";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import MainSectionLoader from "@/components/reusables/MainSectionLoader";
+import MainSectionError from "@/components/reusables/MainSectionError";
+import FilmsMainSection from "@/components/films/MainSection";
 
 export default function Films() {
-  const [data, setData] = useState({} as any);
+  const { data, isError, error, isLoading } = useQuery({
+    queryKey: ["landingData"],
+    queryFn: () => backendService.filmsData(),
+  });
 
-  useEffect(() => {
-    backendService
-      .filmsData()
-      .then((data) => {
-        console.log("Films data:", data);
-        setData(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching films data:", error);
-      });
-  }, []);
   return (
     <div className='films-page'>
       <Navbar />
       <div className='main-content'>
-        <FilmsPage
-          popularFilms={data.popular_films}
-          recentFilms={data.recent_films}
-        />
+        <main className='films-main'>
+          {isLoading && <MainSectionLoader />}
+          {isError && <MainSectionError errorMessage={error.message} />}
+          {data && <FilmsMainSection data={data} />}
+        </main>
       </div>
       <Footer />
     </div>
