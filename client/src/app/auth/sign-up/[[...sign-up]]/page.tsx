@@ -150,7 +150,7 @@ export default function Page() {
                 className='btn btn-google'
               >
                 {loading ? (
-                  <Loader2 className='spinning-loader' />
+                  <Loader2 className='loading-spinner' />
                 ) : (
                   <GoogleSvg />
                 )}

@@ -1,34 +1,14 @@
 "use client";
 import LoadingPage from "@/components/Loading/LoadingPage";
-import { backendService } from "@/services/backendService";
+import useAddUser from "@/hooks/useAddUser";
 import { useUser } from "@clerk/nextjs";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 
 const AppContext = createContext(undefined);
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
-  const { user, isLoaded } = useUser();
-  const [addedMember, setAddedMember] = useState(false);
-
-  useEffect(() => {
-    if (!isLoaded || !user || addedMember) return;
-    backendService
-      .addMember(
-        user.id || "",
-        user.username || "",
-        user.emailAddresses[0]?.emailAddress || "",
-        user.imageUrl || ""
-      )
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        setAddedMember(true);
-      });
-  }, [user?.id, isLoaded]);
+  const { isLoaded } = useUser();
+  useAddUser();
 
   if (!isLoaded) {
     return <LoadingPage />;

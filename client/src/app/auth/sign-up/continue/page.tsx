@@ -118,7 +118,7 @@ export default function Page() {
                 type='button'
                 onClick={handleCancel}
                 className='auth-flow-btn secondary-btn' // Added a new class for styling
-                style={{ marginTop: '10px' }} // Basic spacing, refine with CSS
+                style={{ marginTop: "10px" }} // Basic spacing, refine with CSS
               >
                 <span>Cancel</span>
               </button>
