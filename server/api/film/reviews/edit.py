@@ -32,7 +32,7 @@ def edit_review(user_id, review_id, new_content, rating):
             }
             return {"message": "Review updated successfully.", "film_data": data}
         else:
-            return {"message": "Review not found or user not authorized.", "film_data": {}}, 404
+            return {"message": "Review not found or user not authorized.", "film_data": {}}
 
 
 @film_bp.route('/reviews/edit', methods=['POST'])

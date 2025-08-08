@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 from api.film.interaction.like import like_film
 from api.film.reviews.add import add_review
 from api.film.reviews.delete import delete_review
-from api.films.filter import filter_by_year, filter_by_genre
+from api.films.filter import filter_films
 from api.film.reviews.edit import edit_review
 from api.film.reviews.like import like_review
 from api.members.follows.add import add_following
@@ -144,7 +144,7 @@ def test_edit_review():
         4
     )
     print("Response:", response)
-    assert response.get("message") == "Review updated successfully." or response.get("error") == "Review not found or user not authorized."
+    assert response.get("message") == "Review updated successfully." or response.get("message") == "Review not found or user not authorized."
 
 
 def test_delete_review_user():
@@ -179,12 +179,12 @@ def test_search_movies():
 def test_filter_movies():
     print("Filtering movies by year...")
     year = 2019
-    filtered_movies = filter_by_year(year)
+    filtered_movies = filter_films(start_year=year, end_year=year)
     assert isinstance(filtered_movies, list), "Filtered movies should be a list."
 
     print("Filtering movies by genre...")
-    genre = "Action"
-    filtered_movies_genre = filter_by_genre(genre)
+    genre_id = 28
+    filtered_movies_genre = filter_films(genre_id=genre_id)
     assert isinstance(filtered_movies_genre, list), "Filtered movies by genre should be a list."
 
 def test_like_film():
