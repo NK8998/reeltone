@@ -36,7 +36,7 @@ export default function UserButton() {
   };
 
   const handleClick = () => {
-    router.push("/settings");
+    router.push("/profile");
   };
 
   if (!isSignedIn) return null;

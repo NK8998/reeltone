@@ -1,0 +1,8 @@
+.profile-page {
+  width: 100%;
+}
+
+.profile-content {
+  width: fit-content;
+  margin: 20px auto;
+}

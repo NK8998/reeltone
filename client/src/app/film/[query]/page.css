@@ -263,9 +263,11 @@
 }
 
 .film-trailer-container {
+  --max-width: 1200px;
   height: calc(100vh - 80px);
-  max-width: 1000px;
-  aspect-ratio: 16 / 9;
+  max-width: var(--max-width);
+  max-height: calc(9 * var(--max-width) / 14);
+  aspect-ratio: 14 / 9;
   border-radius: 8px;
   overflow: hidden;
   display: flex;

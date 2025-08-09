@@ -31,7 +31,7 @@ export default function Page() {
   }, [password]);
 
   if (isSignedIn) {
-    router.replace("/home");
+    router.replace("/me");
     return;
   }
 
@@ -127,7 +127,7 @@ export default function Page() {
                 className='btn btn-google'
               >
                 {loading ? (
-                  <Loader2 className='spinning-loader o' />
+                  <Loader2 className='loading-spinner' />
                 ) : (
                   <GoogleSvg />
                 )}
