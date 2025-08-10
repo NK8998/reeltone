@@ -13,6 +13,8 @@ import CTAButtons from "@/components/landing/CTAButtons";
 import Reviews from "@/components/landing/Reviews";
 import EnticerBox from "@/components/landing/EnticerBox";
 import { useQuery } from "@tanstack/react-query";
+import MainSectionLoader from "@/components/reusables/MainSectionLoader";
+import MainSectionError from "@/components/reusables/MainSectionError";
 
 export default function Landing() {
   const {
@@ -29,6 +31,8 @@ export default function Landing() {
     <div className='landing-page'>
       <Navbar />
       <main className='landing-main'>
+        {isError && <MainSectionError errorMessage={error.message} />}
+        {loading && <MainSectionLoader />}
         {landingData && (
           <>
             <Hero trending_film={landingData.trending_film} />
