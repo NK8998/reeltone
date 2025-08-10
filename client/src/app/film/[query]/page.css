@@ -367,6 +367,10 @@
   font-weight: 500;
 }
 
+.user-flags-button span {
+  width: 60px;
+}
+
 .user-flags-button.remove:hover .label {
   display: none;
 }

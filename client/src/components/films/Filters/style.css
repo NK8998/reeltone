@@ -112,6 +112,10 @@
   .filtered-view-filter-bar h3 {
     display: none;
   }
+
+  .filter-bar-right {
+    margin: auto;
+  }
 }
 
 @media (max-width: 500px) {
