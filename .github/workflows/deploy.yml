@@ -8,7 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: reeltone-env  # link this job to your environment
 
     steps:
       - name: Checkout repository
@@ -21,12 +20,22 @@ jobs:
           username: ${{ secrets.AZURE_VM_USER }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           script: |
-            cd ~/reeltone
-            git fetch --all
-            git reset --hard origin/main
-            cd server
-            sudo docker build -t reeltone-server .
+            # 1. Stop and remove existing container
             sudo docker rm -f reeltone-server || true
+
+            # 2. Remove old repo folder
+            rm -rf ~/reeltone
+
+            # 3. Clone fresh copy
+            git clone https://github.com/NK8998/reeltone.git ~/reeltone
+
+            # 4. Move into server directory
+            cd ~/reeltone/server
+
+            # 5. Build Docker image
+            sudo docker build -t reeltone-server .
+
+            # 6. Run container
             sudo docker run -d \
               -p 127.0.0.1:8888:8888 \
               --env-file /home/${{ secrets.AZURE_VM_USER }}/.env \
