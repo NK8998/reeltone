@@ -1,0 +1,40 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t reeltone-server ./server
+
+      - name: Save Docker image to file
+        run: docker save reeltone-server | gzip > reeltone-server.tar.gz
+
+      - name: Copy image to VM
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.AZURE_HOST }}
+          username: ${{ secrets.AZURE_USER }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
+          source: "reeltone-server.tar.gz"
+          target: "~/"
+
+      - name: SSH and run container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AZURE_HOST }}
+          username: ${{ secrets.AZURE_USER }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
+          script: |
+            docker load < reeltone-server.tar.gz
+            docker stop reeltone-server || true
+            docker rm reeltone-server || true
+            docker run -d -p 5000:5000 --name reeltone-server reeltone-server
