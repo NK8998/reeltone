@@ -58,6 +58,23 @@ section.limited-width .section-top-row p {
   position: relative;
 }
 
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: calc(60vh / 2);
+  width: 100%;
+  z-index: 4;
+  background-image: linear-gradient(
+    to top,
+    #14181c,
+    #14181cea,
+    #14181cb4,
+    transparent
+  );
+}
+
 .hero .backdrop-img {
   position: absolute;
   top: 0;
@@ -75,12 +92,18 @@ section.limited-width .section-top-row p {
   display: flex;
   flex-direction: column;
   justify-content: end;
+  position: relative;
+  z-index: 5;
 }
 
 .hero h1 {
   font-size: 3rem;
   font-weight: 600;
   margin-bottom: 10px;
+}
+
+.hero h1 span {
+  color: #3e969d;
 }
 
 .hero p {
@@ -106,7 +129,7 @@ section.limited-width .section-top-row p {
   color: white;
   font-weight: 600;
   border: none;
-  padding: 6px 24px;
+  padding: 6px 30px;
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
@@ -132,7 +155,8 @@ section.limited-width .section-top-row p {
 
 /* Film Grid */
 .film-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px;
   overflow-x: auto;
   overflow-y: auto;
@@ -140,6 +164,10 @@ section.limited-width .section-top-row p {
   width: fit-content;
   max-width: 100%;
   margin: auto;
+}
+
+.landing-main .film-grid .film-card {
+  width: unset;
 }
 
 .recent-films .film-grid {
@@ -223,4 +251,42 @@ section.limited-width .section-top-row p {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 20px;
+}
+
+@media (min-width: 800px) {
+  .recent-films .film-grid .film-card {
+    width: 100px;
+  }
+
+  .recent-films .film-grid {
+    display: flex;
+  }
+
+  .recent-films .film-card {
+    width: 100px;
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 810px) {
+  .hero {
+    max-height: 50vh;
+    overflow: hidden;
+    margin-bottom: 40px;
+    margin-top: 0px;
+    position: relative;
+  }
+
+  .hero .hero-overlay {
+    box-shadow: none;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
 }

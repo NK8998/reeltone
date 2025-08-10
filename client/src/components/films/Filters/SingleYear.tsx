@@ -26,10 +26,10 @@ export default function SingleYear() {
           decadeStart - 1
         }`}
       >
-        <LeftArrow /> {/* Rotate this in CSS */}
+        <LeftArrow />
       </Link>
 
-      <div className='single-year-group'>
+      <div className='single-year-group webkit-scrollbar-hide'>
         {/* Decade link */}
         <Link
           className={`year-link ${isDecade ? "active" : ""}`}
@@ -65,7 +65,7 @@ export default function SingleYear() {
             decadeStart + 19
           }`}
         >
-          <LeftArrow /> {/* Rotate this opposite direction */}
+          <LeftArrow />
         </Link>
       )}
     </div>

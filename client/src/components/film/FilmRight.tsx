@@ -32,6 +32,11 @@ const UserFlagsButton = ({
   onError,
 }: Props) => {
   const [state, setState] = useState(currentState);
+
+  useEffect(() => {
+    setState(currentState);
+  }, [currentState]);
+
   const queryClient = useQueryClient();
 
   const toggleMutation = useMutation<Response, Error, boolean>({
@@ -49,7 +54,7 @@ const UserFlagsButton = ({
     },
     onSuccess: (response) => {
       toast.success(response.message.message);
-      queryClient.invalidateQueries({ queryKey: [label] });
+      queryClient.invalidateQueries({ queryKey: ["filmData"] });
       onSuccess?.(response);
     },
   });
@@ -109,6 +114,7 @@ export default function FilmRight({
     navigator.clipboard.writeText(window.location.href);
     toast.success("Film link copied to clipboard!");
   };
+
   return (
     <div className='film-right'>
       <div className='film-right-interactions interaction-row'>

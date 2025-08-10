@@ -38,6 +38,10 @@
   align-items: center;
 }
 
+.mini-change-view .default-view-selector {
+  display: none;
+}
+
 .default-view-selector span svg {
   width: 18px;
   height: 18px;
@@ -71,13 +75,14 @@
   width: fit-content;
   margin: 20px auto;
   margin-top: 40px;
+  max-width: 100%;
 }
 
 .single-year-group {
   display: flex;
   border: 1px solid #eeeeee20;
   border-radius: 4px;
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 .year-link {
@@ -101,4 +106,29 @@
 
 .next-decade svg {
   transform: rotate(180deg);
+}
+
+@media (max-width: 450px) {
+  .filtered-view-filter-bar h3 {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .filtered-view-filter-bar .default-view-selector {
+    display: none;
+  }
+
+  .mini-change-view {
+    width: fit-content;
+    margin: 15px auto;
+  }
+
+  .mini-change-view .default-view-selector {
+    display: flex;
+  }
+
+  .individual-years {
+    margin-top: 15px;
+  }
 }

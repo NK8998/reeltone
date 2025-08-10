@@ -14,6 +14,8 @@ export default function MainContent({ data }: MainContentProps) {
       <Hero backgroundImage={data.essential_data.backdrop_path} />
       <div className='film-flex-content'>
         <LeftContent
+          essentialData={data.essential_data ?? []}
+          userFlags={data.user_flags ?? []}
           posterPath={data.essential_data.poster_path}
           trailer={data.essential_data.trailer}
         />

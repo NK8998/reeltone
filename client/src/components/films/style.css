@@ -39,6 +39,7 @@
   display: flex;
   align-items: center;
   gap: 50px;
+  max-width: 100%;
 }
 
 .filter-group-container {
@@ -51,16 +52,15 @@
   pointer-events: none;
   max-height: 450px;
   overflow-y: scroll;
+  overflow-x: hidden;
+  top: 0;
+  max-width: 140px;
+  width: fit-content;
 }
 
 .filter-options {
   border: 1px solid #1f1f21;
   border-radius: 4px;
-}
-
-.filter-wrapper {
-  display: grid;
-  place-content: center;
 }
 
 .filter-wrapper:hover .filter-group-container {
@@ -83,6 +83,7 @@
   padding: 4px 15px;
   border-right: 1px solid #1f1f21;
   text-transform: uppercase;
+  width: 100%;
 }
 
 .primary-filter-button svg {
@@ -115,4 +116,36 @@
 
 .dropdown-title svg {
   fill: white;
+}
+
+.yearly-group-btn {
+  width: 100%;
+  height: fit-content;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 690px) {
+  .filter-wrapper {
+    border-bottom: 1px solid #1f1f21;
+  }
+
+  .primary-filter-button,
+  .dropdown-title {
+    justify-content: space-between;
+    font-size: 11px;
+    padding: 2px 8px;
+  }
+}
+
+@media (max-width: 580px) {
+  .filter-bar {
+    flex-direction: column;
+    justify-content: start;
+    gap: 8px;
+  }
+  .primary-filter-button,
+  .dropdown-title {
+    font-size: 10px;
+    padding: 2px 5px;
+  }
 }

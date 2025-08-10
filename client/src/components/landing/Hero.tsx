@@ -13,8 +13,13 @@ export default function Hero({
         alt={trending_film?.title}
       />
       <div className='hero-overlay'>
-        <h1>Discover. Review. Connect.</h1>
-        <p>Join a global community of film lovers.</p>
+        <h1>
+          Discover. <span>Review.</span> Connect.
+        </h1>
+        <p>
+          Join a global community of film lovers. <br /> Share your thoughts on
+          the latest releases.
+        </p>
       </div>
     </section>
   );
