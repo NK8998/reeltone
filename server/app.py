@@ -3,6 +3,7 @@ from flask import Flask
 from api import api_bp
 import os
 import tmdbsimple as tmdb
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Import the new blueprint
 from community_api import community_bp
@@ -27,4 +28,4 @@ for rule in app.url_map.iter_rules():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8888)
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
