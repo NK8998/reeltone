@@ -8,7 +8,7 @@ interface FilmReviewGridProps {
 
 export default function FilmReviewGrid({ reviews }: FilmReviewGridProps) {
   return (
-    <section className='py-6 px-4 sm:px-6 lg:px-8 rounded-md'>
+    <section className='py-6 lg:px-8 rounded-md'>
       <div className='section-top-bar flex items-center justify-between border-b border-gray-700 pb-1 mb-1'>
         <h2 className=' font-semibold mb-2 text-gray-300'>
           Some popular reviews from the community

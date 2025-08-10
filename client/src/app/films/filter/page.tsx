@@ -12,15 +12,12 @@ import { useSearchParams } from "next/navigation";
 export default function Page() {
   const searchParams = useSearchParams();
 
-  // Convert to plain query string (without the '?')
   const queryString = searchParams.toString();
 
   const { data, isLoading, error, isError } = useQuery({
     queryKey: ["filteredFilms", queryString],
     queryFn: () => backendService.getFilteredFilms(queryString),
   });
-
-  console.log(data);
 
   return (
     <div className='filtered-page'>

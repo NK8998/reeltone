@@ -15,7 +15,10 @@ export default function TopRated({ top_rated }: TopRatedProps) {
     <section className='top-rated py-6 px-4 sm:px-6 lg:px-8 rounded-md'>
       <div className='section-top-bar flex items-center justify-between border-b border-gray-700 pb-1 mb-2'>
         <h2 className=' font-semibold mb-2 text-gray-300'>Top Rated</h2>
-        <Link href='#' className='text-sm text-gray-500 hover:underline'>
+        <Link
+          href='/films/filter?sort_by=popularity.desc'
+          className='text-sm text-gray-500 hover:underline'
+        >
           See All
         </Link>
       </div>
