@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 import { AppProvider } from "@/context/AppContext";
 import QueryProvider from "@/providers/QueryProvider";
+import BProgress from "@/providers/BProgress";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,7 +41,9 @@ export default function RootLayout({
           >
             <AppProvider>
               <Toaster position='bottom-right' richColors />
-              <div className='app-full-bleed'>{children}</div>
+              <div className='app-full-bleed'>
+                <BProgress>{children}</BProgress>
+              </div>
             </AppProvider>
             <div id='modals' />
           </body>
