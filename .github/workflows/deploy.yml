@@ -21,24 +21,22 @@ jobs:
           username: ${{ secrets.AZURE_VM_USER }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           script: |
-            # 1. Stop and remove existing container
+            # Stop and remove container
             sudo docker rm -f reeltone-server || true
 
-            # 2. Remove old repo folder
+            # Remove old repo
             rm -rf ~/reeltone
 
-            # 3. Clone fresh copy
+            # Clone fresh
             git clone https://github.com/NK8998/reeltone.git ~/reeltone
 
-            # 4. Move into server directory
-            cd ~/reeltone/server
+            # Build from inside server dir
+            sudo docker build -t reeltone-server ~/reeltone/server
 
-            # 5. Build Docker image
-            sudo docker build -t reeltone-server .
-
-            # 6. Run container
+            # Run container from root (no need to cd)
             sudo docker run -d \
               -p 127.0.0.1:8888:8888 \
               --env-file /home/${{ secrets.AZURE_VM_USER }}/.env \
               --name reeltone-server \
               reeltone-server
+
