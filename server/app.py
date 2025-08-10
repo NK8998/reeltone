@@ -26,6 +26,8 @@ app.register_blueprint(community_bp)
 for rule in app.url_map.iter_rules():
     print(f"{rule.methods} -> {rule.rule}")
 
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+
 
 if __name__ == '__main__':
-    app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
+    app.run()
