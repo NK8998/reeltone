@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: reeltone-env  # link this job to your environment
+    environment: reeltone-env  # linked to environment for secrets
 
     steps:
       - name: Checkout repository
@@ -21,20 +21,20 @@ jobs:
           username: ${{ secrets.AZURE_VM_USER }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           script: |
-            # Stop and remove container if exists
+            # Stop and remove old container
             sudo docker rm -f reeltone-server || true
 
             # Remove old repo
             rm -rf ~/reeltone
 
-            # Clone fresh
+            # Clone fresh repo
             git clone https://github.com/NK8998/reeltone.git ~/reeltone
 
-            # Build from inside server dir
+            # Build new image from inside server directory
             cd ~/reeltone/server
-            sudo docker build -t reeltone-server -f .dockerfile .
+            sudo docker build --pull -t reeltone-server -f .dockerfile .
 
-            # Go back to home and run container
+            # Go back home and run container
             cd ~
             sudo docker run -d \
               -p 127.0.0.1:8888:8888 \
@@ -42,3 +42,6 @@ jobs:
               --name reeltone-server \
               reeltone-server
 
+            # Clean up dangling images/layers
+            sudo docker image prune -af
+            sudo docker container prune -f
