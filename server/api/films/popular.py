@@ -1,10 +1,19 @@
 import tmdbsimple as tmdb
 from . import films_bp
+from datetime import datetime, timedelta
 
 def get_popular_films():
     """Fetch popular films from TMDB API. Return as a list of dictionaries."""
-    movies = tmdb.Movies()
-    response = movies.popular()
+    discover = tmdb.Discover()
+    today = datetime.today()
+    one_week_ago = today - timedelta(days=7)
+    
+    query = {
+        'primary_release_date.gte': one_week_ago.strftime('%Y-%m-%d'),
+        'primary_release_date.lte': today.strftime('%Y-%m-%d'),
+        'sort_by': 'popularity.desc',
+    }
+    response = discover.movie(**{**query, 'page': 1})
 
     # Extract relevant fields
     recent_films = []

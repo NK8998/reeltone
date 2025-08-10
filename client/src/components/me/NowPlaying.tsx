@@ -1,6 +1,6 @@
 import { Film } from "@/types/types";
 import FilmCard from "../reusables/FilmCard";
-import Link from "next/dist/client/link";
+import Link from "next/link";
 
 interface NowPlayingProps {
   now_playing: Film[];
