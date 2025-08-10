@@ -81,7 +81,14 @@ body {
   pointer-events: none;
 }
 
+.modal-backdrop {
+  width: 100%;
+  max-width: calc(100vw - 30px);
+  margin: auto;
+}
+
 .modal-content {
+  width: 100%;
   pointer-events: all;
 }
 

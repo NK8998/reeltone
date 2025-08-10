@@ -275,15 +275,15 @@
 }
 
 .film-trailer-container {
-  --max-width: 1200px;
-  height: calc(100vh - 80px);
-  max-width: var(--max-width);
-  max-height: calc(9 * var(--max-width) / 14);
-  aspect-ratio: 14 / 9;
+  --width: min(100%, 1000px);
+  width: var(--width);
+  max-height: calc(9 * var(--width) / 13);
+  aspect-ratio: 13 / 9;
   border-radius: 8px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  margin: auto;
 }
 
 .film-trailer-container iframe {
