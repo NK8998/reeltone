@@ -15,7 +15,7 @@ TMDB_API_KEY = os.environ.get("TMDB_API_KEY", "YOUR_TMDB_API_KEY_HERE")
 tmdb.API_KEY = TMDB_API_KEY
 
 # Enable CORS for all domains
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": ["https://reeltone.streamgrid.site", "https://www.reeltone.streamgrid.site"]}})
 
 # Register your existing blueprint
 app.register_blueprint(api_bp)
