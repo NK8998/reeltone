@@ -43,12 +43,8 @@ export default function RootLayout({
           name='google-site-verification'
           content='gmAlnfW2LzlhdOVNgnUYZYfbuooRuQVNgNAeekIGeiY'
         />
-        <link
-          rel='icon'
-          href='/images/reel_favicon.png'
-          type='image/x-icon'
-          sizes='16x16'
-        />
+        <link rel='manifest' href='/site.webmanifest' />
+        <link rel='icon' href='/images/favicon.ico' type='image/x-icon' />
         <title>ReelTone</title>
         <QueryProvider>
           <body
