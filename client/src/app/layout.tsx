@@ -38,7 +38,10 @@ export default function RootLayout({
           property='og:description'
           content='A platform for film enthusiasts to connect and share'
         />
-        <meta property='og:image' content='/images/reel_logo_bg.png' />
+        <meta
+          property='og:image'
+          content='https://reeltone.streamgrid.site/images/reel_logo_bg.png'
+        />
         <meta
           name='google-site-verification'
           content='gmAlnfW2LzlhdOVNgnUYZYfbuooRuQVNgNAeekIGeiY'
