@@ -18,6 +18,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const metadata: Metadata = {
+  title: "ReelTone",
+  description: "A platform for film enthusiasts to connect and share",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,27 +31,25 @@ export default function RootLayout({
   return (
     <ClerkProvider dynamic>
       <html lang='en'>
-        <head>
-          <meta name='viewport' content='width=device-width, initial-scale=1' />
-          <meta name='theme-color' content='#000000' />
-          <meta property='og:title' content='ReelTone' />
-          <meta
-            property='og:description'
-            content='A platform for film enthusiasts to connect and share'
-          />
-          <meta property='og:image' content='/images/reel_logo_bg.png' />
-          <meta
-            name='google-site-verification'
-            content='gmAlnfW2LzlhdOVNgnUYZYfbuooRuQVNgNAeekIGeiY'
-          />
-          <link
-            rel='icon'
-            href='/images/reel_favicon.png'
-            type='image/x-icon'
-            sizes='256x256'
-          />
-          <title>ReelTone</title>
-        </head>
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta name='theme-color' content='#000000' />
+        <meta property='og:title' content='ReelTone' />
+        <meta
+          property='og:description'
+          content='A platform for film enthusiasts to connect and share'
+        />
+        <meta property='og:image' content='/images/reel_logo_bg.png' />
+        <meta
+          name='google-site-verification'
+          content='gmAlnfW2LzlhdOVNgnUYZYfbuooRuQVNgNAeekIGeiY'
+        />
+        <link
+          rel='icon'
+          href='/images/reel_favicon.png'
+          type='image/x-icon'
+          sizes='256x256'
+        />
+        <title>ReelTone</title>
         <QueryProvider>
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
