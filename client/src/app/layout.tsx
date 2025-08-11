@@ -21,6 +21,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "ReelTone",
   description: "A platform for film enthusiasts to connect and share",
+  icons: {
+    icon: "/images/reel_favicon.png",
+  },
 };
 
 export default function RootLayout({
