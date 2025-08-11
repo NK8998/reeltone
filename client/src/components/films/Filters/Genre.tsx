@@ -1,4 +1,5 @@
 import { ArrowDownSvg } from "@/assets/icons";
+import useFilter from "@/hooks/useFilter";
 import Link from "next/link";
 
 const genres = [
@@ -24,6 +25,12 @@ const genres = [
 ];
 
 export default function GenreFilter() {
+  const handleFilter = useFilter();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    handleFilter(e.currentTarget.href.split("?")[1] ?? "");
+  };
   return (
     <div className='filter-group-container flex flex-col styled-scroll-bar  absolute'>
       <h3 className='text-md text-center font-semibold dropdown-title'>
@@ -34,6 +41,8 @@ export default function GenreFilter() {
       </h3>
       {genres.map((genre) => (
         <Link
+          prefetch={false}
+          onClick={handleClick}
           key={genre.id}
           className='filter-btn'
           href={`/films/filter?genre=${genre.name}`}

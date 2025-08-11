@@ -1,3 +1,7 @@
+.comment-wrapper {
+  width: calc(100% - 20px);
+}
+
 .comment-container {
   width: 100%;
 }

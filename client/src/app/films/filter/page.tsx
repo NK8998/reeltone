@@ -3,7 +3,6 @@ import "./page.css";
 import MainContent from "@/components/films/Filters/MainContent";
 import Footer from "@/components/reusables/Footer/Footer";
 import MainSectionError from "@/components/reusables/MainSectionError";
-import MainSectionLoader from "@/components/reusables/MainSectionLoader";
 import Navbar from "@/components/reusables/Navbar/Navbar";
 import { backendService } from "@/services/backendService";
 import { useQuery } from "@tanstack/react-query";

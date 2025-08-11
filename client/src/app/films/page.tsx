@@ -23,7 +23,7 @@ export default function Films() {
         <main className='films-main'>
           {isLoading && <MainSectionLoader />}
           {isError && <MainSectionError errorMessage={error.message} />}
-          {data && <FilmsMainSection data={data} />}
+          {data && !isLoading && <FilmsMainSection data={data} />}
         </main>
       </div>
       <Footer />

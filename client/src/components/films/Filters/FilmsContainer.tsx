@@ -12,7 +12,11 @@ export default function FilmsContainer({
   return (
     <section className={`films-container ${compactView ? "compact" : ""}`}>
       {films.map((film, index) => (
-        <FilmCard key={`$${film.id}-${index}`} film={film} />
+        <FilmCard
+          key={`$${film.id}-${index}`}
+          film={film}
+          prefetch={index === 0}
+        />
       ))}
     </section>
   );

@@ -38,18 +38,50 @@
   align-items: center;
 }
 
+.view-selector-text {
+  display: none;
+  text-transform: uppercase;
+  font-size: 9px;
+  font-weight: 500;
+  text-align: center;
+  display: grid;
+  line-height: 1cap;
+}
+
+.mini-change-view {
+  width: fit-content;
+  margin: 15px auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .mini-change-view .default-view-selector {
   display: none;
 }
 
-.default-view-selector span svg {
+.mini-change-view .chain-filters {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mini-change-view .chain-filters .view-selector-text {
+  display: block;
+}
+
+.default-view-selector span svg,
+.mini-change-view .chain-filters svg path {
   width: 18px;
   height: 18px;
   fill: #3d959b64;
 }
 
 .default-view-selector span:hover svg,
-.default-view-selector span.active svg {
+.default-view-selector span.active svg,
+.mini-change-view .chain-filters:hover svg path,
+.mini-change-view .chain-filters.active svg path {
   fill: #3d959b;
 }
 
@@ -74,7 +106,7 @@
   gap: 15px;
   width: fit-content;
   margin: 20px auto;
-  margin-top: 40px;
+  margin-top: 20px;
   max-width: 100%;
 }
 
@@ -123,13 +155,12 @@
     display: none;
   }
 
-  .mini-change-view {
-    width: fit-content;
-    margin: 15px auto;
-  }
-
   .mini-change-view .default-view-selector {
     display: flex;
+  }
+
+  .view-selector-text {
+    display: block;
   }
 
   .individual-years {

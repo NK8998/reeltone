@@ -1,4 +1,5 @@
 import { ArrowDownSvg } from "@/assets/icons";
+import useFilter from "@/hooks/useFilter";
 import Link from "next/link";
 
 export const languages = [
@@ -39,6 +40,12 @@ export const languages = [
 ];
 
 export default function LanguageFilter() {
+  const handleFilter = useFilter();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    handleFilter(e.currentTarget.href.split("?")[1] ?? "");
+  };
   return (
     <div className='filter-group-container flex flex-col styled-scroll-bar absolute'>
       <h3 className='text-md text-center font-semibold dropdown-title'>
@@ -48,6 +55,7 @@ export default function LanguageFilter() {
         </span>
       </h3>
       <Link
+        onClick={handleClick}
         className='yearly-group-btn filter-btn transition-all'
         href={"/films/filter"}
       >
@@ -56,6 +64,8 @@ export default function LanguageFilter() {
       {languages.map(({ name, code }) => (
         <Link
           key={code}
+          prefetch={false}
+          onClick={handleClick}
           className='yearly-group-btn filter-btn transition-all'
           href={`/films/filter?language=${code}`}
         >

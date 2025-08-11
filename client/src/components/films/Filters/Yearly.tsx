@@ -1,17 +1,21 @@
 import { ArrowDownSvg } from "@/assets/icons";
+import useFilter from "@/hooks/useFilter";
 import Link from "next/link";
 
 export const YearlyButton = ({
   start,
   end,
+  onClick,
 }: {
   start: number;
   end: number;
+  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }) => {
   return (
     <Link
       href={`/films/filter?start_year=${start}&end_year=${end}`}
       className='yearly-group-btn filter-btn transition-all'
+      onClick={onClick}
     >
       {start}s
     </Link>
@@ -19,6 +23,13 @@ export const YearlyButton = ({
 };
 
 export default function YearlyFilter() {
+  const handleFilter = useFilter();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    handleFilter(e.currentTarget.href.split("?")[1] ?? "");
+  };
+
   const currentYear = new Date().getFullYear();
   const startDecade = 1950;
   const decades = [];
@@ -37,12 +48,18 @@ export default function YearlyFilter() {
       </h3>
       <Link
         className='yearly-group-btn filter-btn transition-all'
-        href={"/films/filter"}
+        href={`/films/filter`}
+        onClick={handleClick}
       >
         All
       </Link>
       {decades.map(({ start, end }) => (
-        <YearlyButton key={start} start={start} end={end} />
+        <YearlyButton
+          key={start}
+          start={start}
+          end={end}
+          onClick={handleClick}
+        />
       ))}
     </div>
   );

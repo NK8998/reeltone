@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import { AppProvider } from "@/context/AppContext";
 import QueryProvider from "@/providers/QueryProvider";
 import BProgress from "@/providers/BProgress";
+import { FilterProvider } from "@/context/FilterContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,7 +43,9 @@ export default function RootLayout({
             <AppProvider>
               <Toaster position='bottom-right' richColors />
               <div className='app-full-bleed'>
-                <BProgress>{children}</BProgress>
+                <FilterProvider>
+                  <BProgress>{children}</BProgress>
+                </FilterProvider>
               </div>
             </AppProvider>
             <div id='modals' />

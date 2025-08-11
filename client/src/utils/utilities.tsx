@@ -65,3 +65,14 @@ export const filterArrayByKey = <T extends Record<string, any>>(
 ): T[] => {
   return array.filter((item) => item[key] === value);
 };
+
+export function sanitizeYear(value: string | null): number | null {
+  const currentYear = new Date().getFullYear();
+
+  if (!value) return null;
+  const num = Number(value);
+  if (Number.isNaN(num)) return null;
+  if (!Number.isInteger(num)) return null;
+  if (num < 1800 || num > currentYear + 5) return null; // Adjust limits as you see fit
+  return num;
+}

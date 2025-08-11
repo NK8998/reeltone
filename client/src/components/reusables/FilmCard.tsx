@@ -7,11 +7,17 @@ interface FilmCardProps {
   film: Film;
   hasOverlay?: boolean;
   loading?: boolean;
+  prefetch?: boolean;
 }
 
-export default function FilmCard({ film, hasOverlay, loading }: FilmCardProps) {
+export default function FilmCard({
+  film,
+  hasOverlay,
+  loading,
+  prefetch,
+}: FilmCardProps) {
   return (
-    <Link href={`/film/${film.id}`} className='film-card'>
+    <Link href={`/film/${film.id}`} className='film-card' prefetch={prefetch}>
       {!loading && (
         <>
           {hasOverlay && (

@@ -56,18 +56,21 @@ export const ChangeView = ({
 }) => {
   return (
     <div className='default-view-selector flex gap-1'>
-      <span
-        className={compactView ? "" : "active"}
-        onClick={() => setCompactView(false)}
-      >
-        <DefaultView />
-      </span>
-      <span
-        className={compactView ? "active" : ""}
-        onClick={() => setCompactView(true)}
-      >
-        <CompactViewSvg />
-      </span>
+      <span className='text:sm view-selector-text'>View</span>
+      <div className='flex gap-1'>
+        <span
+          className={compactView ? "" : "active"}
+          onClick={() => setCompactView(false)}
+        >
+          <DefaultView />
+        </span>
+        <span
+          className={compactView ? "active" : ""}
+          onClick={() => setCompactView(true)}
+        >
+          <CompactViewSvg />
+        </span>
+      </div>
     </div>
   );
 };
