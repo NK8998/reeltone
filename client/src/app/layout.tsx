@@ -47,7 +47,7 @@ export default function RootLayout({
           rel='icon'
           href='/images/reel_favicon.png'
           type='image/x-icon'
-          sizes='256x256'
+          sizes='16x16'
         />
         <title>ReelTone</title>
         <QueryProvider>
