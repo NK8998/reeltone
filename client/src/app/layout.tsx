@@ -32,7 +32,12 @@ export default function RootLayout({
     <ClerkProvider dynamic>
       <html lang='en'>
         <head>
-          <link rel='icon' href='/images/reel_favicon.png' />
+          <link
+            rel='icon'
+            href='/images/reel_favicon.png'
+            type='image/x-icon'
+            sizes='256x256'
+          />
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta name='theme-color' content='#000000' />
           <meta property='og:title' content='ReelTone' />
