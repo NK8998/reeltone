@@ -7,7 +7,9 @@ export default function ChainFilters() {
 
   const handleClick = () => {
     setChainFilters(!chainFilters);
-    toast.info(`Filters will ${chainFilters ? "not" : ""} be combined`);
+    toast.info(`Filters will ${chainFilters ? "not" : ""} be combined`, {
+      position: "top-center",
+    });
   };
 
   return (
