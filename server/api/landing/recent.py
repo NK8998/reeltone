@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from flask import jsonify, request
 from . import landing_bp
 import tmdbsimple as tmdb
@@ -5,12 +6,20 @@ import os
 
 def get_recent_films():
     """Fetch recent films from TMDB API. Return as a list of dictionaries."""
-    movies = tmdb.Movies()
-    response = movies.now_playing()
+    discover = tmdb.Discover()
+    today = datetime.today()
+    one_week_ago = today - timedelta(days=7)
+
+    query = {
+        'primary_release_date.gte': one_week_ago.strftime('%Y-%m-%d'),
+        'primary_release_date.lte': today.strftime('%Y-%m-%d'),
+        'sort_by': 'popularity.desc',
+    }
+    response = discover.movie(**{**query, 'page': 1})
 
     img_base_url = os.getenv("TMDB_IMAGE_BASE_URL") or "https://image.tmdb.org/t/p"
 
-    # Extract relevant fields
+    # Extracting relevant fields
     recent_films = []
     for movie in response['results']:
         recent_films.append({

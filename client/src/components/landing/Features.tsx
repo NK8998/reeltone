@@ -1,9 +1,11 @@
 import {
+  ClockIcon,
   FavouriteSvg,
   FilledVisibleSvg,
   RateSvg,
   ReviewSvg,
 } from "@/assets/icons";
+import { Clock, Clock1 } from "lucide-react";
 
 const features = [
   {
@@ -21,6 +23,10 @@ const features = [
   {
     icon: <RateSvg />,
     desc: "Rate each film on a five-star scale (with halves) to record and share your reaction",
+  },
+  {
+    icon: <ClockIcon />,
+    desc: "Add your favorite films to a watchlist and never forget to watch them",
   },
 ];
 

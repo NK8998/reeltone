@@ -12,7 +12,6 @@ const FilmsMainSection = ({ data }: { data: FilmsPageData }) => {
       <PopularFilms popularFilms={data.popular_films ?? []} />
       <JustReviewed Reviewed={data.reviewed_films ?? []} />
       <FilmReviewGrid reviews={data.reviewed_films ?? []} />
-      {/* Add more sections as needed */}
     </div>
   );
 };

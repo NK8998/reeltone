@@ -1,10 +1,8 @@
 "use client";
-import FilmsPage from "@/components/films/MainSection";
 import "./page.css";
 import Footer from "@/components/reusables/Footer/Footer";
 import Navbar from "@/components/reusables/Navbar/Navbar";
 import { backendService } from "@/services/backendService";
-import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import MainSectionLoader from "@/components/reusables/MainSectionLoader";
 import MainSectionError from "@/components/reusables/MainSectionError";

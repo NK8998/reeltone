@@ -32,7 +32,7 @@ export default function FilmCard({
               </span>
             </div>
           )}
-          <span className='film-title'>{film.title}</span>
+          <span className='film-title pointer-events-none'>{film.title}</span>
           <img
             src={film.poster_url ?? "/images/loading.jpg"}
             alt={film.title}

@@ -6,7 +6,7 @@ def get_popular_films():
     """Fetch popular films from TMDB API. Return as a list of dictionaries."""
     discover = tmdb.Discover()
     today = datetime.today()
-    one_week_ago = today - timedelta(days=7)
+    one_week_ago = today - timedelta(days=28)
     
     query = {
         'primary_release_date.gte': one_week_ago.strftime('%Y-%m-%d'),

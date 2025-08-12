@@ -15,6 +15,7 @@ import EnticerBox from "@/components/landing/EnticerBox";
 import { useQuery } from "@tanstack/react-query";
 import MainSectionLoader from "@/components/reusables/MainSectionLoader";
 import MainSectionError from "@/components/reusables/MainSectionError";
+import LazyReviews from "@/components/landing/LazyReviews";
 
 export default function Landing() {
   const {
@@ -50,11 +51,12 @@ export default function Landing() {
               filmId={landingData.trending_film?.id}
               filmTitle={landingData.trending_film?.title}
             />
-            <Reviews
-              reviews={landingData.recent_reviews?.results ?? []}
-              filmId={landingData.trending_film?.id}
-              filmTitle={landingData.trending_film?.title}
-            />
+            {landingData.trending_film && (
+              <LazyReviews
+                filmId={landingData.trending_film?.id}
+                filmTitle={landingData.trending_film?.title}
+              />
+            )}
           </>
         )}
       </main>

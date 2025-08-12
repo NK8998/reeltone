@@ -16,7 +16,7 @@ export default function PopularFilms({
     <section className='py-6  lg:px-8 rounded-md popular-films-container'>
       <div className='section-top-bar flex items-center justify-between border-b border-gray-700 pb-1 mb-2'>
         <h2 className='font-semibold text-gray-300 text-base'>
-          Popular films this week
+          Popular films this month
         </h2>
         <Link
           href='/films/filter'
@@ -48,7 +48,7 @@ export default function PopularFilms({
               className='relative block overflow-hidden'
             >
               <FilmCard key={film.id} film={film} />
-              <div className='film-votes flex px-4 justify-around film-votes-container'>
+              <div className='film-votes flex gap-2 film-votes-container'>
                 <span className='flex items-center gap-2'>
                   <ThumbsUpDownSvg /> {film.vote_count}
                 </span>

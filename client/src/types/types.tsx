@@ -42,7 +42,6 @@ export interface LandingDataType {
   trending_film: Film | null;
   top_6_recent_films: Film[];
   recent_films: Film[];
-  recent_reviews: RecentReviews;
 }
 // types for landing page data
 
@@ -176,7 +175,6 @@ export interface mePageTypes {
 //types for films page data
 export interface FilmsPageData {
   popular_films: Film[];
-  recent_films: Film[];
   reviewed_films: FilmPageReview[];
 }
 //types for films page data

@@ -6,6 +6,7 @@ import {
   LandingDataType,
   MembersPage,
   mePageTypes,
+  RecentReviews,
 } from "@/types/types";
 import axios, { AxiosResponse } from "axios";
 const backendUrl =
@@ -279,6 +280,19 @@ export const backendService = {
       return response.data;
     } catch (error) {
       console.error("Error following member:", error);
+      throw error;
+    }
+  },
+  async getMovieReviews(film_id: number) {
+    try {
+      const response: AxiosResponse<{ reviews: RecentReviews }> =
+        await axiosInstance.get(`landing/films/reviews?film_id=${film_id}`);
+      if (!response || response.status !== 200) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data.reviews;
+    } catch (error) {
+      console.error("Error fetching movie reviews:", error);
       throw error;
     }
   },

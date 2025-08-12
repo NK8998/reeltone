@@ -22,8 +22,6 @@ async def all():
                 trending_film = film
                 vote_count = film.get("vote_count")
 
-        recent_reviews = get_reviews(trending_film.get("id") if trending_film else None)
-
         recent_films = [film for film in recent_films if film.get("id") != trending_film.get("id")] if trending_film else recent_films
 
         top_6_recent_films = recent_films[:6] if len(recent_films) > 6 else recent_films
@@ -35,7 +33,6 @@ async def all():
             "trending_film": trending_film,
             "top_6_recent_films": top_6_recent_films,
             "recent_films": rest_of_recent_films, 
-            "recent_reviews": recent_reviews
             }), 200
 
     except Exception as e:

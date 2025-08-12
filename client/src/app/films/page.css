@@ -12,6 +12,12 @@
   color: #678;
   font-size: 12px;
   margin-top: 10px;
+  padding-left: 4px;
+}
+
+.film-votes-container svg {
+  width: 16px;
+  height: 16px;
 }
 
 .popular-films-container .film-card {
