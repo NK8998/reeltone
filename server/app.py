@@ -11,7 +11,7 @@ app = Flask(__name__)
 TMDB_API_KEY = os.environ.get("TMDB_API_KEY", "YOUR_TMDB_API_KEY_HERE")
 tmdb.API_KEY = TMDB_API_KEY
 
-CORS(app, resources={r"/*": {"origins": ["https://reeltone.streamgrid.site", "https://www.reeltone.streamgrid.site"]}})
+CORS(app, resources={r"/*": {"origins": ["https://reeltone.streamgrid.site", "https://www.reeltone.streamgrid.site", "http://localhost:3000"]}})
 
 # Register blueprints
 app.register_blueprint(api_bp)
@@ -24,4 +24,4 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5000, debug=True, host='0.0.0.0')

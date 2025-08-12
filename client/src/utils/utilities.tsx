@@ -76,3 +76,7 @@ export function sanitizeYear(value: string | null): number | null {
   if (num < 1800 || num > currentYear + 5) return null; // Adjust limits as you see fit
   return num;
 }
+
+export function getBackendUrl() {
+  return process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8888";
+}

@@ -8,16 +8,8 @@ import {
   mePageTypes,
   RecentReviews,
 } from "@/types/types";
-import axios, { AxiosResponse } from "axios";
-const backendUrl =
-  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8888";
-
-const axiosInstance = axios.create({
-  baseURL: backendUrl,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+import axiosInstance from "@/lib/ApiClient";
+import { AxiosResponse } from "axios";
 
 export const backendService = {
   landingData: async (): Promise<LandingDataType> => {
