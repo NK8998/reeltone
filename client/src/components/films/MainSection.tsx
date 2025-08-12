@@ -9,9 +9,9 @@ const FilmsMainSection = ({ data }: { data: FilmsPageData }) => {
   return (
     <div>
       <FilterBar />
-      <PopularFilms popularFilms={data.popular_films ?? []} />
-      <JustReviewed Reviewed={data.reviewed_films ?? []} />
-      <FilmReviewGrid reviews={data.reviewed_films ?? []} />
+      <PopularFilms popularFilms={data?.popular_films ?? []} />
+      <JustReviewed Reviewed={data?.reviewed_films ?? []} />
+      <FilmReviewGrid reviews={data?.reviewed_films ?? []} />
     </div>
   );
 };
