@@ -30,7 +30,7 @@ export default function JustReviewed({
               <img
                 src={review.film_poster ?? "/images/loading.jpg"}
                 alt={review.film_title}
-                className='w-24 h-36 object-cover '
+                className='object-cover '
               />
             </Link>
           );

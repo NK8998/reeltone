@@ -1,3 +1,4 @@
+from .content import get_user_content
 from . import me_bp
 from .friends import get_friends_activity
 from .films import get_top_and_now_playing
@@ -14,6 +15,7 @@ def all():
 
         friends_activity = get_friends_activity(user_id=user_id)
         films = get_top_and_now_playing()
+        user_content = get_user_content(user_id=user_id)
         top_rated = films["top_rated"]
         now_playing = films["now_playing"]
         reviews = get_reviews()
@@ -24,7 +26,8 @@ def all():
             "friends_activity": friends_activity,
             "top_rated": top_rated,
             "now_playing": now_playing,
-            "reviews": reviews
+            "reviews": reviews,
+            "user_content": user_content
         }), 200
     
     except Exception as e:

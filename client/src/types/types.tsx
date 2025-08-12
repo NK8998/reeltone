@@ -164,11 +164,31 @@ export type MeReview = {
   profile_picture: string;
 };
 
+export type WatchedFilm = {
+  film_id: number;
+  film_title: string | null;
+  film_poster: string | null;
+  watched_at: string;
+  rewatching: number;
+};
+
+export type WatchlistFilm = {
+  film_id: number;
+  film_title: string | null;
+  film_poster: string | null;
+  added_at: string;
+  rewatching: number;
+};
+
 export interface mePageTypes {
   top_rated: Film[];
   now_playing: Film[];
   friends_activity: FilmPageReview[];
   reviews: FilmPageReview[];
+  user_content: {
+    watched: WatchedFilm[];
+    watchlist: WatchlistFilm[];
+  };
 }
 //types for me page data
 

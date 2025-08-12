@@ -6,6 +6,7 @@ from . import all
 from . import friends
 from . import reviews
 from . import films 
+from . import content
 
 
 

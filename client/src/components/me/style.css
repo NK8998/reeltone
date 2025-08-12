@@ -42,6 +42,61 @@
   padding: 0px 0px;
 }
 
+.me-page .film-grid.film-grid-user-content {
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+}
+
+.content-title svg {
+  width: 16px;
+  height: 16px;
+}
+
+.film-item {
+  --film-theme: #333c3c;
+  border-radius: 2px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.film-item .content-overlay svg {
+  margin-left: auto;
+  fill: #ebebe4;
+  padding: 3px;
+}
+
+.film-item .title-overlay {
+  font-size: 9px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.film-item img {
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border: 1.5px solid var(--film-theme);
+}
+
+.film-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.film-item:hover {
+  z-index: 2;
+  transform: scale(1.05);
+}
+
 @media (max-width: 768px) {
   .me-page .film-grid .film-card {
     width: unset;

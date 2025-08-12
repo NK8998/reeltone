@@ -4,6 +4,8 @@ import RecentReviews from "./RecentReviews";
 import TopRated from "./TopRated";
 import NowPlaying from "./NowPlaying";
 import { useUser } from "@clerk/nextjs";
+import ContentRenderer from "./ContentRenderer";
+import { Clock, Eye } from "lucide-react";
 
 interface MainContentProps {
   data: mePageTypes;
@@ -17,8 +19,18 @@ export default function MainContent({ data }: MainContentProps) {
         Here’s what your friends have been watching…
       </h3>
       <FriendsActivity friendsActivities={data.friends_activity ?? []} />
+      <ContentRenderer
+        userContent={data.user_content.watchlist ?? []}
+        title='Watchlist'
+        icon={<Clock fill='#3A9196' />}
+      />
       <TopRated top_rated={data.top_rated ?? []} />
       <NowPlaying now_playing={data.now_playing ?? []} />
+      <ContentRenderer
+        userContent={data.user_content.watched ?? []}
+        title='Watched'
+        icon={<Eye fill='orange' />}
+      />
       <RecentReviews reviews={data.reviews ?? []} />
     </div>
   );
