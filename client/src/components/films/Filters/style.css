@@ -8,6 +8,15 @@
   border-bottom: 1px solid #eeeeee20;
 }
 
+.filter-section {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.filter-section.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .filtered-view-filter-bar h3 {
   font-size: 14px;
   display: grid;

@@ -18,12 +18,17 @@ export default function MainContent({
   const [compactView, setCompactView] = useState(true);
   return (
     <>
-      <FilterBar compactView={compactView} setCompactView={setCompactView} />
-      <div className='mini-change-view'>
-        <ChainFilters />
-        <ChangeView compactView={compactView} setCompactView={setCompactView} />
-      </div>
-      <SingleYear />
+      <section className={`filter-section ${loading ? "loading" : ""}`}>
+        <FilterBar compactView={compactView} setCompactView={setCompactView} />
+        <div className='mini-change-view'>
+          <ChainFilters />
+          <ChangeView
+            compactView={compactView}
+            setCompactView={setCompactView}
+          />
+        </div>
+        <SingleYear />
+      </section>
       {loading && <MainSectionLoader />}
       {!loading && <FilmsContainer films={films} compactView={compactView} />}
     </>
