@@ -10,7 +10,7 @@ import FilmsMainSection from "@/components/films/MainSection";
 
 export default function Films() {
   const { data, isError, error, isLoading } = useQuery({
-    queryKey: ["landingData"],
+    queryKey: ["filmsData"],
     queryFn: () => backendService.filmsData(),
   });
 
