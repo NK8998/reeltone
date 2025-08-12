@@ -32,10 +32,10 @@ const features = [
 
 export default function Features() {
   const elements = features.map((feature, idx) => (
-    <div className='feature-card' key={idx}>
+    <li className='feature-card' key={idx}>
       <span className='feature-icon'>{feature.icon}</span>
-      <span className='feature-desc'>{feature.desc}</span>
-    </div>
+      <p className='feature-desc'>{feature.desc}</p>
+    </li>
   ));
   return (
     <section className='limited-width features'>
@@ -45,7 +45,7 @@ export default function Features() {
       >
         <h4>ReelTone lets you...</h4>
       </div>
-      <div className='featured-grid'>{elements}</div>
+      <ul className='featured-grid'>{elements}</ul>
     </section>
   );
 }
