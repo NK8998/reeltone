@@ -9,7 +9,7 @@ export default function JustReviewed({
   Reviewed: FilmPageReview[];
 }) {
   return (
-    <section className='py-6 lg:px-8 rounded-md popular-films-container'>
+    <section className='py-6 px-2 sm:px-6 lg:px-8 rounded-md popular-films-container'>
       <div className='section-top-bar flex items-center justify-between border-b border-gray-700 pb-1 mb-2'>
         <h2 className='font-semibold text-gray-300 text-base'>Just Reviewed</h2>
         <Link
