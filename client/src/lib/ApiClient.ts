@@ -1,5 +1,8 @@
-import { getBackendUrl } from "@/utils/utilities";
 import axios, { AxiosError, AxiosInstance } from "axios";
+
+export function getBackendUrl() {
+  return process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8888";
+}
 
 class ApiClient {
   private axiosInstance: AxiosInstance;
