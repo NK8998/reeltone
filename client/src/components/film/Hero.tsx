@@ -7,7 +7,10 @@ export default function Hero({ backgroundImage }: HeroProps) {
   return (
     <section className='hero-section'>
       <div className='overlay'></div>
-      <img src={backgroundImage} alt='Hero Background' />
+      <img
+        src={backgroundImage ?? "/images/loading.jpg"}
+        alt='Hero Background'
+      />
     </section>
   );
 }
