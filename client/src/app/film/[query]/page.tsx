@@ -1,27 +1,31 @@
-"use client";
 import "./page.css";
 import Footer from "@/components/reusables/Footer/Footer";
-import MainSectionLoader from "@/components/reusables/MainSectionLoader";
-import MainSectionError from "@/components/reusables/MainSectionError";
 import Navbar from "@/components/reusables/Navbar/Navbar";
 import { backendService } from "@/services/backendService";
 import { FilmData } from "@/types/types";
-import { useUser } from "@clerk/nextjs";
-import { useQuery } from "@tanstack/react-query";
-import { useParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import MainContent from "@/components/film/MainContent";
+import { currentUser } from "@clerk/nextjs/server";
+import { getQueryClient } from "@/services/getQueryClient";
+import { redirect } from "next/navigation";
 
-export default function Page({}) {
-  const { query } = useParams<{ query: string }>();
-  const router = useRouter();
-  if (!query) {
-    router.push("/");
-    return null;
-  }
-  const { user } = useUser();
+type paramType = {
+  query: string;
+};
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const { query } = (await params) as paramType;
 
-  const { data, isLoading, isError, error } = useQuery<FilmData>({
+  if (!query) redirect("/");
+
+  const user = await currentUser();
+
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery<FilmData>({
     queryKey: ["filmData", query, user ? user.id : ""],
     queryFn: () => backendService.filmData(query, user ? user.id : ""),
   });
@@ -30,9 +34,9 @@ export default function Page({}) {
     <div className='film-page'>
       <Navbar />
       <main className='film-main'>
-        {isLoading && <MainSectionLoader />}
-        {isError && <MainSectionError errorMessage={error.message} />}
-        {data && <MainContent data={data} />}
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <MainContent query={query} userId={user ? user.id : ""} />
+        </HydrationBoundary>
       </main>
       <Footer />
     </div>

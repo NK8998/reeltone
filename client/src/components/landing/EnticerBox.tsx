@@ -1,4 +1,4 @@
-import { useUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 
 interface EnticerProps {
@@ -6,8 +6,8 @@ interface EnticerProps {
   filmTitle?: string;
 }
 
-export default function EnticerBox({ filmId, filmTitle }: EnticerProps) {
-  const { user } = useUser();
+export default async function EnticerBox({ filmId, filmTitle }: EnticerProps) {
+  const user = await currentUser();
 
   return (
     <section className='limited-width enticer-block'>

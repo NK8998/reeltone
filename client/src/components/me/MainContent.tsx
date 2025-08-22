@@ -3,15 +3,15 @@ import FriendsActivity from "./FriendsActivity";
 import RecentReviews from "./RecentReviews";
 import TopRated from "./TopRated";
 import NowPlaying from "./NowPlaying";
-import { useUser } from "@clerk/nextjs";
 import ContentRenderer from "./ContentRenderer";
 import { Clock, Eye } from "lucide-react";
+import { currentUser } from "@clerk/nextjs/server";
 
 interface MainContentProps {
   data: mePageTypes;
 }
-export default function MainContent({ data }: MainContentProps) {
-  const { user } = useUser();
+export default async function MainContent({ data }: MainContentProps) {
+  const user = await currentUser();
   return (
     <div>
       <h3 className='text-2xl font-thin text-gray-300 mb-8 mt-15 px-4 sm:px-6 lg:px-8 text-center'>

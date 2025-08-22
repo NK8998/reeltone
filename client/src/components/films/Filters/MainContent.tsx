@@ -1,3 +1,4 @@
+"use client";
 import "../style.css";
 import "./style.css";
 import FilmsContainer from "./FilmsContainer";
@@ -7,15 +8,25 @@ import { useState } from "react";
 import FilterBar, { ChangeView } from "./FilterBar";
 import SingleYear from "./SingleYear";
 import ChainFilters from "./ChainFilters";
+import { useQuery } from "@tanstack/react-query";
+import { backendService } from "@/services/backendService";
+import { useSearchParams } from "next/navigation";
+import MainSectionError from "@/components/reusables/MainSectionError";
 
-export default function MainContent({
-  films,
-  loading,
-}: {
-  films: Film[];
-  loading: boolean;
-}) {
+export default function MainContent() {
   const [compactView, setCompactView] = useState(true);
+  const searchParams = useSearchParams();
+  const queryString = searchParams.toString();
+  const {
+    data,
+    isLoading: loading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["filteredFilms", queryString],
+    queryFn: () => backendService.getFilteredFilms(queryString),
+  });
+
   return (
     <>
       <section className={`filter-section ${loading ? "loading" : ""}`}>
@@ -30,7 +41,13 @@ export default function MainContent({
         <SingleYear />
       </section>
       {loading && <MainSectionLoader />}
-      {!loading && <FilmsContainer films={films} compactView={compactView} />}
+      {isError && <MainSectionError errorMessage={error.message} />}
+      {!loading && (
+        <FilmsContainer
+          films={data?.filtered_films ?? []}
+          compactView={compactView}
+        />
+      )}
     </>
   );
 }

@@ -1,34 +1,21 @@
-"use client";
 import "./page.css";
-import { useUser } from "@clerk/nextjs";
-import { useQuery } from "@tanstack/react-query";
-
 import Footer from "@/components/reusables/Footer/Footer";
 import Navbar from "@/components/reusables/Navbar/Navbar";
 import { backendService } from "@/services/backendService";
-import { mePageTypes } from "@/types/types";
 import MainContent from "@/components/me/MainContent";
-import MainSectionLoader from "@/components/reusables/MainSectionLoader";
-import MainSectionError from "@/components/reusables/MainSectionError";
+import { currentUser } from "@clerk/nextjs/server";
 
-export default function Me() {
-  const { user } = useUser();
+export default async function Me() {
+  const user = await currentUser();
+  if (!user) throw new Error("User not found");
 
-  if (!user) {
-    return null;
-  }
-  const { data, isLoading, error, isError } = useQuery<mePageTypes, Error>({
-    queryKey: ["meData", user.id],
-    queryFn: () => backendService.meData(user.id),
-  });
+  const data = await backendService.meData(user?.id);
 
   return (
     <div className='me-page'>
       <Navbar />
       <main className='main-content'>
-        {isLoading && <MainSectionLoader />}
-        {isError && <MainSectionError errorMessage={error.message} />}
-        {data && <MainContent data={data} />}
+        <MainContent data={data} />
       </main>
       <Footer />
     </div>

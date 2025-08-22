@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs"; // guessing based on your context
 import { useQueryClient } from "@tanstack/react-query";

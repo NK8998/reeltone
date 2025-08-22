@@ -1,3 +1,4 @@
+"use client";
 import "@splidejs/react-splide/css/core";
 import "@splidejs/react-splide/css/sea-green";
 

@@ -1,6 +1,5 @@
 import { RewatchIcon } from "@/assets/icons";
 import { WatchedFilm, WatchlistFilm } from "@/types/types";
-import { Repeat } from "lucide-react";
 import Link from "next/link";
 
 type UserContent = {

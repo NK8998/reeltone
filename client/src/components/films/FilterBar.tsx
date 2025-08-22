@@ -1,3 +1,4 @@
+"use client";
 import { ArrowDownSvg } from "@/assets/icons";
 import GenreFilter from "./Filters/Genre";
 import RatingsFilter from "./Filters/Ratings";

@@ -1,19 +1,22 @@
-"use client";
 import "./page.css";
 import MainContent from "@/components/films/Filters/MainContent";
 import Footer from "@/components/reusables/Footer/Footer";
-import MainSectionError from "@/components/reusables/MainSectionError";
 import Navbar from "@/components/reusables/Navbar/Navbar";
 import { backendService } from "@/services/backendService";
-import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
+import { getQueryClient } from "@/services/getQueryClient";
+import { parseURLParams } from "@/utils/serverUtil";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
-export default function Page() {
-  const searchParams = useSearchParams();
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const queryClient = getQueryClient();
+  const params = await searchParams;
+  const queryString = parseURLParams(params);
 
-  const queryString = searchParams.toString();
-
-  const { data, isLoading, error, isError } = useQuery({
+  await queryClient.prefetchQuery({
     queryKey: ["filteredFilms", queryString],
     queryFn: () => backendService.getFilteredFilms(queryString),
   });
@@ -22,8 +25,9 @@ export default function Page() {
     <div className='filtered-page'>
       <Navbar />
       <main className='main-content'>
-        {isError && <MainSectionError errorMessage={error.message} />}
-        <MainContent films={data?.filtered_films ?? []} loading={isLoading} />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <MainContent />
+        </HydrationBoundary>
       </main>
       <Footer />
     </div>

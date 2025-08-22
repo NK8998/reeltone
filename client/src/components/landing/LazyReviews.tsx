@@ -1,3 +1,4 @@
+"use client";
 import { useQuery } from "@tanstack/react-query";
 import Reviews from "./Reviews";
 import { backendService } from "@/services/backendService";
