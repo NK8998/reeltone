@@ -192,7 +192,7 @@ def test_like_film():
     print("Liking film for user:", clerk_user.get("username"))
     response = like_film(
         clerk_user.get("id"),
-        541671  # Example film ID (ballerina)
+        541671  #  (ballerina)
     )
     print("Response:", response)
     assert response.get("message") == "Film liked." or response.get("error") == "Like removed."
@@ -202,9 +202,9 @@ def test_add_to_watched():
     print("Adding film to watched for user:", clerk_user.get("username"))
     response = add_to_watched(
         clerk_user.get("id"),
-        541671,  # Example film ID (ballerina)
-        "ballerina",  # Example film title
-        "example_poster_url.jpg"  # Example poster URL
+        541671,  #  (ballerina)
+        "ballerina",  
+        "example_poster_url.jpg"  
     )
     print("Response:", response)
     assert response.get("message") == "Film added to watched list." or response.get("error") == "Film removed from watched list."

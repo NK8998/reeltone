@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://reeltone.streamgrid.site
+
+# Sitemaps
+Sitemap: https://reeltone.streamgrid.site/sitemap.xml

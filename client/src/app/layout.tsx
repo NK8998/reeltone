@@ -48,7 +48,6 @@ export default function RootLayout({
         />
         <link rel='manifest' href='/site.webmanifest' />
         <link rel='icon' href='/images/favicon.ico' type='image/x-icon' />
-        <title>ReelTone</title>
         <QueryProvider>
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
