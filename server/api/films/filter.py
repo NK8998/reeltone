@@ -1,8 +1,31 @@
 import tmdbsimple as tmdb
 from . import films_bp
 from flask import request
+from concurrent.futures import ThreadPoolExecutor
 
 MAX_API_CALLS = 3
+
+GENRE_NAME_TO_ID = {
+    "action": 28,
+    "adventure": 12,
+    "animation": 16,
+    "comedy": 35,
+    "crime": 80,
+    "documentary": 99,
+    "drama": 18,
+    "family": 10751,
+    "fantasy": 14,
+    "history": 36,
+    "horror": 27,
+    "music": 10402,
+    "mystery": 9648,
+    "romance": 10749,
+    "science fiction": 878,
+    "tv movie": 10770,
+    "thriller": 53,
+    "war": 10752,
+    "western": 37
+}
 
 def filter_films(start_year=None, end_year=None, genre_id=None, min_rating=None, min_votes=None,
                  min_runtime=None, max_runtime=None, language=None, sort_by='popularity.desc', page=1):
@@ -39,47 +62,29 @@ def filter_films(start_year=None, end_year=None, genre_id=None, min_rating=None,
     end_page = page * MAX_API_CALLS + 1
     start_page = end_page - MAX_API_CALLS
 
-    for current_page in range(start_page, end_page):  # pages 1 through 3
-        response = discover.movie(**{**base_query, 'page': current_page})
-        if not response or 'results' not in response:
-            break
+    def fetch_page(current_page):
+        return discover.movie(**{**base_query, 'page': current_page})
 
-        for movie in response['results']:
-            filtered_films.append({
-                "id": movie.get("id"),
-                "title": movie.get("title"),
-                "overview": movie.get("overview"),
-                "poster_url": f"https://image.tmdb.org/t/p/w500{movie.get('poster_path')}" if movie.get("poster_path") else None,
-                "release_date": movie.get("release_date"),
-                "vote_average": movie.get("vote_average"),
-                "vote_count": movie.get("vote_count"),
-            })
+    with ThreadPoolExecutor(max_workers=MAX_API_CALLS) as executor:
+        futures = {executor.submit(fetch_page, p): p for p in range(start_page, end_page)}
+
+        for future in sorted(futures, key=lambda f: futures[f]):
+            response = future.result()
+            if not response or 'results' not in response:
+                continue
+
+            for movie in response['results']:
+                filtered_films.append({
+                    "id": movie.get("id"),
+                    "title": movie.get("title"),
+                    "overview": movie.get("overview"),
+                    "poster_url": f"https://image.tmdb.org/t/p/w500{movie.get('poster_path')}" if movie.get("poster_path") else None,
+                    "release_date": movie.get("release_date"),
+                    "vote_average": movie.get("vote_average"),
+                    "vote_count": movie.get("vote_count"),
+                })
 
     return filtered_films
-
-
-
-GENRE_NAME_TO_ID = {
-    "action": 28,
-    "adventure": 12,
-    "animation": 16,
-    "comedy": 35,
-    "crime": 80,
-    "documentary": 99,
-    "drama": 18,
-    "family": 10751,
-    "fantasy": 14,
-    "history": 36,
-    "horror": 27,
-    "music": 10402,
-    "mystery": 9648,
-    "romance": 10749,
-    "science fiction": 878,
-    "tv movie": 10770,
-    "thriller": 53,
-    "war": 10752,
-    "western": 37
-}
 
 
 @films_bp.route('/filter', methods=['GET'])
