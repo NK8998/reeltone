@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { backendService } from "@/services/backendService";
 import { useSearchParams } from "next/navigation";
 import MainSectionError from "@/components/reusables/MainSectionError";
+import ChangePage from "./ChangePage";
 
 export default function MainContent() {
   const [compactView, setCompactView] = useState(true);
@@ -40,14 +41,23 @@ export default function MainContent() {
         </div>
         <SingleYear />
       </section>
-      {loading && <MainSectionLoader />}
-      {isError && <MainSectionError errorMessage={error.message} />}
-      {!loading && (
-        <FilmsContainer
-          films={data?.filtered_films ?? []}
-          compactView={compactView}
-        />
-      )}
+      <section className='films-section'>
+        {loading && <MainSectionLoader />}
+        {isError && <MainSectionError errorMessage={error.message} />}
+        {!loading && (
+          <FilmsContainer
+            films={data?.filtered_films ?? []}
+            compactView={compactView}
+          />
+        )}
+      </section>
+      <section
+        className={`filter-section change-page-section ${
+          loading ? "loading" : ""
+        }`}
+      >
+        <ChangePage />
+      </section>
     </>
   );
 }

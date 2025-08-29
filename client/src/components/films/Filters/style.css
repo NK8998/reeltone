@@ -17,6 +17,12 @@
   pointer-events: none;
 }
 
+.films-section {
+  width: 100%;
+  min-height: 562px;
+  height: fit-content;
+}
+
 .filtered-view-filter-bar h3 {
   font-size: 14px;
   display: grid;
@@ -98,11 +104,11 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .films-container.compact {
-  grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
 }
 
 .films-container .film-card {
@@ -146,6 +152,42 @@
 }
 
 .next-decade svg {
+  transform: rotate(180deg);
+}
+.next-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #eeeeee20;
+  margin-top: 15px;
+  margin-bottom: 70px;
+}
+
+.page-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  background-color: #77847c8d;
+  border-radius: 3px;
+  margin-top: 10px;
+  color: #efefef;
+  border-top: 1px solid #77847cbd;
+  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+}
+
+.page-btn:hover {
+  background-color: #3d959bc1;
+  color: #ffffff;
+}
+
+.page-btn svg {
+  fill: #3d959b;
+}
+
+.page-btn.next-page svg {
   transform: rotate(180deg);
 }
 

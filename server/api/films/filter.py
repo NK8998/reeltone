@@ -2,9 +2,14 @@ import tmdbsimple as tmdb
 from . import films_bp
 from flask import request
 
+MAX_API_CALLS = 3
+
 def filter_films(start_year=None, end_year=None, genre_id=None, min_rating=None, min_votes=None,
-                 min_runtime=None, max_runtime=None, language=None, sort_by='popularity.desc'):
+                 min_runtime=None, max_runtime=None, language=None, sort_by='popularity.desc', page=1):
     """Filter films with up to 60 results across 3 pages."""
+    if page < 1:
+        page = 1
+
     discover = tmdb.Discover()
 
     base_query = {
@@ -31,9 +36,11 @@ def filter_films(start_year=None, end_year=None, genre_id=None, min_rating=None,
         base_query['with_original_language'] = language
 
     filtered_films = []
+    end_page = page * MAX_API_CALLS + 1
+    start_page = end_page - MAX_API_CALLS
 
-    for page in range(1, 4):  # Page 1 and 3
-        response = discover.movie(**{**base_query, 'page': page})
+    for current_page in range(start_page, end_page):  # pages 1 through 3
+        response = discover.movie(**{**base_query, 'page': current_page})
         if not response or 'results' not in response:
             break
 
@@ -95,6 +102,7 @@ def filter_movies_route():
     min_votes = get_arg('min_votes')
     min_runtime = get_arg('min_runtime')
     max_runtime = get_arg('max_runtime')
+    page = get_arg('page') or 1
     language = args.get('language')
     sort_by = args.get('sort_by') or 'popularity.desc'
 
@@ -117,7 +125,8 @@ def filter_movies_route():
         min_runtime=min_runtime,
         max_runtime=max_runtime,
         language=language,
-        sort_by=sort_by
+        sort_by=sort_by,
+        page=page
     )
 
     return {"filtered_films": results}

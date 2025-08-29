@@ -1,7 +1,6 @@
 from flask_cors import CORS
 from flask import Flask
 from api import api_bp
-from community_api import community_bp
 import os
 import tmdbsimple as tmdb
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -15,7 +14,6 @@ CORS(app, resources={r"/*": {"origins": ["https://reeltone.streamgrid.site", "ht
 
 # Register blueprints
 app.register_blueprint(api_bp)
-app.register_blueprint(community_bp)
 
 for rule in app.url_map.iter_rules():
     print(f"{rule.methods} -> {rule.rule}")
