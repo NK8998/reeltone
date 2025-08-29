@@ -11,9 +11,10 @@ export const YearlyButton = ({
   end: number;
   onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }) => {
+  const { constructLink } = useFilter();
   return (
     <Link
-      href={`/films/filter?start_year=${start}&end_year=${end}`}
+      href={constructLink(`start_year=${start}&end_year=${end}`)}
       className='yearly-group-btn filter-btn transition-all'
       onClick={onClick}
     >
@@ -23,11 +24,11 @@ export const YearlyButton = ({
 };
 
 export default function YearlyFilter() {
-  const handleFilter = useFilter();
+  const { handleFilter, constructLink } = useFilter();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    handleFilter(e.currentTarget.href.split("?")[1] ?? "");
+    handleFilter(e.currentTarget.href);
   };
 
   const currentYear = new Date().getFullYear();
@@ -48,7 +49,7 @@ export default function YearlyFilter() {
       </h3>
       <Link
         className='yearly-group-btn filter-btn transition-all'
-        href={`/films/filter`}
+        href={constructLink("")}
         onClick={handleClick}
       >
         All

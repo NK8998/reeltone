@@ -40,11 +40,11 @@ export const languages = [
 ];
 
 export default function LanguageFilter() {
-  const handleFilter = useFilter();
+  const { handleFilter, constructLink } = useFilter();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    handleFilter(e.currentTarget.href.split("?")[1] ?? "");
+    handleFilter(e.currentTarget.href);
   };
   return (
     <div className='filter-group-container flex flex-col styled-scroll-bar absolute'>
@@ -57,7 +57,7 @@ export default function LanguageFilter() {
       <Link
         onClick={handleClick}
         className='yearly-group-btn filter-btn transition-all'
-        href={"/films/filter"}
+        href={constructLink("")}
       >
         All
       </Link>
@@ -67,7 +67,7 @@ export default function LanguageFilter() {
           prefetch={false}
           onClick={handleClick}
           className='yearly-group-btn filter-btn transition-all'
-          href={`/films/filter?language=${code}`}
+          href={constructLink(`language=${code}`)}
         >
           {name}
         </Link>

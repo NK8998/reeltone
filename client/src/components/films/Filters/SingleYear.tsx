@@ -5,11 +5,11 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 export default function SingleYear() {
-  const handleFilter = useFilter();
+  const { handleFilter, constructLink } = useFilter();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    handleFilter(e.currentTarget.href.split("?")[1] ?? "");
+    handleFilter(e.currentTarget.href);
   };
   const searchParams = useSearchParams();
   const currentYear = new Date().getFullYear();
@@ -23,8 +23,6 @@ export default function SingleYear() {
     endYear
   );
 
-  console.log({ startYear, endYear });
-
   const isDecade = startYear != endYear && endYear > 0;
 
   const baseYear = isNaN(startYear) || !startYear ? currentYear : startYear;
@@ -36,9 +34,9 @@ export default function SingleYear() {
       <Link
         className='prev-decade decade-link'
         prefetch={false}
-        href={`/films/filter?start_year=${decadeStart - 10}&end_year=${
-          decadeStart - 1
-        }`}
+        href={constructLink(
+          `start_year=${decadeStart - 10}&end_year=${decadeStart - 1}`
+        )}
         onClick={handleClick}
       >
         <LeftArrow />
@@ -49,9 +47,9 @@ export default function SingleYear() {
         <Link
           prefetch={false}
           className={`year-link ${isDecade ? "active" : ""}`}
-          href={`/films/filter?start_year=${decadeStart}&end_year=${
-            decadeStart + 9
-          }`}
+          href={constructLink(
+            `start_year=${decadeStart}&end_year=${decadeStart + 9}`
+          )}
           onClick={handleClick}
         >
           {decadeStart}s
@@ -67,7 +65,9 @@ export default function SingleYear() {
               className={`year-link ${
                 filmYear === startYear && !isDecade ? "active" : ""
               } ${i === 9 ? "last" : ""}`}
-              href={`/films/filter?start_year=${filmYear}&end_year=${filmYear}`}
+              href={constructLink(
+                `start_year=${filmYear}&end_year=${filmYear}`
+              )}
               onClick={handleClick}
             >
               {filmYear}
@@ -80,9 +80,9 @@ export default function SingleYear() {
       {decadeStart + 10 <= currentYear && (
         <Link
           className='next-decade decade-link'
-          href={`/films/filter?start_year=${decadeStart + 10}&end_year=${
-            decadeStart + 19
-          }`}
+          href={constructLink(
+            `start_year=${decadeStart + 10}&end_year=${decadeStart + 19}`
+          )}
           prefetch={false}
           onClick={handleClick}
         >

@@ -3,11 +3,11 @@ import useFilter from "@/hooks/useFilter";
 import Link from "next/link";
 
 export default function RatingsFilter() {
-  const handleFilter = useFilter();
+  const { handleFilter, constructLink } = useFilter();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    handleFilter(e.currentTarget.href.split("?")[1] ?? "");
+    handleFilter(e.currentTarget.href);
   };
 
   return (
@@ -22,7 +22,7 @@ export default function RatingsFilter() {
         prefetch={false}
         onClick={handleClick}
         className='filter-btn transition-all'
-        href='/films/filter?sort_by=popularity.desc'
+        href={constructLink("sort_by=popularity.desc")}
       >
         Highest Rating
       </Link>
@@ -30,7 +30,7 @@ export default function RatingsFilter() {
         onClick={handleClick}
         prefetch={false}
         className='filter-btn transition-all'
-        href='/films/filter?sort_by=popularity.asc'
+        href={constructLink("sort_by=popularity.asc")}
       >
         Lowest Rating
       </Link>

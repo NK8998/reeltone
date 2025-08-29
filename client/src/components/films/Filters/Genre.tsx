@@ -25,11 +25,11 @@ const genres = [
 ];
 
 export default function GenreFilter() {
-  const handleFilter = useFilter();
+  const { handleFilter, constructLink } = useFilter();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    handleFilter(e.currentTarget.href.split("?")[1] ?? "");
+    handleFilter(e.currentTarget.href);
   };
   return (
     <div className='filter-group-container flex flex-col styled-scroll-bar  absolute'>
@@ -45,7 +45,7 @@ export default function GenreFilter() {
           onClick={handleClick}
           key={genre.id}
           className='filter-btn'
-          href={`/films/filter?genre=${genre.name}`}
+          href={constructLink(`genre=${genre.name}`)}
         >
           {genre.name}
         </Link>
