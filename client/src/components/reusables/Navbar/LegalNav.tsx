@@ -15,7 +15,7 @@ export default function LegalNav() {
             <Link href='/legal/cookie_policy'>Cookie Policy</Link>
           </li>
           <li>
-            <Link href='/legal/terms_of_service'>Cookie Policy</Link>
+            <Link href='/legal/terms_of_service'>Terms of Service</Link>
           </li>
         </ul>
       </div>
