@@ -15,7 +15,6 @@ export default async function Page({
   const queryClient = getQueryClient();
   const params = await searchParams;
   const queryString = parseURLParams(params);
-  const page = Number(params["page"]) || 1;
 
   await queryClient.prefetchQuery({
     queryKey: ["filteredFilms", queryString],
@@ -27,7 +26,7 @@ export default async function Page({
       <Navbar />
       <main className='main-content'>
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <MainContent page={page} />
+          <MainContent />
         </HydrationBoundary>
       </main>
       <Footer />

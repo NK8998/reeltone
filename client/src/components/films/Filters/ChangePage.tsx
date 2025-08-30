@@ -3,17 +3,14 @@ import { FirstPageIcon, LeftArrow } from "@/assets/icons";
 import { useFilterContext } from "@/context/FilterContext";
 import useFilter from "@/hooks/useFilter";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function ChangePage() {
-  const { page, setPage } = useFilterContext();
+  const page = Number(useSearchParams().get("page") || 1);
 
   const { handleFilter, constructLink } = useFilter();
 
-  const handleClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    targetPage: number
-  ) => {
-    setPage(targetPage);
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     handleFilter(e.currentTarget.href);
   };
@@ -26,7 +23,7 @@ export default function ChangePage() {
         <Link
           className='first-page page-btn'
           href={constructLink(`page=1`, true)}
-          onClick={(e) => handleClick(e, 1)}
+          onClick={handleClick}
         >
           <FirstPageIcon />
         </Link>
@@ -34,7 +31,7 @@ export default function ChangePage() {
           <Link
             className='prev-page page-btn'
             href={constructLink(`page=${prevPage}`, true)}
-            onClick={(e) => handleClick(e, prevPage)}
+            onClick={handleClick}
           >
             <LeftArrow />
             <span>Prev</span>
@@ -44,7 +41,7 @@ export default function ChangePage() {
       <Link
         className='next-page  ml-auto page-btn'
         href={constructLink(`page=${nextPage}`, true)}
-        onClick={(e) => handleClick(e, nextPage)}
+        onClick={handleClick}
       >
         <span>Next</span>
         <LeftArrow />

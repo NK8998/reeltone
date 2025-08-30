@@ -39,6 +39,7 @@ jobs:
             sudo docker run -d \
               -p 127.0.0.1:8888:8888 \
               --env-file /home/${{ secrets.AZURE_VM_USER }}/.env \
+              -e APP_ENV=production \
               --name reeltone-server \
               reeltone-server
 

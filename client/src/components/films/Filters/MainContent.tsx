@@ -4,7 +4,7 @@ import "./style.css";
 import FilmsContainer from "./FilmsContainer";
 import { Film } from "@/types/types";
 import MainSectionLoader from "@/components/reusables/MainSectionLoader";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FilterBar, { ChangeView } from "./FilterBar";
 import SingleYear from "./SingleYear";
 import ChainFilters from "./ChainFilters";
@@ -15,8 +15,7 @@ import MainSectionError from "@/components/reusables/MainSectionError";
 import ChangePage from "./ChangePage";
 import { useFilterContext } from "@/context/FilterContext";
 
-export default function MainContent({ page }: { page: number }) {
-  const { setPage } = useFilterContext();
+export default function MainContent() {
   const [compactView, setCompactView] = useState(true);
   const searchParams = useSearchParams();
   const queryString = searchParams.toString();
@@ -29,10 +28,6 @@ export default function MainContent({ page }: { page: number }) {
     queryKey: ["filteredFilms", queryString],
     queryFn: () => backendService.getFilteredFilms(queryString),
   });
-
-  useEffect(() => {
-    setPage(page);
-  }, [page]);
 
   return (
     <>
