@@ -131,7 +131,6 @@ export type FilmPageReview = {
 
 export type FilmData = {
   essential_data: EssentialData;
-  related_films: RelatedFilm[];
   reviews: FilmPageReview[]; // Replace if structure becomes known
   user_flags: UserFlags;
 };

@@ -60,7 +60,7 @@
   max-width: 950px;
   margin: auto;
   transform: translateY(-80px);
-  min-height: 100vh;
+  min-height: 60vh;
 }
 
 .film-left-content .film-poster {
@@ -392,6 +392,38 @@
   height: 30px;
 }
 
+.skeleton-card {
+  background-color: gray;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  border-radius: 3px;
+}
+
+.related-films-section {
+  max-width: 950px;
+  margin: auto;
+  margin-bottom: 40px;
+  padding: 0px 10px;
+  display: grid;
+  grid-template-columns: 25% 75%;
+}
+
+.film-main .film-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 5px;
+  overflow-x: auto;
+  overflow-y: auto;
+  padding: 40px 0px 10px 0px;
+  width: fit-content;
+  max-width: 100%;
+  margin: auto;
+}
+
+.film-main .film-card {
+  width: unset;
+}
+
 .reviews-section {
   display: grid;
   grid-template-columns: 25% 75%;
@@ -553,6 +585,14 @@
 
   .film-left-content .film-poster {
     max-width: 230px;
+  }
+
+  .related-films-section {
+    display: block;
+  }
+
+  .related-films-section .left-side {
+    display: none;
   }
 
   .reviews-section {

@@ -47,13 +47,11 @@ def all_films():
             return jsonify({'error': 'Film ID not found in the response'}), 404
         
         reviews = get_reviews_by_film_id(film_id)
-        related_films = get_related_films(film_id)
         has_liked_film, has_film_in_watchlist, has_watched_film = check_flags(user_id, film_id)
 
         return jsonify({
             'essential_data': essential_data,
             'reviews': reviews,
-            'related_films': related_films,
             'user_flags': {
                 'has_liked': has_liked_film,
                 'in_watchlist': has_film_in_watchlist,

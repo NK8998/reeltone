@@ -15,7 +15,7 @@ def get_related_films(film_id):
             "id": film.get("id"),
             "title": film.get("title"),
             "overview": film.get("overview"),
-            "poster_path": f"https://image.tmdb.org/t/p/w500{film.get('poster_path')}" if film.get("poster_path") else None,
+            "poster_url": f"https://image.tmdb.org/t/p/w500{film.get('poster_path')}" if film.get("poster_path") else None,
             "release_date": film.get("release_date"),
             "vote_average": film.get("vote_average"),
             "vote_count": film.get("vote_count"),
@@ -30,8 +30,6 @@ def related():
         if not film_id:
             return jsonify({'error': 'film_id is required'}), 400
         related_films = get_related_films(film_id)
-        if not related_films:
-            return jsonify({'message': 'No related films found for this film'}), 404
         return jsonify({'related_films': related_films}), 200
     except ValueError:
         return jsonify({'error': 'Invalid film_id format'}), 400

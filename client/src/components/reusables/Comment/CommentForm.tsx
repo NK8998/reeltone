@@ -36,15 +36,15 @@ export default function CommentForm({
   const [rating, setRating] = useState(currentRating);
   const inputRef = useRef<HTMLDivElement>(null);
 
-  if (!user) {
-    //use tailwind to center
-    return <p className='text-center p-4'>Please log in to leave a review.</p>;
-  }
-
   const editReview = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!user) {
+      toast.info("Please log in to leave a review");
+      return;
+    }
     const userId = user.id;
+
     if (!reviewId) {
       toast.error("Review ID is required for editing");
       return;
@@ -87,7 +87,10 @@ export default function CommentForm({
 
   const addReview = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    if (!user) {
+      toast.info("Please log in to leave a review");
+      return;
+    }
     const userId = user.id;
     const username = user.username || user.firstName || "Anonymous";
     const pfp_url = user.imageUrl || "/svgs/default-user-icon.svg";

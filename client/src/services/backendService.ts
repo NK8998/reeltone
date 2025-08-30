@@ -1,4 +1,5 @@
 import {
+  Film,
   FilmData,
   FilmPageReview,
   FilmsPageData,
@@ -7,6 +8,7 @@ import {
   MembersPage,
   mePageTypes,
   RecentReviews,
+  RelatedFilm,
 } from "@/types/types";
 import axiosInstance from "@/lib/ApiClient";
 import { AxiosResponse } from "axios";
@@ -278,13 +280,27 @@ export const backendService = {
   async getMovieReviews(film_id: number) {
     try {
       const response: AxiosResponse<{ reviews: RecentReviews }> =
-        await axiosInstance.get(`landing/films/reviews?film_id=${film_id}`);
+        await axiosInstance.get(`/landing/films/reviews?film_id=${film_id}`);
       if (!response || response.status !== 200) {
         throw new Error("Network response was not ok");
       }
       return response.data.reviews;
     } catch (error) {
       console.error("Error fetching movie reviews:", error);
+      throw error;
+    }
+  },
+  async getRelatedFilms(filmId: number) {
+    try {
+      const response: AxiosResponse<{ related_films: Film[] }> =
+        await axiosInstance.get(`/film/related?film_id=${filmId}`);
+      if (!response || response.status !== 200) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error("Error getting related Films");
       throw error;
     }
   },

@@ -30,13 +30,18 @@ export default function ReviewsSection({
           filmPoster={filmPoster}
           setCurrentReviews={setCurrentReviews}
         />
-        {currentReviews.map((review, index) => (
-          <Comment
-            key={index}
-            review={review}
-            setCurrentReviews={setCurrentReviews}
-          />
-        ))}
+        <div className='comments-list'>
+          <h2 className='comments-title text-1xl font-bold mb-4 mt-4'>
+            <u>Reviews</u>
+          </h2>
+          {currentReviews.map((review, index) => (
+            <Comment
+              key={index}
+              review={review}
+              setCurrentReviews={setCurrentReviews}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

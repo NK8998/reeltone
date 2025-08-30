@@ -25,6 +25,9 @@ else:
 app.register_blueprint(api_bp)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
+for rule in app.url_map.iter_rules():
+    print(f"Route: {rule}")
+
 if __name__ == "__main__":
     port = 5000 if ENV == "development" else 8888
     debug = ENV == "development"

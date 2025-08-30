@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { backendService } from "@/services/backendService";
 import MainSectionLoader from "../reusables/MainSectionLoader";
 import MainSectionError from "../reusables/MainSectionError";
+import LazyRelatedFilms from "./LazyRelatedFilms";
 
 export default function MainContent({
   query,
@@ -42,6 +43,10 @@ export default function MainContent({
           userFlags={data.user_flags ?? []}
         />
       </div>
+      <LazyRelatedFilms
+        filmId={data.essential_data.id}
+        genre={data.essential_data.genres[0] ?? ""}
+      />
       <ReviewsSection
         reviews={data.reviews ?? []}
         essentialData={data.essential_data ?? []}
