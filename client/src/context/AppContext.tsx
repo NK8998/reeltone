@@ -1,11 +1,12 @@
 "use client";
 import useAddUser from "@/hooks/useAddUser";
+import { ClerkProvider } from "@clerk/nextjs";
 import { createContext, useContext } from "react";
 
 const AppContext = createContext(undefined);
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
-  useAddUser();
+  //useAddUser();
   return (
     <AppContext.Provider value={undefined}>{children}</AppContext.Provider>
   );

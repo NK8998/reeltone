@@ -1,3 +1,4 @@
+"use client";
 import { LeftArrow } from "@/assets/icons";
 import useFilter from "@/hooks/useFilter";
 import { sanitizeYear } from "@/utils/utilities";
