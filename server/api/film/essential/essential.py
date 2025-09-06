@@ -26,7 +26,7 @@ def get_by_id(film_id):
 
     if 'status_code' in response and response['status_code'] != 200:
         return None
-
+    
     response['cast'] = response.get('credits', {}).get('cast', [])
     response['crew'] = response.get('credits', {}).get('crew', [])
     response['trailer'] = get_film_trailer(response.get('videos', {}))
