@@ -84,3 +84,5 @@ _ReSharper*/
 # Others
 [Tt]humbs.db
 *.tmp
+*.rar
+*.gz
