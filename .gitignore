@@ -86,3 +86,7 @@ _ReSharper*/
 *.tmp
 *.rar
 *.gz
+
+appsettings.json
+appsettings.*.json
+

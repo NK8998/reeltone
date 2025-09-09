@@ -23,8 +23,10 @@ class Program
             options.UseSqlServer(connectionString));
 
             // Register application services
+            services.AddScoped<IDownloadService, DownloadService>();
+            services.AddScoped<ICompareService, CompareService>();
+            services.AddScoped<IPersistService, PersistService>();
             services.AddHttpClient<ITmdbApiService, TmdbApiService>();
-            services.AddScoped<IMovieIngestionService, MovieIngestionService>();
 
             // register the background worker
             services.AddHostedService<CronWorker>();

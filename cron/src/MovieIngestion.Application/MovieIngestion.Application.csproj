@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MovieIngestion.Domain\MovieIngestion.Domain.csproj" />
+    <ProjectReference Include="..\MovieIngestion.Infrastructure\MovieIngestion.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

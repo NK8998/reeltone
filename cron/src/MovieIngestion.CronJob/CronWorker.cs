@@ -1,19 +1,54 @@
 using Microsoft.Extensions.Hosting;
+using MovieIngestion.Application.Interfaces;
 
-public class CronWorker : IHostedService
+public class CronWorker : BackgroundService
 {
-    public Task StartAsync(CancellationToken cancellationToken)
+    private readonly IDownloadService _downloadService;
+    private readonly ICompareService _compareService;
+    private readonly IPersistService _persistService;
+
+    public CronWorker(
+        IDownloadService downloadService,
+        ICompareService compareService,
+        IPersistService persistService)
     {
-        // Logic to start the cron job
+        _downloadService = downloadService;
+        _compareService = compareService;
+        _persistService = persistService;
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
         Console.WriteLine("Cron job started.");
-        return Task.CompletedTask;
-    }
 
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        // Logic to stop the cron job
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            try
+            {
+                var todayIds = await _downloadService.DownloadLatestExportAsync();
+
+                var previousIds = await _downloadService.GetPreviousExportAsync();
+
+                var newIds = _compareService.GetNewMovieIds(previousIds, todayIds);
+
+                if (newIds.Any())
+                {
+                    Console.WriteLine($"Found {newIds.Count} new movies. Persisting...");
+                    await _persistService.PersistMoviesAsync(newIds);
+                }
+                else
+                {
+                    Console.WriteLine("No new movies today.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error during cron execution: {ex.Message}");
+            }
+
+            await Task.Delay(TimeSpan.FromDays(1), stoppingToken);
+        }
+
         Console.WriteLine("Cron job stopped.");
-        return Task.CompletedTask;
     }
-
 }
