@@ -21,6 +21,8 @@
   width: 100%;
   min-height: 562px;
   height: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .filtered-view-filter-bar h3 {

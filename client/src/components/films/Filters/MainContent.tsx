@@ -42,7 +42,7 @@ export default function MainContent() {
         </div>
         <SingleYear />
       </section>
-      <section className='films-section'>
+      <section className='films-section webkit-scrollbar-hide'>
         {loading && <MainSectionLoader />}
         {isError && <MainSectionError errorMessage={error.message} />}
         {!loading && (
