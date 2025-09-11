@@ -39,7 +39,7 @@ export default function RootLayout({
       />
       <meta
         property='og:image'
-        content='https://reeltone.streamgrid.site/images/reel_logo_bg.png'
+        content={`${process.env.NEXT_PUBLIC_SITE_URL}/images/reel_logo_bg.png`}
       />
       <meta
         name='google-site-verification'
