@@ -18,8 +18,8 @@ if ENV == "development":
     CORS(app, resources={r"/*": {"origins": "*"}})
 else:
     CORS(app, resources={r"/*": {"origins": [
-        "https://reeltone.streamgrid.site",
-        "https://www.reeltone.streamgrid.site"
+        "https://reeltone.site",
+        "https://www.reeltone.site"
     ]}})
 
 app.register_blueprint(api_bp)
