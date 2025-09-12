@@ -42,21 +42,23 @@ jobs:
           username: ${{ secrets.AZURE_VM_USER }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           script: |
-            # Make sure Docker is installed
-            if ! command -v docker &> /dev/null; then
-                curl -fsSL https://get.docker.com | sh
-            fi
+                # Make sure Docker is installed
+                if ! command -v docker &> /dev/null; then
+                    curl -fsSL https://get.docker.com | sh
+                fi
 
-            echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+                # Log in to Docker Hub
+                echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-            # Pull the latest image
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/reeltone-client:latest
+                # Pull the latest image
+                sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/reeltone-client:latest
 
-            # Stop old container (if running)
-            sudo docker rm -f frontend || true
+                # Stop old container if running
+                sudo docker compose -f /home/azureuser/docker-compose.yml down || true
 
-            # Run new container
-            sudo docker compose up -d
+                # Start new container(s) using the existing compose file + .env
+                sudo docker compose -f /home/azureuser/docker-compose.yml up -d
 
-            # Clean up
-            sudo docker system prune -af
+                # Clean up dangling stuff
+                sudo docker system prune -af
+
