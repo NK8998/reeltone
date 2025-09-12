@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+
+  letsencrypt:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-le
+    restart: unless-stopped
+    environment:
+      - DEFAULT_EMAIL=ne.kioko16@gmail.com
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+
+  client:
+    build: .
+    container_name: frontend
+    env_file:
+      - /home/azureuser/.env
+    expose:
+      - "3000" # nginx-proxy will route here
+    environment:
+      - NODE_ENV=production
+      - VIRTUAL_HOST=reeltone.site
+    depends_on:
+      - nginx-proxy
+      - letsencrypt
+
+volumes:
+  certs:
+  vhost:
+  html:
