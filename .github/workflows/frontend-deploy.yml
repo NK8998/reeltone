@@ -56,11 +56,7 @@ jobs:
             sudo docker rm -f reeltone-client || true
 
             # Run new container
-            sudo docker run -d \
-                --name reeltone-client \
-                -p 3000:3000 \
-                --env-file /home/${{ secrets.AZURE_VM_USER }}/.env \
-                ${{ secrets.DOCKERHUB_USERNAME }}/reeltone-client:latest
+            sudo docker compose up -d
 
             # Clean up
             sudo docker system prune -af
