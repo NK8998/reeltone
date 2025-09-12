@@ -27,18 +27,21 @@ services:
       - html:/usr/share/nginx/html
 
   client:
-    image: nk8998/reeltone-client:latest   # <-- prebuilt image from Docker Hub
+    image: nk8998/reeltone-client:latest  
     container_name: frontend
     env_file:
       - /home/azureuser/.env
     expose:
-      - "3000" # nginx-proxy will route here
+      - "3000" 
     environment:
       - NODE_ENV=production
-      - VIRTUAL_HOST=reeltone.site
+      - VIRTUAL_HOST=reeltone.site,www.reeltone.site
+      - LETSENCRYPT_HOST=reeltone.site,www.reeltone.site
+      - LETSENCRYPT_EMAIL=ne.kioko16@gmail.com
     depends_on:
       - nginx-proxy
       - letsencrypt
+
 
 
 volumes:
