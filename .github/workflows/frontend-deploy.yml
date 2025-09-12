@@ -23,7 +23,13 @@ jobs:
           script: |
             # Ensure Docker & Compose are installed
             sudo apt-get update -y
-            sudo apt-get install -y docker-compose-plugin
+            sudo apt-get install -y docker.io docker-compose-plugin
+            sudo systemctl enable docker
+            sudo systemctl start docker
+
+            # Verify installation
+            docker --version
+            docker compose version
 
             # Pull latest code
             rm -rf ~/reeltone
@@ -32,7 +38,7 @@ jobs:
             # Go into client dir
             cd ~/reeltone/client
 
-            # Run docker compose with environment file
+            # Run docker compose
             sudo docker compose up -d --build
 
             # Clean up unused resources
