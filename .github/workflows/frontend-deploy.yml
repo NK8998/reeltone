@@ -21,16 +21,6 @@ jobs:
           username: ${{ secrets.AZURE_VM_USER }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           script: |
-            # Ensure Docker & Compose are installed
-            sudo apt-get update -y
-            sudo apt-get install -y docker.io docker-compose-plugin
-            sudo systemctl enable docker
-            sudo systemctl start docker
-
-            # Verify installation
-            docker --version
-            docker compose version
-
             # Pull latest code
             rm -rf ~/reeltone
             git clone https://github.com/NK8998/reeltone.git ~/reeltone
