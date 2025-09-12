@@ -18,15 +18,21 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./client
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/reeltone-client:latest
+            context: ./client
+            push: true
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/reeltone-client:latest
+            build-args: |
+                NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+                NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}
+                NEXT_PUBLIC_BACKEND_URL=${{ secrets.NEXT_PUBLIC_BACKEND_URL }}
+                NEXT_PUBLIC_TMDB_BASE_IMAGE_URL=${{ secrets.NEXT_PUBLIC_TMDB_BASE_IMAGE_URL }}
+
 
       # SSH into Azure VM and deploy
       - name: Deploy via SSH
@@ -38,7 +44,7 @@ jobs:
           script: |
             # Make sure Docker is installed
             if ! command -v docker &> /dev/null; then
-              curl -fsSL https://get.docker.com | sh
+                curl -fsSL https://get.docker.com | sh
             fi
 
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
@@ -51,10 +57,10 @@ jobs:
 
             # Run new container
             sudo docker run -d \
-              --name reeltone-client \
-              -p 3000:3000 \
-              --env-file /home/${{ secrets.AZURE_VM_USER }}/.env \
-              ${{ secrets.DOCKERHUB_USERNAME }}/reeltone-client:latest
+                --name reeltone-client \
+                -p 3000:3000 \
+                --env-file /home/${{ secrets.AZURE_VM_USER }}/.env \
+                ${{ secrets.DOCKERHUB_USERNAME }}/reeltone-client:latest
 
             # Clean up
             sudo docker system prune -af
