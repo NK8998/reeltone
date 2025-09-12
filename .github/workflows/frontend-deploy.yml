@@ -29,7 +29,7 @@ jobs:
             cd ~/reeltone/client
 
             # Run docker compose
-            sudo docker-compose up -d --build
+            sudo docker compose up -d --build
 
             # Clean up unused resources
             sudo docker system prune -af
