@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   nginx-proxy:
@@ -13,26 +13,31 @@ services:
       - certs:/etc/nginx/certs
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
+    networks:
+      - reeltone
 
   letsencrypt:
     image: nginxproxy/acme-companion
     container_name: nginx-proxy-le
     restart: unless-stopped
     environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy   # <-- fixes "can't get nginx-proxy container ID"
       - DEFAULT_EMAIL=ne.kioko16@gmail.com
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - certs:/etc/nginx/certs
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
+    networks:
+      - reeltone
 
-  client:
-    image: neilkk/reeltone-client:latest  
+  frontend:
+    image: neilkk/reeltone-client:latest
     container_name: frontend
     env_file:
       - /home/azureuser/.env
     expose:
-      - "3000" 
+      - "3000"    # only internal, nginx-proxy will route to this
     environment:
       - NODE_ENV=production
       - VIRTUAL_HOST=reeltone.site,www.reeltone.site
@@ -41,10 +46,14 @@ services:
     depends_on:
       - nginx-proxy
       - letsencrypt
-
-
+    networks:
+      - reeltone
 
 volumes:
   certs:
   vhost:
   html:
+
+networks:
+  reeltone:
+    driver: bridge
