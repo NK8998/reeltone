@@ -27,7 +27,7 @@ services:
       - html:/usr/share/nginx/html
 
   client:
-    build: .
+    image: nk8998/reeltone-client:latest   # <-- prebuilt image from Docker Hub
     container_name: frontend
     env_file:
       - /home/azureuser/.env
@@ -39,6 +39,7 @@ services:
     depends_on:
       - nginx-proxy
       - letsencrypt
+
 
 volumes:
   certs:

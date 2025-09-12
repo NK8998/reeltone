@@ -1,4 +1,4 @@
-name: Deploy frontend to Azure VM
+name: Build & Deploy Frontend
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     environment: reeltone-env
 
@@ -14,6 +14,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Build and push Docker image to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./client
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/reeltone-client:latest
+
+      # SSH into Azure VM and deploy
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -21,15 +36,25 @@ jobs:
           username: ${{ secrets.AZURE_VM_USER }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           script: |
-            # Pull latest code
-            rm -rf ~/reeltone
-            git clone https://github.com/NK8998/reeltone.git ~/reeltone
+            # Make sure Docker is installed
+            if ! command -v docker &> /dev/null; then
+              curl -fsSL https://get.docker.com | sh
+            fi
 
-            # Go into client dir
-            cd ~/reeltone/client
+            echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-            # Run docker compose
-            sudo docker compose up -d --build
+            # Pull the latest image
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/reeltone-client:latest
 
-            # Clean up unused resources
+            # Stop old container (if running)
+            sudo docker rm -f reeltone-client || true
+
+            # Run new container
+            sudo docker run -d \
+              --name reeltone-client \
+              -p 3000:3000 \
+              --env-file /home/${{ secrets.AZURE_VM_USER }}/.env \
+              ${{ secrets.DOCKERHUB_USERNAME }}/reeltone-client:latest
+
+            # Clean up
             sudo docker system prune -af
