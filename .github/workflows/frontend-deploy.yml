@@ -49,10 +49,7 @@ jobs:
 
                 # Log in to Docker Hub
                 echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-
-                # Pull the latest image
-                sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/reeltone-client:latest
-
+                
                 # Stop old container if running
                 sudo docker compose -f /home/azureuser/docker-compose.yml down || true
 
