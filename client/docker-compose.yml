@@ -27,7 +27,7 @@ services:
       - html:/usr/share/nginx/html
 
   client:
-    image: nk8998/reeltone-client:latest  
+    image: neilkk/reeltone-client:latest  
     container_name: frontend
     env_file:
       - /home/azureuser/.env
