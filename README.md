@@ -9,6 +9,7 @@ Welcome to RealTone! This project is a full-stack movie review platform powered 
 ```text
 https://developer.themoviedb.org/reference/intro/getting-started
 ```
+
 ---
 
 ## 🧱 Project Structure
