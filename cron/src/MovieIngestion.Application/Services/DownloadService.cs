@@ -22,6 +22,7 @@ public class DownloadService : IDownloadService
         Directory.CreateDirectory(_exportFolder);
         
     }
+
     public async Task<HashSet<int>> DownloadLatestExportAsync()
     {
         // Download movie ids from tmdb
@@ -63,11 +64,32 @@ public class DownloadService : IDownloadService
         }
 
         return ids;
-    
+
     }
 
     public Task<HashSet<int>> GetPreviousExportAsync()
     {
-        throw new NotImplementedException();
+        //retrive yesterday's export file
+        // if not found return empty HashSet<int>
+        //convert to HashSet<int> and return
+        var yesterday = DateTime.UtcNow.AddDays(-1);
+        var fileName = $"movie_ids_{yesterday:MM_dd_yyyy}.json.gz";
+        var gzPath = Path.Combine(_exportFolder, fileName);
+        var jsonPath = gzPath.Replace(".json.gz", ".json");
+        var ids = new HashSet<int>();
+
+        if (!File.Exists(jsonPath))
+        {
+            return Task.FromResult(ids);
+        }
+
+        using var reader = new StreamReader(jsonPath);
+        string? line;
+        while ((line = reader.ReadLine()) != null)
+        {
+            var obj = JsonSerializer.Deserialize<TmdbExportLine>(line);
+            if (obj != null) ids.Add(obj.Id);
+        }
+        return Task.FromResult(ids);
     }
 }
