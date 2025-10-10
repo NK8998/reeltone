@@ -1,19 +1,15 @@
+using System.Text.Json.Serialization;
+
 namespace MovieIngestion.Domain.Entities;
 
 public class SpokenLanguage
 {
-    public string IsoCode { get; set; } = string.Empty;
+    [JsonPropertyName("english_name")]
     public string? EnglishName { get; set; }
+
+    [JsonPropertyName("iso_639_1")]
+    public string? Iso639_1 { get; set; }
+
+    [JsonPropertyName("name")]
     public string? Name { get; set; }
-
-    public ICollection<MovieSpokenLanguage> MovieSpokenLanguages { get; set; } = new List<MovieSpokenLanguage>();
-}
-
-public class MovieSpokenLanguage
-{
-    public int MovieId { get; set; }
-    public string IsoCode { get; set; } = string.Empty;
-
-    public Movie Movie { get; set; } = null!;
-    public SpokenLanguage SpokenLanguage { get; set; } = null!;
 }

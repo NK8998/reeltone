@@ -3,6 +3,7 @@ using MovieIngestion.Application.Interfaces;
 using MovieIngestion.Domain.Entities;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace MovieIngestion.Application.Services;
 
@@ -14,26 +15,42 @@ public class TmdbApiService : ITmdbApiService
     public TmdbApiService(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
-        _apiKey = configuration["TmdbApiKey"] ?? throw new ArgumentNullException("TmdbApiKey not found in configuration");
 
-        _httpClient.BaseAddress = new Uri("https://api.themoviedb.org/3/");
+        var tmdbSection = configuration.GetSection("Tmdb");
+        _apiKey = tmdbSection["ApiKey"] ?? throw new ArgumentNullException("Tmdb:ApiKey not found in configuration");
+
+        var baseUrl = tmdbSection["ApiBaseUrl"] ?? "https://api.themoviedb.org/3/";
+        _httpClient.BaseAddress = new Uri(baseUrl);
     }
 
-    public async Task<Movie?> GetMovieDetailsAsync(int movieId)
+
+public async Task<Movie?> GetMovieDetailsAsync(int movieId)
+{
+    var url = $"movie/{movieId}?api_key={_apiKey}&append_to_response=credits,videos";
+
+    var response = await _httpClient.GetAsync(url);
+
+    // Console.WriteLine($"[DEBUG] Response Status: {response.StatusCode}");
+    // Console.WriteLine($"[DEBUG] Response Headers: {string.Join(", ", response.Headers.Select(h => $"{h.Key}: {string.Join(", ", h.Value)}"))}");
+
+    var content = await response.Content.ReadAsStringAsync();
+    if (response.IsSuccessStatusCode)
     {
-        var response = await _httpClient.GetAsync($"movie/{movieId}?api_key={_apiKey}&append_to_response=credits,videos");
+        var movie = JsonSerializer.Deserialize<Movie>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        });
 
-        if (response.IsSuccessStatusCode)
-        {
-            var movie = await response.Content.ReadFromJsonAsync<Movie>();
-            return movie;
-        }
-        else
-        {
-            Console.WriteLine($"Failed to fetch movie details for ID {movieId}. Status Code: {response.StatusCode}");
-            return null;
-        }
+        return movie;
     }
+    else
+    {
+        Console.WriteLine($"[ERROR] Failed to fetch movie details for ID {movieId}. Status Code: {response.StatusCode}");
+        return null;
+    }
+}
+
+
 
     public async Task<List<Movie>> FetchPopularMoviesAsync(int page = 1)
     {

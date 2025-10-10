@@ -1,5 +1,6 @@
 using MovieIngestion.Infrastructure.Data;
 using MovieIngestion.Application.Interfaces;
+using MovieIngestion.Domain.Entities;
 
 namespace MovieIngestion.Application.Services;
 
@@ -19,6 +20,7 @@ public class PersistService : IPersistService
         foreach (var movieId in movieIds)
         {
             var movie = await _tmdbApiService.GetMovieDetailsAsync(movieId);
+
             if (movie != null && !_dbContext.Movies.Any(m => m.Id == movie.Id))
             {
                 // Check if the movie already exists to avoid duplicates
