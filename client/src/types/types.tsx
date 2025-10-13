@@ -220,3 +220,29 @@ export interface MembersPage {
   followers: Member[];
   following: Member[];
 }
+
+//search page types
+export interface MovieDetails {
+  adult: boolean;
+  backdrop_path: string | null;
+  backdrop_url: string | null;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string | null;
+  poster_url: string | null;
+  release_date: string; // ISO-like date string
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
+export interface SearchResults {
+  results: MovieDetails[];
+  currentPage: number;
+  nextPage: number | null;
+}

@@ -7,8 +7,10 @@ import {
   LandingDataType,
   MembersPage,
   mePageTypes,
+  MovieDetails,
   RecentReviews,
   RelatedFilm,
+  SearchResults,
 } from "@/types/types";
 import axiosInstance from "@/lib/ApiClient";
 import { AxiosResponse } from "axios";
@@ -301,6 +303,22 @@ export const backendService = {
       return response.data;
     } catch (error) {
       console.error("Error getting related Films");
+      throw error;
+    }
+  },
+  async searchByTitle(title: string, page: number): Promise<SearchResults> {
+    if (!page) return Promise.reject("Page number is required");
+    try {
+      const response: AxiosResponse<SearchResults> = await axiosInstance.get(
+        `/search/title/${encodeURIComponent(title)}?page=${page}`
+      );
+      if (!response) {
+        throw new Error("Network response was not ok");
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error("Error searching by title:", error);
       throw error;
     }
   },

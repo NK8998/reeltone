@@ -6,6 +6,7 @@ from .me import me_bp
 from .films import films_bp
 from .film import film_bp
 from .members import members_bp
+from .search import search_bp
 
 api_bp = Blueprint('api', __name__)
 
@@ -15,4 +16,5 @@ api_bp.register_blueprint(me_bp, url_prefix='/me')
 api_bp.register_blueprint(films_bp, url_prefix='/films')
 api_bp.register_blueprint(film_bp, url_prefix='/film')
 api_bp.register_blueprint(members_bp, url_prefix='/members')
+api_bp.register_blueprint(search_bp, url_prefix='/search')
 from . import test

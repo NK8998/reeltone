@@ -1,0 +1,6 @@
+.search-main {
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  margin-bottom: 100px;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+}
