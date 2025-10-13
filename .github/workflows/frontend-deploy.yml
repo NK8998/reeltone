@@ -53,6 +53,9 @@ jobs:
                 # Stop old container if running
                 sudo docker compose -f /home/azureuser/docker-compose.yml down || true
 
+                #Pull latest changes first from docker hub
+                sudo docker compose -f /home/azureuser/docker-compose.yml pull
+
                 # Start new container(s) using the existing compose file + .env
                 sudo docker compose -f /home/azureuser/docker-compose.yml up -d
 
