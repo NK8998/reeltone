@@ -48,7 +48,7 @@ export default function MainContent({ title, page }: MainContentProps) {
         />
         <div className='flex flex-col gap-1'>
           <h2>{film.title}</h2>
-          {/* <p>Release Date: {film.release_date || "N/A"}</p> */}
+          <p>Release Date: {film.release_date || "N/A"}</p>
           <p>{film.overview || "No overview available."}</p>
         </div>
       </div>
