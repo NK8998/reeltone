@@ -246,3 +246,8 @@ export interface SearchResults {
   currentPage: number;
   nextPage: number | null;
 }
+
+export interface SearchFilter {
+  sortDirection: string;
+  filter: string;
+}

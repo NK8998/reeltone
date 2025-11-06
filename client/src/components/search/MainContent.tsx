@@ -5,6 +5,8 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { LoaderPinwheel } from "lucide-react";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import SearchFilters from "./SearchFilters";
+import { useFilterContext } from "@/context/FilterContext";
 
 interface MainContentProps {
   title: string;
@@ -12,6 +14,7 @@ interface MainContentProps {
 }
 
 export default function MainContent({ title, page }: MainContentProps) {
+  const { searchFilter, sortDirection } = useFilterContext();
   const { ref, inView } = useInView();
 
   const fetchPageData = ({ pageParam = 1 }: { pageParam?: number }) => {
@@ -20,7 +23,7 @@ export default function MainContent({ title, page }: MainContentProps) {
 
   const { data, error, status, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: ["searchData", title],
+      queryKey: ["searchData", title, searchFilter, sortDirection],
       queryFn: fetchPageData,
       initialPageParam: page,
       getNextPageParam: (lastPage) => lastPage.nextPage,
@@ -56,6 +59,7 @@ export default function MainContent({ title, page }: MainContentProps) {
   });
   return (
     <section className='search-content'>
+      <SearchFilters />
       <div className='search-results'>{pageElements}</div>
       <div ref={ref} className='infinite-scroll-trigger' />
       {isFetchingNextPage && <LoaderPinwheel />}
