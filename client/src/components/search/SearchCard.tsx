@@ -5,7 +5,10 @@ import { FavouriteSvg, ThumbsUpDownSvg } from "@/assets/icons";
 export default function SearchCard({ film }: { film: MovieDetails }) {
   const year = new Date(film.release_date).getFullYear();
   return (
-    <div key={`${film.id}`} className='flex gap-4 w-[100%]'>
+    <div
+      key={`${film.id}`}
+      className='flex gap-4 w-[100%] mb-3 border-b border-[#ffffff2d] pb-3'
+    >
       <FilmCard film={film} hasHoverTitle={false} />
       <div className='flex flex-col gap-2'>
         <div className='flex gap-2 items-baseline'>
