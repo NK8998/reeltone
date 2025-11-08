@@ -8,6 +8,7 @@ interface FilmCardProps {
   hasOverlay?: boolean;
   loading?: boolean;
   prefetch?: boolean;
+  hasHoverTitle?: boolean;
 }
 
 export default function FilmCard({
@@ -15,6 +16,7 @@ export default function FilmCard({
   hasOverlay,
   loading,
   prefetch,
+  hasHoverTitle = true,
 }: FilmCardProps) {
   return (
     <Link href={`/film/${film.id}`} className='film-card' prefetch={prefetch}>
@@ -32,7 +34,9 @@ export default function FilmCard({
               </span>
             </div>
           )}
-          <span className='film-title pointer-events-none'>{film.title}</span>
+          {hasHoverTitle && (
+            <span className='film-title pointer-events-none'>{film.title}</span>
+          )}
           <img
             src={film.poster_url ?? "/images/loading.jpg"}
             alt={film.title}

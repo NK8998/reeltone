@@ -16,7 +16,7 @@ export default function InputContainer({}) {
     }
     start();
     const query = encodeURIComponent(searchQuery.trim());
-    const url = `/film/${query}`;
+    const url = `/search/${query}`;
     router.push(url);
     setSearchQuery("");
   };

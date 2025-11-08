@@ -1,12 +1,13 @@
 "use client";
+import "./style.css";
 import { backendService } from "@/services/backendService";
-import { MovieDetails, SearchResults } from "@/types/types";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { LoaderPinwheel } from "lucide-react";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import SearchFilters from "./SearchFilters";
 import { useFilterContext } from "@/context/FilterContext";
+import SearchResultsContainer from "./SearchResultsContainer";
 
 interface MainContentProps {
   title: string;
@@ -33,36 +34,24 @@ export default function MainContent({ title, page }: MainContentProps) {
     if (inView) fetchNextPage();
   }, [inView, fetchNextPage]);
 
-  if (status === "pending") return <LoaderPinwheel />;
-  if (status === "error") return <div>Error: {error.message}</div>;
+  const pageData = data?.pages.flatMap((page) => page.results) || [];
 
-  const pageData = data.pages.flatMap((page) => page.results);
-
-  const pageElements = pageData.map((film, index) => {
-    return (
-      <div
-        key={`${film.id}-${index}`}
-        className='flex gap-1 h-[300px] w-[100%]'
-      >
-        <img
-          src={film.poster_url || "/images/loading.jpg"}
-          alt={film.title}
-          className='w-[300px] h-[100%] object-cover'
-        />
-        <div className='flex flex-col gap-1'>
-          <h2>{film.title}</h2>
-          <p>Release Date: {film.release_date || "N/A"}</p>
-          <p>{film.overview || "No overview available."}</p>
-        </div>
-      </div>
-    );
-  });
   return (
-    <section className='search-content'>
-      <SearchFilters />
-      <div className='search-results'>{pageElements}</div>
+    <section className='search-content max-w-[1100px] mx-auto my-4'>
+      <div className='flex gap-1'>
+        <SearchResultsContainer
+          movieDetails={pageData}
+          title={decodeURIComponent(title)}
+        />
+        <SearchFilters />
+      </div>
       <div ref={ref} className='infinite-scroll-trigger' />
-      {isFetchingNextPage && <LoaderPinwheel />}
+      {isFetchingNextPage && (
+        <LoaderPinwheel className='mx-auto mt-1 mb-1 loading-spinner' />
+      )}
+      {status === "error" && (
+        <div className='text-center'>Error: {error.message}</div>
+      )}
     </section>
   );
 }
